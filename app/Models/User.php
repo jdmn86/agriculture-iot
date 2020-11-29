@@ -7,9 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Auth\Passwords\CanResetPassword;
+
+use Spatie\Permission\Traits\HasRoles;
+
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Auth;
+
+
+
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    
 
     /**
      * The attributes that are mass assignable.
@@ -40,4 +51,31 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     protected $appends = ['all_permissions'];
+
+
+    public function getAllPermissionsAttribute() {
+        $permissions = [];
+          foreach (Permission::all() as $permission) {
+            if (Auth::user()->can($permission->name)) {
+              $permissions[] = $permission->name;
+            }
+          }
+          return $permissions;
+      }
+
+      // public function getCanAttribute()
+      // {
+      //     $permissions = [];
+      //     foreach (Permission::all() as $permission) {
+      //         if (Auth::user()->can($permission->name)) {
+      //             $permissions[$permission->name] = true;
+      //         } else {
+      //             $permissions[$permission->name] = false;
+      //         }
+      //     }
+      //     return $permissions;
+      // }
+
 }

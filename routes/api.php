@@ -3,6 +3,16 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api\AuthController;
+
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
+
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +27,29 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+Route::group(['prefix' => 'auth', 'as' => 'api.auth.'], function () {
+    Route::post('login', [AuthController::class,'login'])->name('login');
+    Route::post('register', [AuthController::class,'register'])->name('register');
+    Route::get('current-user', [AuthController::class,'getCurrentUser'])->name('current-user')->middleware('auth:api');
+    Route::delete('logout', [AuthController::class,'logout'])->name('logout')->middleware('auth:api');
+});
+
+
+
+
+
+Route::group(['prefix' => 'auth', 'as' => 'api.auth.'], function () {
+
+ 	Route::post('forgot', [ForgotPasswordController::class,'forgot'])->name('forgot');
+    Route::post('reset', [ResetPasswordController::class,'reset'])->name('reset');
+});
+
+
+
+Route::group(['prefix' => 'auth', 'as' => 'api.auth.','middleware' => ['auth']], function() {
+    Route::resource('roles','RoleController');
+    Route::resource('users','UserController');
+    });

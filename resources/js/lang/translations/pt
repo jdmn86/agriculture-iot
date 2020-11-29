@@ -1,0 +1,4 @@
+export default {
+  title: 'Monitoriza, analisa, avisa e previne as culturas',
+  plantsnumber: 'Num. de plantas :',
+};

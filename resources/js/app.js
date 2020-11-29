@@ -1,35 +1,57 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+require("./bootstrap");
 
-require('./bootstrap');
+import Vue from "vue";
+import MainApp from "./layouts/MainApp";
+import stores from "./stores/index";
+import Router from "./routes";
 
-window.Vue = require('vue');
+//bootstrap  and awesome
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
+
+import VueI18n from 'vue-i18n';
+import VueInternationalization from 'vue-i18n';
+import Locale from './lang/translations/vue-i18n-locales.generated';
+
+Vue.use(VueI18n);
+
+import messages from './lang';
+
+export const i18n = new VueI18n({
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+});
 
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// library.add(fas, faTwitter)
+
+// Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+import Permissions from './mixins/Permissions.vue';
+Vue.mixin(Permissions);
+
 
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * Initialize v-toaster
  */
+// import Toaster from "v-toaster";
+// import "v-toaster/dist/v-toaster.css";
+// Vue.use(Toaster, { timeout: 5000 });
 
 const app = new Vue({
-    el: '#app',
+    el: "#app",
+
+    router: Router,
+    store: stores,
+    i18n,
+
+    render: h => h(MainApp)
 });
