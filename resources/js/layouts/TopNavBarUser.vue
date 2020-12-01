@@ -18,7 +18,7 @@
                 <em>{{currentUser.name}}</em>
               </template>
               <b-dropdown-item  @click="account">Account</b-dropdown-item>
-              <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
+              <b-dropdown-item @click="logoutClick">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -47,7 +47,8 @@
 
 <script>
 import Vue from 'vue';
-import {mapGetters,mapActions} from 'vuex'
+import {mapGetters,mapMutations,mapActions} from 'vuex'
+import {AuthService} from "../services/AuthService";
 
     export default {
         name: 'TopNavBarUser',
@@ -69,13 +70,21 @@ import {mapGetters,mapActions} from 'vuex'
           },
   
         methods: {          
+          ...mapActions('auth',['logout']),         
           account(){
             this.$router.push('/front/Account');
           },
-          logout(){
-            this.$store.commit('LOGOUT');
-            this.$router.push('/front'); 
+          async logoutClick(){
+            try {
+                await AuthService.logout(this.currentUser)
+                this.logout();
+              
+            } catch (error) {
+            // this.$store.commit('toast/NEW', { type: 'error', message: error.message })
+            console.log("error : "+error.message);
+            this.error = error.status === 404 ? 'User with same email not found' : error.message
           }
+          },
         },
 
         mounted() {

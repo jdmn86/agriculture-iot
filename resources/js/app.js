@@ -35,9 +35,12 @@ import '@fortawesome/fontawesome-free/js/all.js'
 
 // Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-import Permissions from './mixins/Permissions.vue';
-Vue.mixin(Permissions);
+// import Permissions from './mixins/userPermissions.js';
+// Vue.mixin(Permissions);
 
+import ToggleButton from 'vue-js-toggle-button'
+ 
+Vue.use(ToggleButton)
 
 /**
  * Initialize v-toaster
@@ -45,6 +48,13 @@ Vue.mixin(Permissions);
 // import Toaster from "v-toaster";
 // import "v-toaster/dist/v-toaster.css";
 // Vue.use(Toaster, { timeout: 5000 });
+
+
+import './mixins'
+
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+Vue.use(VueSidebarMenu)
 
 const app = new Vue({
     el: "#app",

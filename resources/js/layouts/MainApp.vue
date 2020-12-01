@@ -1,24 +1,24 @@
 <template>
-  <div>
+  <!-- <div> -->
+  
+      <MainLayout>
+        <transition name="slide-fade">
+          <router-view name="navTop"></router-view>
+        </transition>
+        <transition name="slide-fade">
+          <router-view></router-view>
+        </transition>
+      </MainLayout>
 
-    <layout>
-      <transition name="slide-fade">
-        <router-view name="navTop"></router-view>
-      </transition>
-      <transition name="slide-fade">
-        <router-view></router-view>
-      </transition>
-    </layout>
-
-  </div>
+  <!-- </div>  -->
 </template>
 
 <script>
-import Layout from "../wrapper/MainLayout";
+import MainLayout from "../wrapper/MainLayout";
 export default {
   name: "app",
   components: {
-    Layout
+    MainLayout
   }
 };
 </script>

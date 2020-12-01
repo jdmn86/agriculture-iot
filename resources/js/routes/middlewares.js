@@ -1,72 +1,6 @@
 import Store from './../stores'
 import { AuthService } from '../services/AuthService'
 
-/**
- * Current user state initialization
- * @WARN Must be always first in middleware chain
- */
-// export async function initCurrentUserStateMiddleware (to, from, next) {
-//   const currentUserId = $store.state.user.currentUser.id
-
-//   if (AuthService.hasRefreshToken() && !currentUserId) {
-//     try {
-//       await AuthService.debounceRefreshTokens()
-//       await Store.dispatch('user/getCurrent')
-//       next() 
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   } else {
-//     next()
-//   }
-// }
-
-// /**
-//  * Check access permission to auth routes
-//  */
-// export function checkAccessMiddleware (to, from, next) {
-//   const currentUserId = Store.state.user.currentUser.id
-//   const isAuthRoute = to.matched.some(item => item.meta.isAuth)
-
-//   if (isAuthRoute && currentUserId) return next()
-//   if (isAuthRoute) return next({ name: 'login' })
-//   next()
-// }
-
-// export function setPageTitleMiddleware (to, from, next) {
-//   const pageTitle = to.matched.find(item => item.meta.title)
-
-//   if (pageTitle) window.document.title = pageTitle.meta.title
-//   next()
-// }
-
-
-// export function checkAccessMiddleware (to, from, next) {
-//     console.log("  router.beforeEach((to, from, next) => {   ");
-//     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-//     const currentUser = Store.getters["auth/currentUser"];
-//     const isLoggedIn = Store.getters["auth/isLoggedIn"];
-//     console.log("isLoggedIn : " + isLoggedIn);
-//     if (isLoggedIn) {
-//         axios.defaults.headers.common["Authorization"] = `Bearer ${
-//             currentUser.token
-//         }`;
-//     }
-
-//     if (requiresAuth && !isLoggedIn) {
-//         next("/");
-//     } 
-//     else if (
-//         (to.path === "/login" && isLoggedIn) ||
-//         (to.path === "/register" && isLoggedIn)
-//     ) {
-//         next({name: 'home'});
-//     } 
-//     else {
-//         next();
-//     }
-// }
 
 export function checkAccessMiddleware (to, from, next) {
     console.log("checkAccessMiddleware");
@@ -84,7 +18,7 @@ export function checkAccessMiddleware (to, from, next) {
         console.log("go to : /");
         next("/");
     } else {
-            next();
+        next();
     }
     // else if (
     //     (to.path === "/login" && isLoggedIn) ||
@@ -100,67 +34,33 @@ export function checkAccessMiddleware (to, from, next) {
 
 
 
-export function checkRouteAccessMiddleware (to, from, next) {
-    console.log("checkRouteAccessMiddleware");
+export  function checkRoleAccessMiddleware (to, from, next) {
+    console.log("checkRoleAccessMiddleware");
     
+    const role =  Store.getters["auth/userRole"];
+    const isLoggedIn = Store.getters["auth/isLoggedIn"];
     
-    const roles = Store.getters["auth/roles"];
+    if(to.meta.requireAuth && isLoggedIn && role){
+        console.log("role : "+ role.name);
+        // const role = Store.getters["auth/role"];
 
-    // if (roles) {
-    if (to.matched.some(record => record.meta.role) && roles){
-        // console.log("roles[0].name : "+JSON.stringify(to));
-         
-        switch( to.meta.role ){
-            
-            case 'user':                
-            if( roles[0].name == 'user' ||  roles[0].name == 'adminCompany'){
-                console.log("roles[0].name : "+roles[0].name);
-                console.log("roles[0].name == user ||  roles[0].name == adminCompany");
+        if(to.meta.role == 'user' || to.meta.role == 'adminCompany'){
+            if(role.name == 'user' || role.name == 'adminCompany'){
                 next();
-            }else{
-                console.log("NNN roles[0].name"+roles[0].name);
-                console.log("NNN roles[0].name == user ||  roles[0].name == adminCompany");
-                console.log("go to : /front/home");
-                next('/front/home');
+            }else if(role.name == 'admin'){
+                next('/backAdmin');
             }
-            break;
-            /*
-            If the route that requires authentication is an admin and the permission
-            the user has is greater than or equal to 2 (an owner or higher), we allow
-            access. Otherwise we redirect back to the cafes.
-            */
-            case 'adminCompany':
-            if( roles[0].name == 'adminCompany'){
-                console.log("roles[0].name : "+roles[0].name);
-                console.log("roles[0].name == adminCompany");
+        }else if(to.meta.role == 'admin' ){
+            if(role.name == 'admin'){
                 next();
-            }else{
-                console.log("NNN roles[0].name"+roles[0].name);
-                console.log("NNN roles[0].name == adminCompany");
-                console.log("go to : /front/home");
-                next('/front/home');
+            }else if(role.name == 'user' || role.name == 'adminCompany'){
+                next('/front');
             }
-            break;
-            /*
-            If the route that requires authentication is a super admin and the permission
-            the user has is equal to 3 (a super admin), we allow
-            access. Otherwise we redirect back to the cafes.
-            */
-            case 'admin':
-            if( roles[0].name == 'admin'){
-                console.log("roles[0].name : "+roles[0].name);
-                console.log("roles[0].name == admin");
-                next();
-            }else{
-                console.log("NNN roles[0].name"+roles[0].name);
-                console.log("NNN roles[0].name == admin");
-                console.log("go to : /backAdmin");
-                next('/backAdmin/home');
-            }
-            break;
+        }else{
+            next('/');
         }
+
     }else{
-        console.log(" route access next");
         next();
     }
 

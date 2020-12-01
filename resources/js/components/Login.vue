@@ -70,50 +70,8 @@
                                 Forgot
                             </button>
 
-                            <!-- <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a> -->
                         </div>
                     </div>
-
-    <!-- <div class="d-block text-center">
-
-      <b-form @submit.prevent="LOGIN(form)">
-          <b-form-group 
-            id="email"
-            label="Email : " 
-            label-for="email"
-            label-cols-sm="4"
-          >
-            <b-form-input
-              id="input-1" 
-              v-model="form.email"
-              type="email"
-              required
-              placeholder="Enter email"
-              class="w-75 p-3" 
-            ></b-form-input>
-          </b-form-group>
-
-          <b-form-group id="password" label-cols-sm="4" label="Password : " label-for="password">
-            <b-form-input
-              id="password"
-              v-model="form.password"
-              required
-              type="password"
-              placeholder="Enter password"
-              class="w-75 p-3"
-            ></b-form-input>
-          </b-form-group>
-
-          <b-button type="submit" @click="forgottenPassword"  style="background-color: #914323; border-color: #914323">Forgotten password</b-button>
-
-          <b-button type="submit" style="background-color: #914323; border-color: #914323">Login</b-button>
-          
-          <div v-if="ERROR">{{ERROR}}</div>
-
-        </b-form>
-      </div> -->
 
     </b-modal>
   </div>
@@ -122,7 +80,7 @@
 <script>
   
 import {mapGetters,mapActions,mapMutations} from 'vuex'
-import AuthService from "../services/AuthService";
+import {AuthService} from "../services/AuthService";
 import Form from "../services/FormService";
 
   export default {
@@ -143,7 +101,8 @@ import Form from "../services/FormService";
     },
 
     computed : {
-          ...mapGetters(['auth/currentUser','auth/isLoggedIn']),          
+          ...mapGetters('auth',[
+            'userRole']),         
             
           },
 
@@ -153,45 +112,35 @@ import Form from "../services/FormService";
         updateCredentialsOnlyEmail(){
           this.credentialsOnlyEmail.email = this.credentials.email;
         },
-        handleLogin() {
+        async handleLogin(){
+          try {
 
-          AuthService.login(this.credentials)
-          .then(user => {
-            // dispatch calls action , commit calls mutations
-            this.$store.dispatch("auth/setCurrentUser", user);
-            // this.$toaster.success("Login successful.");
-            this.$router.push("/front/home");
-          })
-          .catch(error => {
-            if (error.response.status === 422) {
-              this.error= error.response.data.errors;
-            } else if (error.response.status === 401) {
-              this.form.record({email: ['The credentials do not match our records.']});
-            }
-            // this.$toaster.error("The credentials do not match our records.");
-          });
+            await AuthService.login(this.credentials)
+            this.error = ''
+            
+           
+            
+          } catch (error) {
+            // this.$store.commit('toast/NEW', { type: 'error', message: error.message })
+            console.log("error : "+error.message);
+            this.error = error.status === 404 ? 'User with same email not found' : error.message
+          }
+        },
+      
+        async forgottenPassword(){
+          console.log("this.credentialsOnlyEmail : " + JSON.stringify(this.credentialsOnlyEmail))
+          try{
+            await AuthService.forgotPassword(this.credentialsOnlyEmail);
 
-       
-      },
-        forgottenPassword(){
-            console.log("credentialsOnlyEmail : "+ JSON.stringify(this.credentialsOnlyEmail));
-          AuthService.forgotPassword(this.credentialsOnlyEmail)
-          .then(response => {
-              console.log("response : "+JSONstringify(response))
-            // dispatch calls action , commit calls mutations
-            // this.$store.dispatch("global/setCurrentUser", user);
-            // this.$toaster.success("Login successful.");
-            // this.$router.push("/dashboard");
-          })
-          .catch(error => {
-            console.log("resposta erro :"+ JSON.stringify(error));
-            if (error.response.status === 422) {
-              this.form.record(error.response.data.errors);
-            } else if (error.response.status === 401) {
-              this.form.record({email: ['The credentials do not match our records.']});
-            }
-            this.form.record({email: ['The credentials do not match our records.']});
-          });
+            this.error = ''
+
+          } catch(error){
+            // this.$store.commit('toast/NEW', { type: 'error', message: error.message })
+            console.log("error : "+error.message);
+            this.error = error.status === 404 ? 'User with same email not found' : error.message
+          }
+          
+          
         }
 
     },

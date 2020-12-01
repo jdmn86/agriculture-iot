@@ -13,16 +13,23 @@ export default {
         return state.currentUser;
     },
 
-    permissions(state){
-        return state.currentUser.all_permissions;
-    },
-
-    roles(state){
-        if(state.currentUser){
-            return state.currentUser.roles;
-        }else{
+    userPermissions(state){
+        if (state.currentUser === null) {
             return false;
         }
+        return state.currentUser.all_permissions;
+    },
+ 
+    userRole(state){ 
+        if (state.currentUser === null || typeof state.currentUser == 'undefined') {
+            return false;
+        }
+        return state.currentUser.roles[0];
         
-    }
+    },
+    userSettings(state){
+        return state.userSettings;
+    },
+    
+    
 } 

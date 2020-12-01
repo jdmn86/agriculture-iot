@@ -1,3 +1,4 @@
-export { default as FrontHome } from "./Home/Index";
-export { default as Company } from "./Company/Index";
+export { default as FrontHome } from "./Home/FrontHome";
+export { default as CompanyUser } from "./Company/Company";
+export { default as Farm } from "./Farm/Farm";
 

@@ -1,4 +1,4 @@
-import { FrontHome, BackHome, Welcome, PasswordReset, Company,NotFound} from "../pages";
+import { FrontHome, BackHome, Welcome, PasswordReset, Company,NotFound,Users,Permissions,Role,Farm,CompanyUser} from "../pages";
 
 import TopNavBar from "../layouts/TopNavBar";
 import TopNavBarUser from "../layouts/TopNavBarUser";
@@ -15,20 +15,8 @@ export const routes = [
             },
     },
     {
-        name: "back",
-        path: "/backAdmin/home",
-        components: { 
-                default: BackHome,
-                navTop: TopNavBarUser, 
-            },
-        meta: {
-            role: 'admin',
-            requireAuth: true,
-          }
-    },
-    {
         name: "home",
-        path: "/front/home",
+        path: "/front",
         components: { 
                 default: FrontHome,
                 navTop: TopNavBarUser, 
@@ -37,17 +25,80 @@ export const routes = [
             role: 'user',
             requireAuth: true,
           },
-            children: [
-                {
-                    path: 'company',
-                    component: Company,
-                    meta: {
-                        role: 'user',
-                        requireAuth: true,
-                    },
-                }
-            ]
-    },        
+           
+    },       
+    {
+        name: "company",
+        path: "/front/company",
+        components: { 
+                default: CompanyUser,
+                navTop: TopNavBarUser, 
+            },
+        meta: {
+            role: 'user',
+            requireAuth: true,
+          },
+           
+    },   
+    {
+        name: "farm",
+        path: "/front/Farms",
+        components: { 
+                default: Farm,
+                navTop: TopNavBarUser, 
+            },
+        meta: {
+            role: 'user',
+            requireAuth: true,
+          },
+           
+    },       
+    {
+        name: "home",
+        path: "/backAdmin",
+        components: { 
+                default: BackHome,
+                navTop: TopNavBarUser, 
+            },
+        meta: {
+            role: 'admin',
+            requireAuth: true,
+          },
+          children: [
+            {
+                path: 'users',
+                component: Users,
+                meta: {
+                    role: 'admin',
+                    requireAuth: true,
+                },
+            },
+            {
+                path: 'permissions',
+                component: Permissions,
+                meta: {
+                    role: 'admin',
+                    requireAuth: true,
+                },
+            },
+            {
+                path: 'roles',
+                component: Role,
+                meta: {
+                    role: 'admin',
+                    requireAuth: true,
+                },
+            },
+            {
+                path: 'companys',
+                component: Company,
+                meta: {
+                    role: 'admin',
+                    requireAuth: true,
+                },
+            }
+        ]
+    },    
     {
         path :'*',
         component: NotFound,
@@ -62,34 +113,34 @@ export const routes = [
 ];
 
 
- function requireAuth(to, from, next){
+//  function requireAuth(to, from, next){
 
-    console.log("requireAuth");
+//     console.log("requireAuth");
 
-    const currentUser = Store.getters["auth/currentUser"];
-    const isLoggedIn = Store.getters["auth/isLoggedIn"];
+//     const currentUser = Store.getters["auth/currentUser"];
+//     const isLoggedIn = Store.getters["auth/isLoggedIn"];
     
-    if (to.meta.requireAuth && isLoggedIn) {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${
-            currentUser.token
-        }`;
-    }
+//     if (to.meta.requireAuth && isLoggedIn) {
+//         axios.defaults.headers.common["Authorization"] = `Bearer ${
+//             currentUser.token
+//         }`;
+//     }
     
-    if (to.meta.requireAuth && !isLoggedIn) {
-        next("/");
-    } 
-    else if (
-        (to.path === "/login" && isLoggedIn) ||
-        (to.path === "/register" && isLoggedIn)
-    ) {
-        next({name: 'home'});
-    } 
-    else {
-        next();
+//     if (to.meta.requireAuth && !isLoggedIn) {
+//         next("/");
+//     } 
+//     else if (
+//         (to.path === "/login" && isLoggedIn) ||
+//         (to.path === "/register" && isLoggedIn)
+//     ) {
+//         next({name: 'home'});
+//     } 
+//     else {
+//         next();
         
-    }
+//     }
 
-}
+// }
 
 
 // function procede(to, from, next){

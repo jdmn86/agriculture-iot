@@ -31,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'company_id'
     ];
 
     /**
@@ -54,9 +55,14 @@ class User extends Authenticatable
 
      protected $appends = ['all_permissions'];
 
+    
+     public function Company()
+    {
+        return $this->belongsTo(Company::class,'company_id','id'); 
+    }
 
     public function getAllPermissionsAttribute() {
-        $permissions = [];
+        $permissions = []; 
           foreach (Permission::all() as $permission) {
             if (Auth::user()->can($permission->name)) {
               $permissions[] = $permission->name;

@@ -13,14 +13,14 @@ export default {
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
         context.commit("setCurrentUser", currentUser);
     },
-
+ 
     fetchCurrentUserFromLocalstorage(context) {
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if (currentUser) {
             context.commit("setCurrentUser", currentUser);
         }
     },
-    logout(context,payload){
+    logout(context,payload){ 
       console.log("In logout 1");
         localStorage.removeItem('currentUser');
         console.log("In logout 2");

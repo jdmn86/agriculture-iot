@@ -3,10 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\AuthController;
-
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\PermissionController;
 
 
 use Illuminate\Support\Facades\Password;
@@ -30,15 +34,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-Route::group(['prefix' => 'auth', 'as' => 'api.auth.'], function () {
+Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class,'login'])->name('login');
     Route::post('register', [AuthController::class,'register'])->name('register');
     Route::get('current-user', [AuthController::class,'getCurrentUser'])->name('current-user')->middleware('auth:api');
     Route::delete('logout', [AuthController::class,'logout'])->name('logout')->middleware('auth:api');
 });
-
-
-
 
 
 Route::group(['prefix' => 'auth', 'as' => 'api.auth.'], function () {
@@ -49,7 +50,14 @@ Route::group(['prefix' => 'auth', 'as' => 'api.auth.'], function () {
 
 
 
-Route::group(['prefix' => 'auth', 'as' => 'api.auth.','middleware' => ['auth']], function() {
-    Route::resource('roles','RoleController');
-    Route::resource('users','UserController');
-    });
+Route::group(['middleware' => ['auth:api']], function() {
+    Route::resources([
+    'roles' => RoleController::class,
+    'users' => UserController::class,
+    'companys' => CompanyController::class,
+    'permissions' => PermissionController::class,
+    // Route::resource('roles','RoleController');
+    // Route::resource('users','UserController');
+    // Route::resource('companys','CompanyController');
+    ]);
+});

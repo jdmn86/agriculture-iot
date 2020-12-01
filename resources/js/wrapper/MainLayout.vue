@@ -1,5 +1,6 @@
 <template>
-  <div class="main">
+  <div>
+  <!-- <div id="demo" :class="[{'collapsed' : collapsed}]"> -->
     <!-- <main-header/> -->
     <!-- <div class="container"> -->
       <slot/>
@@ -22,5 +23,12 @@ export default {
 </script> 
 
 <style>
+  /* #demo {
+  padding-left: 180px;
+}
+#demo.collapsed {
+  padding-left: 50px;
+} */
+
 </style>
- 
+  

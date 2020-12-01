@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-/**
+/** 
  * Undocumented class.
  * @package category
  */
@@ -21,21 +21,30 @@ class AuthController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $credentials = $this->validate($request, [
             'email'    => 'required|email|exists:users',
             'password' => 'required|min:5',
         ]);
 
-        if (auth()->attempt($credentials)) {
-            $user = auth()->user();
-            /** @var User $user */
-            $user['token'] = $this->generateTokenForUser($user);
+         try {
+            if (auth()->attempt($credentials)) {
+                $user = auth()->user();
+                /** @var User $user */
+                $user['token'] = $this->generateTokenForUser($user);
 
-            return $user;
-        } else {
-            return response()->json(['success' => 'false', 'message' => 'Authentication failed'], 401);
+                return response()->json($user);
+            } else {
+                return response()->json(['success' => 'false', 'message' => 'Authentication failed'], 401);
+            }
+        } catch (\Exception $exception) {
+            logger()->error($exception);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to login user.',
+            ], 401);
         }
     }
 

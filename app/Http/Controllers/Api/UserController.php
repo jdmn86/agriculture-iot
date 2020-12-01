@@ -9,7 +9,7 @@ use App\Models\User;
 // use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 // use Spatie\Permission\Models\Role;
-// use DB;
+// use DB; 
 // use Hash;
 
 class UserController extends Controller
