@@ -25,7 +25,7 @@ class AuthController extends Controller
     {
         $credentials = $this->validate($request, [
             'email'    => 'required|email|exists:users',
-            'password' => 'required|min:5',
+            'password' => 'required|min:4',
         ]);
 
          try {

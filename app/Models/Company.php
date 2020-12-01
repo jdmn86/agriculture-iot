@@ -19,10 +19,18 @@ class Company extends Model
          'email',
          'email_notifications',     ];
     
+    protected $appends = ['all_users'];
+
     public function users()
     {
         return $this->hasMany(User::class)->get();
     }
+
+    public function getAllUsersAttribute() {
+        return $this->hasMany(User::class)->get();
+      }
+
+
     // public function address()
     // {
     //     return $this->belongsToMany('App\Address','company_addresses','company_id','address_id');

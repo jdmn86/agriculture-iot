@@ -1,4 +1,5 @@
 <template>
+    <!-- <b-row style="margin: 10px; "> -->
     <b-row style="margin: 10px; ">
         <b-col >
             <h1 style="color: rgb(74, 173, 55);padding-top: 30px " class="font-weight-bolder">{{title}}</h1>
@@ -10,6 +11,7 @@
           <h1 v-if="$can('role-list')">You have permission to manage users</h1>
           <h1 v-else>You dont have permission to manage users</h1> -->
     </b-row>
+  <!-- </div> -->
 
   </template>
   

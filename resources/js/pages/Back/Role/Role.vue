@@ -39,7 +39,6 @@
 import HeadContainer from "../../../wrapper/HeadContainer";
 import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContent from "../../../wrapper/BodyContent";
-import BodyNoContent from "../../../wrapper/BodyNoContent";
 import {RoleService} from "../../../services/RoleService"; 
 
 export default {
@@ -55,7 +54,6 @@ components: {
 MainContainerAdmin,
 HeadContainer,
 BodyContent,
-BodyNoContent
 },
 created() {
 

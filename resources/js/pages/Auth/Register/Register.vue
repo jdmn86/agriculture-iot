@@ -89,7 +89,7 @@ export default {
   components: {
     HeadContainer,
     MainContainerAdmin,
-    BodyContainer
+    BodyContent
   },
   methods: {
     async handleRegister() {

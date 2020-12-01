@@ -1,6 +1,6 @@
 <template>
     <div>
-		<!-- <b-row style="margin: 10px; "> -->
+		
 
 				<slot name="top"></slot>
 
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-export default {
+export default { 
   name: "HeadContainer"
 };
 </script>

@@ -31,9 +31,7 @@
                    
             </BodyContent>
             
-            <BodyNoContent>
-
-            </BodyNoContent>
+           
              <router-view></router-view>
              <!-- <slot></slot> -->
       </div>
@@ -50,7 +48,6 @@
   import HeadContainer from "../../../wrapper/HeadContainer";
   import MainContainerUser from "../../../wrapper/MainContainerUser";
   import BodyContent from "../../../wrapper/BodyContent";
-  import BodyNoContent from "../../../wrapper/BodyNoContent"
   
   // import Sidebar from '../../../components/menu/SidebarMenu.vue';
   
@@ -67,7 +64,6 @@
         MainContainerUser,
       HeadContainer,
       BodyContent,
-      BodyNoContent
     },
     created() {
       // this.getAllUsers();

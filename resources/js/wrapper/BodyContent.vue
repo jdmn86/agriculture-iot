@@ -4,7 +4,7 @@
 
             <b-container fluid  style=" background-color: #f8f9fa; margin: 0px; ">
 
-                <slot name="content"></slot>
+                <slot name="body"></slot>
 
             </b-container> 
 
@@ -17,8 +17,9 @@
 
 <script>
     export default {
-      name: "BodyContent"
+      name: "BodyContent",
     };
+
     </script>
     
     <style>  

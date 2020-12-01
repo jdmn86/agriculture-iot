@@ -78,12 +78,14 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show( $id)
+    public function show( $id): JsonResponse
     {
         $company = Company::find($id);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-        ->where("role_has_permissions.role_id",$id)->get();
-        return view('roles.show',compact('role','rolePermissions'));
+        // $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
+        // ->where("role_has_permissions.role_id",$id)->get();
+
+        return response()->json($company);
+        // return view('roles.show',compact('role','rolePermissions'));
     }
 
     /**

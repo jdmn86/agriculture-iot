@@ -1,10 +1,8 @@
 export default {
-  setCurrentUser: (state, currentUser) => {
-        state.currentUser = currentUser;
-        state.isLoggedIn = true;
+    setUserCompany: (state, userCompany) => {
+        state.userCompany = userCompany;        
     },
-    removeCurrentUser: state => {
-        state.currentUser = null;
-        state.isLoggedIn = false;
+    removeUserCompany: state => {
+        state.userCompany = null;
     }
 }  

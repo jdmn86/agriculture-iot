@@ -15,7 +15,7 @@
 
                   </HeadContainer> 
 
-                  <BodyContent v-if="FARMS">
+                  <BodyContent >
 
                         <template slot="body">
                               <h1>Back home</h1>
@@ -23,13 +23,6 @@
 
                   </BodyContent>
                   
-                  <BodyNoContent v-else>
-
-                        <template slot="body">
-                              <h1>Sem dados</h1>
-                        </template> 
-
-                  </BodyNoContent>
 
                   <router-view></router-view>
             
@@ -40,7 +33,6 @@
 import HeadContainer from "../../../wrapper/HeadContainer";
 import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContent from "../../../wrapper/BodyContent";
-import BodyNoContent from "../../../wrapper/BodyNoContent";
 import HeaderComponent from "../../../components/HeaderComponent";
 //import UserService from "../../services/UserService"; 
 
@@ -54,8 +46,8 @@ export default {
   components: {
     MainContainerAdmin,
     HeadContainer,
-    BodyContainer,
-    HeaderComponent
+    BodyContent,
+    HeaderComponent,
   },
   created() {
     this.getAllUsers();

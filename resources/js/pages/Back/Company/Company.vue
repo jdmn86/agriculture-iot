@@ -10,7 +10,6 @@
 import HeadContainer from "../../../wrapper/HeadContainer";
 import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContent from "../../../wrapper/BodyContent"
-import BodyNoContent from "../../../wrapper/BodyNoContent"
 import {CompanyService} from "../../../services/CompanyService"; 
 
 export default {
@@ -25,7 +24,6 @@ components: {
   MainContainerAdmin,
   HeadContainer,
   BodyContent,
-  BodyNoContent
 },
 created() {
   

@@ -32,13 +32,6 @@
                  
           </BodyContent> 
 
-          <BodyNoContent>
-                <template slot="body"></template>
-          </BodyNoContent>
-
-
-          
-
            <router-view></router-view>
            <slot></slot>
     </div>
@@ -51,7 +44,6 @@
   import HeadContainer from "../../../wrapper/HeadContainer";
   import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContent from "../../../wrapper/BodyContent";
-import BodyNoContent from "../../../wrapper/BodyNoContent";
   // import Sidebar from '../../../components/menu/SidebarMenu.vue';
 
   // import UserService from "../../../services/UserService";
@@ -65,7 +57,6 @@ import BodyNoContent from "../../../wrapper/BodyNoContent";
       MainContainerAdmin,
       HeadContainer,
       BodyContent,
-      BodyNoContent
     },
     created() {
       // this.getAllUsers();
