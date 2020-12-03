@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CreateAdminUserSeeder::class);
         $this->call(UserSeeder::class);
 
+        $this->call(FarmSeeder::class);
+
         
         
         

@@ -13,10 +13,19 @@ class CreateFarmsTable extends Migration
      */
     public function up()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::create('farms', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id'); 
+            $table->text('name');
+            $table->integer('farm_company')->unsigned(); 
+            $table->text('localizacao');
+            $table->decimal('areaTotal',60,2)->unsigned()->default(0); 
+            $table->boolean('enabled')->default(true);
             $table->timestamps();
+            //$table->softDeletes();
+            $table->foreign('farm_company')->references('id')->on('companies')->onDelete('cascade');
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 
     /**

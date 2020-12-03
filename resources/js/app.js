@@ -56,6 +56,11 @@ import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 Vue.use(VueSidebarMenu)
 
+
+import VueGeolocation from 'vue-browser-geolocation';
+Vue.use(VueGeolocation);
+
+
 const app = new Vue({
     el: "#app",
 

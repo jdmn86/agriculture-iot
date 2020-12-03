@@ -20,7 +20,7 @@ export class AuthService {
               credentials);
 
               await Store.dispatch("auth/setCurrentUser", response.data);
-
+ 
               // console.log("Store.getters.userRole.name" + await Store.getters.userRole.name);
 
               // if(Store.getters.userRole.name == 'admin'){

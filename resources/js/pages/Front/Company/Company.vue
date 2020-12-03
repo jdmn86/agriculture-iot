@@ -2,15 +2,11 @@
   <MainContainerUser>
     <!-- <div class="col-md-12"> -->
       <div>
-          <HeadContainer>
-                <template slot="top">
-                        <HeaderComponent :title="title"/>
-                </template>
-
+          <HeadContainer :title="title">
                 <template slot="search"></template>
           </HeadContainer>
 
-          <BodyContent  >
+          <BodyContainer  >
                 <template slot="body"> 
                         
                   <b-container v-if="userCompany" fluid  style=" background-color: #f8f9fa; margin: 0px; ">
@@ -142,7 +138,7 @@
 
                 </template> 
                  
-          </BodyContent>
+          </BodyContainer>
                   
 
            <!-- <router-view></router-view> -->
@@ -157,8 +153,7 @@
 <script>
 import HeadContainer from "../../../wrapper/HeadContainer";
 import MainContainerUser from "../../../wrapper/MainContainerUser";
-import BodyContent from "../../../wrapper/BodyContent";
-import HeaderComponent from "../../../components/HeaderComponent";
+import BodyContainer from "../../../wrapper/BodyContainer";
 import NoDataContainer from "../../../components/NoDataContainer";
 import {CompanyService} from "../../../services/CompanyService"; 
 import {mapGetters,mapMutations,mapActions} from 'vuex'
@@ -177,15 +172,14 @@ export default {
   components: {
       MainContainerUser,
     HeadContainer,
-    HeaderComponent,
-    BodyContent,
+    BodyContainer,
   },
   computed : {
       ...mapGetters('auth',['currentUser']),   
       ...mapGetters('company',['userCompany']), 
 },
   created() {
-    
+      this.fetchData()
   },
   methods: {
       ...mapMutations('company',['setUserCompany']),
@@ -209,7 +203,7 @@ export default {
     }
   },
   mounted () {
-    this.fetchData()
+    
   }
 };
 </script>

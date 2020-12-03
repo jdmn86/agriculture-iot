@@ -26,7 +26,27 @@ class PermissionTableSeeder extends Seeder
             'company-list',
             'company-create',
             'company-edit',
-            'company-delete'
+            'company-delete',
+            'farm-list',
+            'farm-create',
+            'farm-edit',
+            'farm-delete',
+            'terrain-list',
+            'terrain-create',
+            'terrain-edit',
+            'terrain-delete',
+            'plantType-list',
+            'plantType-create',
+            'plantType-edit',
+            'plantType-delete',
+            'crop-list',
+            'crop-create',
+            'crop-edit',
+            'crop-delete',
+            'plant-list',
+            'plant-create',
+            'plant-edit',
+            'plant-delete',
 
             ];
 

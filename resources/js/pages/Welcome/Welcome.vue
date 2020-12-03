@@ -30,13 +30,16 @@
 
 <!-- <div style="margin-left: -180px"> -->
 <div >
-      <div class="jumbotron big-banner" >
+  
+      <TopNavBar/>
+
+      <div class="jumbotron big-banner "  >
     <div class="container-fluid" style="margin-left: 6vw">
 
-        <div class="row align-items-center" style="padding-top: 19vh">
-                <div class="col-6 text-light " >
-                    <h1 class="title-text-overlay-img font-weight-bold " >Farming Helper </h1>
-                    <p class="lead font-weight-bold"> {{ $t('title') }}</p>
+        <div class="row align-items-center" style="padding-top: 21vh">
+                <div class="col-7 text-light " >
+                    <h1 class="title-text-overlay-img font-weight-bold display-4" >Farming Helper </h1>
+                    <h3 class=" font-weight-bold"> {{ $t('title') }}</h3>
   
                 </div>
           </div>
@@ -244,15 +247,19 @@ Created for Farmers and Agronomists, but also for small home-grown crops, or ent
 // import Card from "../../components/Card";
 // import Container from "../../components/Container";
 // import UserService from "../../services/UserService"; 
+import TopNavBar from "../../layouts/TopNavBar";
+// import backgroundUrl from "img/landingFull.jpg";
 
 export default {
   name: "Welcome",
   components: {
+    TopNavBar,
     // Container,
     // Card
   },
   data() {
      return{
+      
        form:{
           name: this.name,
           email: this.email,
@@ -338,9 +345,9 @@ export default {
 
 <style scoped>
   .big-banner {
-  background-image: url(/img/landingFull.jpg);
+  background-image: url(/img/landingFull.jpeg);
   background-size: cover;
-  height: 82vh;
+  height: 85vh;
   width: 100vw;
   position: relative;
   top: 0;

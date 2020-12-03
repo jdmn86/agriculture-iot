@@ -1,27 +1,36 @@
 <template>
+<main> 
       <div id="demo" :class="[{'collapsed' : collapsed}]">
-            <b-container fluid>
+            <!-- <b-container fluid style="padding-left: 0px; padding-right: 0px;"> -->
       <!--  <div class="py-4 main">
                   <div class="container">
                         <div class="row justify-content-center"> -->
                         <!-- <div class="container-fluid"> -->
 
+                              <TopNavBarUser/>
+                               
+                              
                               <slot></slot>
-
+                              <!-- <router-view></router-view> -->
                               
 
                               <template>
-                                    <sidebar-menu :menu="menu" :width="'180px'"/>
-                                  </template>
+                                    <sidebar-menu :collapsed="collapsed"
+        :show-one-child="true"
+        @toggle-collapse="onToggleCollapse"
+        @item-click="onItemClick" :menu="menu" :width="'180px'"/>
+                              </template> 
                         <!-- </div> -->
             <!--      </div>
             </div> -->
-            </b-container> 
+            <!-- </b-container>  -->
       </div>
+</main> 
 </template>
 
 <script>
       import { SidebarMenu } from 'vue-sidebar-menu'
+      import TopNavBarUser from "../layouts/TopNavBarUser";
 
       const logoImg = {
     data() {
@@ -36,6 +45,7 @@ export default {
   name: "MainContainerUser",
  components:{
       SidebarMenu,
+      TopNavBarUser
  },
  data(){
             return{
@@ -134,7 +144,7 @@ export default {
                               // hiddenOnCollapse: true
                               },             
                               {
-                              href: { path:'/front/Farms'},
+                              href: { path:'/front/farm'},
                               /* with vue-router you can use :to prop
                               href: { path: '/' }
                               you can mark link as external
@@ -180,7 +190,7 @@ export default {
                         you can mark link as external
                         // external: true
                         */
-                        href: { path:'/front/Terrain/listTerrain'},
+                        href: { path:'/front/terrain'},
 
                         title: 'Land',
 
@@ -295,7 +305,7 @@ export default {
                         you can mark link as external
                         // external: true
                         */
-                        href: { path:'/front/Cultivos/listCultivo'},
+                        href: { path:'/front/Crop'},
 
                         title: 'Crops',
 
@@ -328,7 +338,7 @@ export default {
                         // hiddenOnCollapse: true
                   },     
                   {
-                        href: { path:'/front/plants/list'},
+                        href: { path:'/front/plant'},
                         /* with vue-router you can use :to prop
                         href: { path: '/' }
                         you can mark link as external

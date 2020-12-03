@@ -38,7 +38,7 @@
 <script>
 import HeadContainer from "../../../wrapper/HeadContainer";
 import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
-import BodyContent from "../../../wrapper/BodyContent"
+import BodyContainer from "../../../wrapper/BodyContainer"
 import {PermissionService} from "../../../services/PermissionService"; 
 
 export default {
@@ -54,7 +54,7 @@ return {
 components: {
 MainContainerAdmin,
 HeadContainer,
-BodyContent,
+BodyContainer,
 },
 created() {
 

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Farm;
+
 class FarmSeeder extends Seeder
 {
     /**
@@ -13,6 +15,12 @@ class FarmSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Farm::create([
+            // 'id' => '1',
+            'name' => "Farm 1",
+	        'farm_company' => '1',
+	        'localizacao' => 'Leiria',	        
+	        
+        ]);
     }
 }

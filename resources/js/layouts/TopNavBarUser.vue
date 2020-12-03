@@ -70,7 +70,7 @@ import {AuthService} from "../services/AuthService";
           },
   
         methods: {          
-          ...mapActions('auth',['logout']),         
+          ...mapActions('auth',['logout']),          
           account(){
             this.$router.push('/front/Account');
           },

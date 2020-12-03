@@ -5,7 +5,7 @@
                 <template slot="top">Register</template>
             </HeadContainer>
 
-            <BodyContent>
+            <BodyContainer>
                 <template slot="body">
                     <form @submit.prevent="handleRegister">
 
@@ -65,7 +65,7 @@
 
                     </form>
                 </template>
-            </BodyContent>
+            </BodyContainer>
 
         </div>
     </MainContainerAdmin>
@@ -74,7 +74,7 @@
 <script >
 import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import HeadContainer from "../../../wrapper/HeadContainer";
-import BodyContent from "../../../wrapper/BodyContent"
+import BodyContainer from "../../../wrapper/BodyContainer"
 import {AuthService} from "../../../services/AuthService";
 import Form from "../../../services/FormService";
 
@@ -89,7 +89,7 @@ export default {
   components: {
     HeadContainer,
     MainContainerAdmin,
-    BodyContent
+    BodyContainer
   },
   methods: {
     async handleRegister() {

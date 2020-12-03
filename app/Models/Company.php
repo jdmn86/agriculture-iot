@@ -21,10 +21,10 @@ class Company extends Model
     
     protected $appends = ['all_users'];
 
-    public function users()
-    {
-        return $this->hasMany(User::class)->get();
-    }
+    // public function users()
+    // {
+    //     return $this->hasMany(User::class)->get();
+    // }
 
     public function getAllUsersAttribute() {
         return $this->hasMany(User::class)->get();

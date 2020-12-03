@@ -38,11 +38,7 @@ export class BaseService {
    * ------------------------------
    */
 
-  /**
-   * ------------------------------
-   * @API_CALLS_PRIVATE
-   * ------------------------------
-   */
+ 
 
   static async getList (parameters = {}) {
     assert.object(parameters)
@@ -51,10 +47,11 @@ export class BaseService {
 
     try {
       const response = await this.request({ auth: true }).get(`${this.entity}`, { params })
-      const data = {
-        content: response.data.data,
-        total: Number(response.headers['x-total-count'])
-      }
+      // const data = {
+      //   content: response.data.data,
+      //   total: Number(response.headers['x-total-count'])
+      // }
+      const data = response.data.data;
 
       return new ResponseWrapper(response, data)
     } catch (error) {
@@ -75,6 +72,12 @@ export class BaseService {
     }
   }
 
+    /**
+   * ------------------------------
+   * @API_CALLS_PRIVATE
+   * ------------------------------
+   */
+  
   static async getById (id) {
     assert.id(id, { required: true })
 

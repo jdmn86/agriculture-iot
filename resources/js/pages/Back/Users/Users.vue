@@ -7,7 +7,7 @@
                 <template slot="search">searche</template>
           </HeadContainer>
 
-          <BodyContent>
+          <BodyContainer>
                 <template slot="body">
                       <table class="table table-borderless">
                             <thead>
@@ -30,7 +30,7 @@
                       </table>
                 </template> 
                  
-          </BodyContent> 
+          </BodyContainer> 
 
            <router-view></router-view>
            <slot></slot>
@@ -43,7 +43,7 @@
 <script>
   import HeadContainer from "../../../wrapper/HeadContainer";
   import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
-import BodyContent from "../../../wrapper/BodyContent";
+import BodyContainer from "../../../wrapper/BodyContainer";
   // import Sidebar from '../../../components/menu/SidebarMenu.vue';
 
   // import UserService from "../../../services/UserService";
@@ -56,7 +56,7 @@ import BodyContent from "../../../wrapper/BodyContent";
     components: {
       MainContainerAdmin,
       HeadContainer,
-      BodyContent,
+      BodyContainer,
     },
     created() {
       // this.getAllUsers();

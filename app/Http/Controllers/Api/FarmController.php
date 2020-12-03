@@ -31,7 +31,7 @@ class FarmController extends Controller
      */
     public function index(): JsonResponse
     {
-        $companys = Company::orderBy('id','DESC')->paginate(5);
+        $companys = Farm::orderBy('id','DESC')->paginate(5);
         // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
         return response()->json($companys);
     }
@@ -56,12 +56,19 @@ class FarmController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+            'name' => 'required',//|unique:roles,name',
+            'localizacao' => 'required',
             ]);
-            $role = Role::create(['name' => $request->input('name')]);
-            $role->syncPermissions($request->input('permission'));
-            return redirect()->route('roles.index')->with('success','Role created successfully');
+
+            $id = Auth()->user()->company_id;
+
+            $farm = Farm::create(['name' => $request->input('name'),
+                                    'farm_company' => $id,
+                                    'localizacao' => $request->input('localizacao')]);
+            // $role->syncPermissions($request->input('permission'));
+
+            return response()->json($farm);
+            // return redirect()->route('roles.index')->with('success','Role created successfully');
     }
 
     /**

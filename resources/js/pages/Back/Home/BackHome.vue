@@ -1,27 +1,21 @@
 <template>
       <MainContainerAdmin>
             
-                  <HeadContainer>
-                        <template slot="top">
-                              <HeaderComponent :title="title" />    
-                              <!-- <h1>{{userPermissions}}</h1>                          
-                              <h1>{{userRole}}</h1>                          
-                              <h1>{{userSettings.mode}}</h1>                           -->
-                        </template>
-
+                  <HeadContainer :title="title" >
+                       
                         <template slot="search">
                               <h1>search slot</h1>
                         </template>
 
                   </HeadContainer> 
 
-                  <BodyContent >
+                  <BodyContainer >
 
                         <template slot="body">
                               <h1>Back home</h1>
                         </template> 
 
-                  </BodyContent>
+                  </BodyContainer>
                   
 
                   <router-view></router-view>
@@ -32,8 +26,7 @@
 <script>
 import HeadContainer from "../../../wrapper/HeadContainer";
 import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
-import BodyContent from "../../../wrapper/BodyContent";
-import HeaderComponent from "../../../components/HeaderComponent";
+import BodyContainer from "../../../wrapper/BodyContainer";
 //import UserService from "../../services/UserService"; 
 
 export default {
@@ -46,8 +39,7 @@ export default {
   components: {
     MainContainerAdmin,
     HeadContainer,
-    BodyContent,
-    HeaderComponent,
+    BodyContainer,
   },
   created() {
     this.getAllUsers();

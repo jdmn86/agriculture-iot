@@ -9,7 +9,7 @@
 <script>
 import HeadContainer from "../../../wrapper/HeadContainer";
 import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
-import BodyContent from "../../../wrapper/BodyContent"
+import BodyContainer from "../../../wrapper/BodyContainer"
 import {CompanyService} from "../../../services/CompanyService"; 
 
 export default {
@@ -23,7 +23,7 @@ data() {
 components: {
   MainContainerAdmin,
   HeadContainer,
-  BodyContent,
+  BodyContainer,
 },
 created() {
   

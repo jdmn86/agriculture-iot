@@ -5,14 +5,14 @@
         <!-- <template v-if="isLoggedIn">Login</template> -->
   <b-navbar toggleable="lg" type="dark" style="background-color: #914323;" >
 
-    <b-navbar-brand href="#"><router-link class="navbar-brand" to="/front/home"><img src="/img/logo3.png" height="60px" style="margin-right: 20px; margin-left: 50px"><h2>Sada Lab</h2></router-link></b-navbar-brand>
+    <b-navbar-brand href="#" style="padding: 0px;"><router-link class="navbar-brand" to="/front/home" style="padding: 0px;"><b-row align-v="end"><img src="/img/logo3.png" height="50px" style="margin-right: 20px; margin-left: 40px"><h2>Sada Lab</h2></b-row></router-link></b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
       
       <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto"> 
+        <b-navbar-nav class="ml-auto align-items-end"> 
             <template v-if="!currentUser"> 
           
                 <b-nav-item href="#what"><h5>What we do</h5></b-nav-item>

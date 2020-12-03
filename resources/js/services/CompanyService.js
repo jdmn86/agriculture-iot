@@ -15,7 +15,7 @@ export class CompanyService extends BaseService {
 //     try {
 //       const response = await this.request({ auth: true }).get(`${this.entity}?${this.querystring(params)}`)
 //       const data = {
-//         content: response.data.data,
+//         content: response.data.data, 
 //         total: Number(response.headers['x-total-count'])
 //       }
 //       return new ResponseWrapper(response, data)
