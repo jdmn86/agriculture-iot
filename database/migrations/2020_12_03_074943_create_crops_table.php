@@ -13,37 +13,37 @@ class CreateCropsTable extends Migration
      */
     public function up()
     {
+        
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            Schema::create('crops', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('num_plantas')->unsigned();
+                // $table->integer('fase_cultivo_id')->nullable()->unsigned();//1-germinação 2-transplant 3-bulbificaçao 4-crescimento 5-colher
+                $table->integer('densidade_distribuicao_terreno')->nullable();//1-fraca 2-normal 3 -alto
     
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::create('crops', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('num_plantas')->unsigned();
-            $table->integer('fase_cultivo_id')->nullable()->unsigned();//1-germinação 2-transplant 3-bulbificaçao 4-crescimento 5-colher
-            $table->integer('densidade_distribuicao_terreno')->nullable();//1-fraca 2-normal 3 -alto
-
-            $table->integer('expectedProduction')->nullable(); //ton
-
-            $table->dateTimeTz('start_crop_date')->nullable();
-            $table->dateTimeTz('finish_crop_date')->nullable();
-            $table->boolean('isSeed')->nullable();
-            $table->boolean('enabled')->default(1);
+                $table->integer('expectedProduction')->nullable(); //ton
+    
+                $table->dateTimeTz('start_crop_date')->nullable();
+                $table->dateTimeTz('finish_crop_date')->nullable();
+                $table->boolean('isSeed')->nullable();
+                $table->boolean('enabled')->default(true);
+                  
+                $table->integer('id_plant')->unsigned();
+                //$table->integer('id_device')->unsigned()->nullable();
+                $table->integer('id_terrain')->unsigned();
+    
+                // $table->integer('espected_production')->unsigned();
+    
+                $table->integer('crop_day')->unsigned();
                 
-            $table->integer('id_plant')->unsigned();
-            //$table->integer('id_device')->unsigned()->nullable();
-            $table->integer('id_terrain')->unsigned();
-
-            // $table->integer('espected_production')->unsigned();
-
-            $table->integer('crop_day')->unsigned();
-            
-            $table->timestamps();
-
-            $table->foreign('id_terrain')->references('id')->on('terrains')->onDelete('cascade');
-            //  $table->foreign('id_device')->references('id')->on('devices')->onDelete('cascade');
-            $table->foreign('id_plant')->references('id')->on('plants')->onDelete('cascade');
-            $table->foreign('fase_cultivo_id')->references('id')->on('fase_cultivos')->onDelete('cascade');
-        });
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+                $table->timestamps();
+    
+                $table->foreign('id_terrain')->references('id')->on('terrains')->onDelete('cascade');
+              //  $table->foreign('id_device')->references('id')->on('devices')->onDelete('cascade');
+                $table->foreign('id_plant')->references('id')->on('plants')->onDelete('cascade');
+                // $table->foreign('fase_cultivo_id')->references('id')->on('fase_cultivos')->onDelete('cascade');
+            });
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 
     /**

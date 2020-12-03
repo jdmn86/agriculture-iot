@@ -12,6 +12,11 @@ use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\FarmController;
+use App\Http\Controllers\Api\PlantController;
+use App\Http\Controllers\Api\CropController;
+use App\Http\Controllers\Api\TerrainController;
+use App\Http\Controllers\Api\PlantTypeController;
+
 
 
 use Illuminate\Support\Facades\Password;
@@ -58,6 +63,10 @@ Route::group(['middleware' => ['auth:api']], function() {
     'companys' => CompanyController::class,
     'permissions' => PermissionController::class,
     'farm' => FarmController::class,
+    'plant' => PlantController::class,
+    'crop' => CropController::class,
+    'terrain' => TerrainController::class,
+    'plantType' => PlantTypeController::class,
     // Route::resource('roles','RoleController');
     // Route::resource('users','UserController');
     // Route::resource('companys','CompanyController');

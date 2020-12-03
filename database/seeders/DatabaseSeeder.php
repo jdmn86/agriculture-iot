@@ -21,9 +21,11 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
         $this->call(FarmSeeder::class);
+        $this->call(PlantTypeSeeder::class);
+        $this->call(PlantSeeder::class);
 
         
-        
+         
         
     }
 }

@@ -42,10 +42,11 @@ public function plantType()
 {
     return $this->belongsTo(PlantType::class,'tipo_planta_id');
 }
-// public function user()
-// {
-//     return $this->belongsTo(User::class,'user_id');
-// }
+
+public function user()
+{
+    return $this->belongsTo(User::class,'user_id');
+}
 
 //     public function fases()  
 //     {
