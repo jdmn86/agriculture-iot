@@ -51,7 +51,7 @@ export class BaseService {
       //   content: response.data.data,
       //   total: Number(response.headers['x-total-count'])
       // }
-      const data = response.data.data;
+      const data = response.data;
 
       return new ResponseWrapper(response, data)
     } catch (error) {

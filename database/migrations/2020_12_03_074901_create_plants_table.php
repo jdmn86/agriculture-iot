@@ -47,7 +47,7 @@ class CreatePlantsTable extends Migration
             $table->string('image')->nullable();
             // $table->boolean('cropDaysTotal')->nullable(); 
 
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable()->unsigned();
 
             $table->timestamps();
 

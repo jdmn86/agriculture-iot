@@ -18,7 +18,7 @@
                         <nav>
                           <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
       
-                            <a v-if="plants" v-for="t in plants" class="nav-item nav-link"  data-toggle="tab"  role="tab"  aria-selected="false" v-on:click="typePlantsFilter(t.id)" v-bind:class="[ tipoPlantaId === t.id ? 'show active' : ' ' ]">{{t.name}}</a>
+                            <a v-if="plantTypes" v-for="t in plantTypes" :key="t.id" class="nav-item nav-link"  data-toggle="tab"  role="tab"  aria-selected="false" v-on:click="typePlantsFilter(t.id)" v-bind:class="[ tipoPlantaId === t.id ? 'show active' : ' ' ]">{{t.name}}</a>
       
                             <!-- <a class="nav-item nav-link"  data-toggle="tab" href="#nav-Fruticulas" role="tab" aria-controls="nav-Fruticulas" aria-selected="false" v-on:click="tipoPlantaId=2" v-bind:class="[ tipoPlantaId === 2 ? 'show active' : ' ' ]">Fruticulas</a>
                             <a class="nav-item nav-link"  data-toggle="tab" href="#nav-Viticultura" role="tab" aria-controls="nav-Viticultura" aria-selected="false" v-on:click="tipoPlantaId=3" v-bind:class="[ tipoPlantaId === 3 ? 'show active' : ' ' ]">Viticultura</a>
@@ -32,7 +32,7 @@
                                 <!-- <ShowPlant :plantId="p.id"/> -->
       
       
-                                <b-col sm="3" style="padding: 0px" v-if="plants" v-for="p in plants">
+                                <b-col sm="3" style="padding: 0px" v-if="plantsFilter" v-for="p in plantsFilter" :key="p.id">
                                     <div class="card card-flip " style="margin: 5px; height: 180px;">
                                         <div class="card-front text-white ">
                                             
@@ -134,7 +134,8 @@
   import {mapGetters,mapMutations,mapActions} from 'vuex'
 
 import {PlantService} from "../../../services/PlantService"; 
-  
+  import {PlantTypeService} from "../../../services/PlantTypeService"; 
+
   export default {
     name: "Plant",
     components: {
@@ -152,7 +153,9 @@ import {PlantService} from "../../../services/PlantService";
       return {        
             title: "Plants",
             loading: false, 
-            //   farms: null,
+            plantsFilter: null,
+            tipoPlantaId: null,
+
             
       };
     },
@@ -163,8 +166,8 @@ import {PlantService} from "../../../services/PlantService";
     //   }
     },
     computed : {
-      ...mapGetters('plant',['plants','plantsByType']), 
-    //   ...mapGetters('farm',['farms']),   
+      ...mapGetters('plant',['plants','masterPlants']), 
+       ...mapGetters('plantType',['plantTypes']),   
     //   ...mapGetters('auth',['userSettings']),   
 
       },
@@ -173,14 +176,15 @@ import {PlantService} from "../../../services/PlantService";
     },
     methods: {
       ...mapActions('plant',['savePlants']),
+      ...mapActions('plantType',['savePlantTypes']),
       typePlantsFilter(id) {
                   this.tipoPlantaId=id;
                 console.log("typePlantsFilter function");
                 //let result = oData;
-                this.plants = this.get_masterPlants;
-                console.log("GET_plantsList :"+ JSON.stringify(this.plants));
+                this.plantsFilter = this.masterPlants;
+                console.log("plants :"+ JSON.stringify(this.masterPlants));
                 if (this.tipoPlantaId) { // it can be null (optional)
-                  this.plants = this.plants.filter(p => p.tipo_planta_id === id);
+                  this.plantsFilter = this.plantsFilter.filter(p => p.tipo_planta_id === id);
                 }
             },
         goTodetail(prodId) {
@@ -188,7 +192,21 @@ import {PlantService} from "../../../services/PlantService";
             },
       async fetchData () {
 
-            this.loading = true
+            this.loading = true 
+
+            try {
+                  const { data } = await PlantTypeService.getList();//this.fetchParams)
+                  console.log("PlantTypeService : "+JSON.stringify(data));
+                  this.savePlantTypes(data);
+                  // this.pagination.total = data.total
+            } catch (e) {
+                  // this.$store.commit('toast/NEW', { type: 'error', message: e.message, e })
+                  this.error = e.message
+                  console.log(e)
+            } finally {
+                  this.loading = false
+            }
+
             try {
                   const { data } = await PlantService.getList();//this.fetchParams)
                   this.savePlants(data);
@@ -201,6 +219,9 @@ import {PlantService} from "../../../services/PlantService";
             } finally {
                   this.loading = false
             }
+
+            
+
 
       }
     },

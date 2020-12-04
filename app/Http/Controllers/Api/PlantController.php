@@ -30,9 +30,9 @@ class PlantController extends Controller
      */
     public function index(): JsonResponse
     {
-        $companys = Farm::orderBy('id','DESC')->paginate(5);
+        $plants = Plant::all();
         // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-        return response()->json($companys);
+        return response()->json($plants);
     }
 
     /**

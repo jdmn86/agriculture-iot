@@ -1,16 +1,16 @@
 export default {
-    farms: (state, farms) => {
-        state.farms = farms;        
+    plants: (state, list) => {
+        state.plants = list;        
     },
-    addFarm: (state, farm) => {
-        state.farms.push(farm);
+    addPlant: (state, plant) => {
+        state.plants.push(plant);
     },
-    updateFarm:(state,farm) =>{
-        const f = state.farms.find(item => item.id == farm.id);
-        Object.assign(f, farm);
+    updatePlant:(state,plant) =>{
+        const p = state.plants.find(item => item.id == plant.id);
+        Object.assign(p, plant);
     },
-    removerFarm: (state, farm) =>{
-        state.farms.pop(farm);
+    removerplant: (state, plant) =>{
+        state.plants.pop(plant);
     }
 }  
 

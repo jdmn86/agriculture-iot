@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use DB;
 
 class PermissionTableSeeder extends Seeder
 {
@@ -14,6 +15,10 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('permissions')->delete();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         $permissions = [
             'role-list',
             'role-create',
@@ -55,6 +60,80 @@ class PermissionTableSeeder extends Seeder
             'plant-edit',
             'plant-delete',
 
+            'soiltype-list',
+            'soiltype-create',
+            'soiltype-edit',
+            'soiltype-delete',
+
+            'productType-list',
+            'productType-create',
+            'productType-edit',
+            'productType-delete',
+
+            'product-list',
+            'product-create',
+            'product-edit',
+            'product-delete',
+
+            'productComposition-list',
+            'productComposition-create',
+            'productComposition-edit',
+            'productComposition-delete',
+
+            'plantUptake-list',
+            'plantUptake-create',
+            'plantUptake-edit',
+            'plantUptake-delete',
+
+            'plantStage-list',
+            'plantStage-create',
+            'plantStage-edit',
+            'plantStage-delete',
+
+            'plagueType-list',
+            'plagueType-create',
+            'plagueType-edit',
+            'plagueType-delete',
+
+            'plagueSpot-list',
+            'plagueSpot-create',
+            'plagueSpot-edit',
+            'plagueSpot-delete',
+
+            'plague-list',
+            'plague-create',
+            'plague-edit',
+            'plague-delete',
+
+            'analyseWater-list',
+            'analyseWater-create',
+            'analyseWater-edit',
+            'analyseWater-delete',
+
+            'analyseSoilGuideline-list',
+            'analyseSoilGuideline-create',
+            'analyseSoilGuideline-edit',
+            'analyseSoilGuideline-delete',
+
+            'analyseSoil-list',
+            'analyseSoil-create',
+            'analyseSoil-edit',
+            'analyseSoil-delete',
+
+            'address-list',
+            'address-create',
+            'address-edit',
+            'address-delete',
+
+            'plantPartsAnatomy-list',
+            'plantPartsAnatomy-create',
+            'plantPartsAnatomy-edit',
+            'plantPartsAnatomy-delete',
+            
+            'PlaguePlantPartsAnatomy-list',
+            'PlaguePlantPartsAnatomy-create',
+            'PlaguePlantPartsAnatomy-edit',
+            'PlaguePlantPartsAnatomy-delete',
             ];
 
             foreach ($permissions as $permission) {

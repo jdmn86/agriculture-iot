@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Company;
+use DB;
 
 class CompanySeeder extends Seeder
 {
@@ -15,6 +16,10 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('companies')->delete();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         Company::create([
             'id' => '1',
             'is_company' => false,
@@ -22,7 +27,7 @@ class CompanySeeder extends Seeder
 	        'company_name' => 'company 1',
 	        'nif' => '123456789',
             'email' => 'test@email.com',
-            'email_notifications' => 'test@email.com',
+            'email_notifications' => 'test@email.com', 
 	        
         ]);
 

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Terrain;
+use DB;
 
 class TerrainSeeder extends Seeder
 {
@@ -15,6 +16,10 @@ class TerrainSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('terrains')->delete();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         Terrain::create([
             
             'name' => 'Terreno1',
@@ -24,4 +29,4 @@ class TerrainSeeder extends Seeder
 	        
         ]);
     }
-}
+} 

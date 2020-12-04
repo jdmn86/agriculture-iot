@@ -4,8 +4,8 @@ export default {
      * Get the current user.
      * @param {Object} state
      */
-    farms(state) {
-        return state.farms;
+    get_crops(state) {
+        return state.crops;
     },
 
   

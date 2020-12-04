@@ -48,10 +48,10 @@ public function user()
     return $this->belongsTo(User::class,'user_id');
 }
 
-//     public function fases()  
-//     {
-//         return $this->hasMany(FaseCultivo::class,'plant_id','id');
-//     } 
+    public function plantStage()  
+    {
+        return $this->hasMany(PlantStage::class,'plant_id','id');
+    } 
 
 //     public function desfavoravel()  
 //     {
@@ -63,9 +63,9 @@ public function user()
 //         return $this->hasMany(ConsociacaoFavoravel::class,'id_plant');
 //     }
 
-// public function pragas()
-// {
-//     return $this->belongsToMany('App\Praga','plant_pragas','plants_id','pragas_id');
-// }
+public function plague()
+{
+    return $this->belongsToMany('App\Plague','plant_plagues','plants_id','plague_id');
+}
 
 }

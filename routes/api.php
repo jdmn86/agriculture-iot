@@ -17,7 +17,21 @@ use App\Http\Controllers\Api\CropController;
 use App\Http\Controllers\Api\TerrainController;
 use App\Http\Controllers\Api\PlantTypeController;
 
+use App\Http\Controllers\Api\SoilTypeController;
+use App\Http\Controllers\Api\ProductTypeController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProductCompositionController;
+use App\Http\Controllers\Api\PlantUptakeController;
+use App\Http\Controllers\Api\PlantStageController;
+use App\Http\Controllers\Api\PlagueTypeController;
+use App\Http\Controllers\Api\PlagueController;
+use App\Http\Controllers\Api\AnalyseWaterController;
+use App\Http\Controllers\Api\AnalyseSoilGuidelineController;
+use App\Http\Controllers\Api\AnalyseSoilController;
+use App\Http\Controllers\Api\AddressController;
 
+use App\Http\Controllers\Api\PlaguePlantsPartsAnatomyController;
+use App\Http\Controllers\Api\PlantPartsAnatomyController;
 
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
@@ -67,8 +81,21 @@ Route::group(['middleware' => ['auth:api']], function() {
     'crop' => CropController::class,
     'terrain' => TerrainController::class,
     'plantType' => PlantTypeController::class,
-    // Route::resource('roles','RoleController');
-    // Route::resource('users','UserController');
-    // Route::resource('companys','CompanyController');
+    'soilType' => SoilTypeController::class,
+    'productType' => ProductTypeController::class,
+    'product' => ProductController::class,
+    'productComposition' => ProductCompositionController::class,
+    'plantUptake' => PlantUptakeController::class,
+    'plantStage' => PlantStageController::class,
+    'plagueType' => PlagueTypeController::class,
+    'plague' => PlagueController::class,
+    'analyseWater' => AnalyseWaterController::class,
+    'analyseSoilGuideline' => AnalyseSoilGuidelineController::class,
+    'analyseSoil' => AnalyseSoilController::class,
+    'address' => AddressController::class,
+
+    'plaguePlantsPartsAnatomy' => PlaguePlantsPartsAnatomyController::class,
+    'PlantPartsAnatomy' => PlantPartsAnatomyController::class,
+    
     ]);
 });

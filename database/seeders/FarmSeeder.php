@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Farm;
+use DB;
 
 class FarmSeeder extends Seeder
 {
@@ -15,6 +16,10 @@ class FarmSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('farms')->delete();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         Farm::create([
             // 'id' => '1',
             'name' => "Farm 1",

@@ -21,11 +21,41 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
         $this->call(FarmSeeder::class);
-        $this->call(PlantTypeSeeder::class);
+        $this->call(TerrainSeeder::class);
+        
+        $this->call(PlantTypeSeeder::class); 
         $this->call(PlantSeeder::class);
 
+        $this->call(SoilTypeSeeder::class);
+        $this->call(ProductTypeSeeder::class);
+        $this->call(ProductCompositionSeeder::class);
+        $this->call(PlantStageSeeder::class); 
+        $this->call(ProductSeeder::class);
+        $this->call(PlantUptakeSeeder::class);
         
-         
+        $this->call(PlagueTypeSeeder::class);
+        
+        $this->call(PlantPartsAnatomySeeder::class);
+        $this->call(PlagueSeeder::class);
+        $this->call(PlaguePlantsPartsAnatomySeeder::class);
+
+        $this->call(AnalyseSoilGuidelineSeeder::class);
+        $this->call(AnalyseSoilSeeder::class);
+        
+        $this->call(AddressSeeder::class);
+
+        $this->call(CompanyAddressSeeder::class);
+        $this->call(PlantAnalyseSeeder::class);
+        $this->call(CropPlagueSeeder::class);
+        $this->call(PlantPlagueSeeder::class);
+
+        $this->call(DeviceSeeder::class);
+        
+        
+        
+        
+        
+        
         
     }
 }

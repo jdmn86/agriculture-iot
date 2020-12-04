@@ -3,15 +3,15 @@ import  FormService  from '../../../services/FormService'
 
 export default {
 
-  saveFarms(context, farms) {
-    if(farms.length>=1){
-      localStorage.setItem("farms", JSON.stringify(farms));
-      context.commit("farms", farms);
+  savePlants(context, plants) {
+    if(plants.length>=1){
+      localStorage.setItem("plants", JSON.stringify(plants));
+      context.commit("plants", plants);
     }
   },
-   addFarm: (context, farm) => {
-     context.commit("addFarm",farm)
+//    addplant: (context, farm) => {
+//      context.commit("addplant",plants)
     
-},
+// },
 
 }

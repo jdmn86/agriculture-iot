@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\PlantType;
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ class PlantTypeController extends Controller
          */
         public function index(): JsonResponse
         {
-            $plantType = PlantType::orderBy('id','DESC')->paginate(5);
+            $plantType = PlantType::all();
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
             return response()->json($plantType);
         }

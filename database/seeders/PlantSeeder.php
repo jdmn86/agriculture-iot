@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\Plant;
+use DB;
 
 class PlantSeeder extends Seeder
 {
@@ -15,11 +16,11 @@ class PlantSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;'); 
         DB::table('plants')->delete(); 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
  
-          App\Plant::create([
+          Plant::create([
             'id' => '1',
             'name' => 'Onion',
             'name_cientifico' => 'Allium cepa',
@@ -53,7 +54,7 @@ class PlantSeeder extends Seeder
             
         ]);
 
-           App\Plant::create([
+           Plant::create([
             'id' => '2',
             'name' => 'Onion',
             'name_cientifico' => 'Allium cepa',
@@ -83,12 +84,12 @@ class PlantSeeder extends Seeder
             // 'temperatura_germinacao_max' => '22',
             'water_consumption' => '1',
             'image' => '/img/plantas/Onion/onion1.jpeg',
-            'user_id' => '4',
+            'user_id' => '1',
             
         ]);
 
 
-              App\Plant::create([
+              Plant::create([
             'id' => '3',
             'name' => 'Leek',
             'name_cientifico' => 'Allium porrum',
@@ -106,7 +107,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]); 
 
-              App\Plant::create([
+              Plant::create([
             'id' => '4',
             'name' => 'Cabbage',
             'master_plant_id' => null,
@@ -125,7 +126,7 @@ class PlantSeeder extends Seeder
             
         ]);
 
-            App\Plant::create([
+            Plant::create([
             'id' => '5',
             'name' => 'Brussels sprouts',
             'master_plant_id' => null,
@@ -144,7 +145,7 @@ class PlantSeeder extends Seeder
             
         ]);
 
-             App\Plant::create([
+             Plant::create([
             'id' => '6',
             'name' => 'Cauliflower',
             'master_plant_id' => null,
@@ -163,7 +164,7 @@ class PlantSeeder extends Seeder
             
         ]);
 
-            App\Plant::create([
+            Plant::create([
             'id' => '7',
             'name' => 'Chard',
             'master_plant_id' => null,
@@ -182,7 +183,7 @@ class PlantSeeder extends Seeder
             
         ]);
 
-            App\Plant::create([
+            Plant::create([
             'id' => '8',
             'name' => 'Collard greens',
             'master_plant_id' => null,
@@ -201,7 +202,7 @@ class PlantSeeder extends Seeder
             
         ]);
 
-            App\Plant::create([
+            Plant::create([
             'id' => '9',
             'name' => 'Kale',
             'master_plant_id' => null,
@@ -221,7 +222,7 @@ class PlantSeeder extends Seeder
         ]);
 
 
-              App\Plant::create([
+              Plant::create([
             'id' => '10',
             'name' => 'Carrot',
             'master_plant_id' => null,
@@ -240,7 +241,7 @@ class PlantSeeder extends Seeder
         ]);
 
 
-            App\Plant::create([
+            Plant::create([
             'id' => '11',
             'name' => 'Tomato',
             'master_plant_id' => null,
@@ -259,7 +260,7 @@ class PlantSeeder extends Seeder
             
         ]);
 
-                 App\Plant::create([
+                 Plant::create([
             'id' => '12',
             'name' => 'Maize',
             'master_plant_id' => null,
@@ -278,7 +279,7 @@ class PlantSeeder extends Seeder
             
         ]);
 
-             App\Plant::create([
+             Plant::create([
             'id' => '13',
             'name' => 'olive',
             'master_plant_id' => null,
@@ -296,7 +297,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-           App\Plant::create([
+           Plant::create([
             'id' => '14',
             'name' => 'Strawberry',
             'master_plant_id' => null,
@@ -314,7 +315,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '15',
             'name' => 'Asparagus',
             'master_plant_id' => null,
@@ -332,7 +333,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '16',
             'name' => 'Avocado',
             'master_plant_id' => null,
@@ -350,7 +351,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '17',
             'name' => 'Barley',
             'master_plant_id' => null,
@@ -368,7 +369,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-      App\Plant::create([
+      Plant::create([
             'id' => '18',
             'name' => 'Blackberry',
             'master_plant_id' => null,
@@ -386,7 +387,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '19',
             'name' => 'Blueberry',
             'master_plant_id' => null,
@@ -404,7 +405,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-          App\Plant::create([
+          Plant::create([
             'id' => '20',
             'name' => 'Brazil nut',
             'master_plant_id' => null,
@@ -422,7 +423,7 @@ class PlantSeeder extends Seeder
         ]);
 
 
-           App\Plant::create([
+           Plant::create([
             'id' => '21',
             'name' => 'Broad bean',
             'master_plant_id' => null,
@@ -440,7 +441,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '22',
             'name' => 'Buckwheat',
             'master_plant_id' => null,
@@ -458,7 +459,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '23',
             'name' => 'Broccoli',
             'master_plant_id' => null,
@@ -476,7 +477,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '24',
             'name' => 'Cashew nuts',
             'master_plant_id' => null,
@@ -494,7 +495,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-      App\Plant::create([
+      Plant::create([
             'id' => '25',
             'name' => 'Chestnut',
             'master_plant_id' => null,
@@ -512,7 +513,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '26',
             'name' => 'Chickpea',
             'master_plant_id' => null,
@@ -530,7 +531,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-          App\Plant::create([
+          Plant::create([
             'id' => '27',
             'name' => 'Chilli Pepper',
             'master_plant_id' => null,
@@ -549,7 +550,7 @@ class PlantSeeder extends Seeder
         ]);
 
 
-           App\Plant::create([
+           Plant::create([
             'id' => '28',
             'name' => 'Chives',
             'master_plant_id' => null,
@@ -567,7 +568,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '29',
             'name' => 'Coffee',
             'master_plant_id' => null,
@@ -585,7 +586,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '30',
             'name' => 'Cotton',
             'master_plant_id' => null,
@@ -603,7 +604,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '31',
             'name' => 'Cowpea',
             'master_plant_id' => null,
@@ -621,7 +622,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-      App\Plant::create([
+      Plant::create([
             'id' => '32',
             'name' => 'Cress',
             'master_plant_id' => null,
@@ -639,7 +640,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '33',
             'name' => 'Cucumber',
             'master_plant_id' => null,
@@ -657,7 +658,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-          App\Plant::create([
+          Plant::create([
             'id' => '34',
             'name' => 'Eggplant',
             'master_plant_id' => null,
@@ -676,7 +677,7 @@ class PlantSeeder extends Seeder
         ]);
 
 
-           App\Plant::create([
+           Plant::create([
             'id' => '35',
             'name' => 'Garlic',
             'master_plant_id' => null,
@@ -694,7 +695,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '36',
             'name' => 'Grape',
             'master_plant_id' => null,
@@ -712,7 +713,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '37',
             'name' => 'Ginger',
             'master_plant_id' => null,
@@ -730,7 +731,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '38',
             'name' => 'Hazelnut (filbert)',
             'master_plant_id' => null,
@@ -748,7 +749,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-      App\Plant::create([
+      Plant::create([
             'id' => '39',
             'name' => 'Hop',
             'master_plant_id' => null,
@@ -766,7 +767,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '40',
             'name' => 'Lemon',
             'master_plant_id' => null,
@@ -784,7 +785,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-          App\Plant::create([
+          Plant::create([
             'id' => '41',
             'name' => 'Lentil',
             'master_plant_id' => null,
@@ -803,7 +804,7 @@ class PlantSeeder extends Seeder
         ]);
 
 
-           App\Plant::create([
+           Plant::create([
             'id' => '42',
             'name' => 'Lettuce',
             'master_plant_id' => null,
@@ -821,7 +822,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '43',
             'name' => 'Nutmeg',
             'master_plant_id' => null,
@@ -839,7 +840,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '44',
             'name' => 'Oats',
             'master_plant_id' => null,
@@ -857,7 +858,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '45',
             'name' => 'Oil palm',
             'master_plant_id' => null,
@@ -875,7 +876,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-      App\Plant::create([
+      Plant::create([
             'id' => '46',
             'name' => 'Orange',
             'master_plant_id' => null,
@@ -893,7 +894,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '47',
             'name' => 'Pea',
             'master_plant_id' => null,
@@ -911,7 +912,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-          App\Plant::create([
+          Plant::create([
             'id' => '48',
             'name' => 'Peanut (groundnut)',
             'master_plant_id' => null,
@@ -930,7 +931,7 @@ class PlantSeeder extends Seeder
         ]);
 
 
-           App\Plant::create([
+           Plant::create([
             'id' => '49',
             'name' => 'Pear',
             'master_plant_id' => null,
@@ -948,7 +949,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '50',
             'name' => 'Pepper, bell',
             'master_plant_id' => null,
@@ -966,7 +967,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '51',
             'name' => 'Pistachio',
             'master_plant_id' => null,
@@ -984,7 +985,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-    App\Plant::create([
+    Plant::create([
             'id' => '52',
             'name' => 'Potato',
             'master_plant_id' => null,
@@ -1002,7 +1003,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-      App\Plant::create([
+      Plant::create([
             'id' => '53',
             'name' => 'Pumpkin',
             'master_plant_id' => null,
@@ -1020,7 +1021,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '54',
             'name' => 'Radish',
             'master_plant_id' => null,
@@ -1038,7 +1039,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-          App\Plant::create([
+          Plant::create([
             'id' => '55',
             'name' => 'Rice',
             'master_plant_id' => null,
@@ -1056,7 +1057,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '56',
             'name' => 'Rye',
             'master_plant_id' => null,
@@ -1074,7 +1075,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]); 
 
-        App\Plant::create([
+        Plant::create([
             'id' => '57',
             'name' => 'Soybean',
             'master_plant_id' => null,
@@ -1092,7 +1093,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]); 
 
-        App\Plant::create([
+        Plant::create([
             'id' => '58',
             'name' => 'Spinach',
             'master_plant_id' => null,
@@ -1110,7 +1111,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);          
 
-          App\Plant::create([
+          Plant::create([
             'id' => '59',
             'name' => 'Sugarcane',
             'master_plant_id' => null,
@@ -1128,7 +1129,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '60',
             'name' => 'Sunflower',
             'master_plant_id' => null,
@@ -1146,7 +1147,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]); 
 
-        App\Plant::create([
+        Plant::create([
             'id' => '61',
             'name' => 'Sweet potato',
             'master_plant_id' => null,
@@ -1164,7 +1165,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]); 
 
-        App\Plant::create([
+        Plant::create([
             'id' => '62',
             'name' => 'Turnip',
             'master_plant_id' => null,
@@ -1182,7 +1183,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);          
 
-          App\Plant::create([
+          Plant::create([
             'id' => '63',
             'name' => 'Walnut',
             'master_plant_id' => null,
@@ -1200,7 +1201,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]);
 
-        App\Plant::create([
+        Plant::create([
             'id' => '64',
             'name' => 'Wheat',
             'master_plant_id' => null,
@@ -1218,7 +1219,7 @@ class PlantSeeder extends Seeder
             'user_id' => null,
         ]); 
 
-        App\Plant::create([
+        Plant::create([
             'id' => '65',
             'name' => 'Yams',
             'master_plant_id' => null,

@@ -81,7 +81,7 @@
   import {mapGetters,mapActions} from 'vuex'
 
 import {FarmService} from "../../../services/FarmService"; 
-  
+   
   export default {
     name: "FarmCreate",
     components: {
@@ -110,16 +110,17 @@ import {FarmService} from "../../../services/FarmService";
     created() {
     //   this.fetchData()
     },
-    methods: {
+    methods: { 
       ...mapActions('farm',['addFarm']),
       async saveFarm(){
         try {
                 const { data } = await FarmService.create(this.farm);//this.fetchParams)
                 //this.farms(data);
                 // this.farms = data;
+                
                 this.addFarm(this.farm);
                 this.$router.push({path: '/front/farm'});
-                console.log("farm :"+ JSON.stringify(data))
+                
                 // this.pagination.total = data.total
           } catch (e) {
                 // this.$store.commit('toast/NEW', { type: 'error', message: e.message, e })

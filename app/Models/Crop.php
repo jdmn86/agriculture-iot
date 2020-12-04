@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Crop extends Model
 {
@@ -16,7 +17,7 @@ class Crop extends Model
         // 'id_device',
         'id_terrain',
         'densidade_distribuicao_terreno',
-        'fase_cultivo_id',
+        'cropStage_id',
         'created_at',
         'expectedProduction',  
         'start_crop_date',
@@ -63,14 +64,14 @@ public function terrain()
      
        return $this->hasOne('App\Plant','id','id_plant');
    }
-    public function faseCultivo()
+    public function cropStage()
    {
-       return $this->belongsTo(FaseCultivo::class,'fase_cultivo_id','id'); 
+       return $this->belongsTo(PlantStage::class,'cropStage_id','id'); 
    }
 
-   public function pragas()
+   public function plague()
    {
-       return $this->belongsToMany('App\Praga','cultivo_pragas','cultivo_id','pragas_id');
+       return $this->belongsToMany('App\Plague','crop_plagues','crop_id','plague_id');
    }
 
 }
