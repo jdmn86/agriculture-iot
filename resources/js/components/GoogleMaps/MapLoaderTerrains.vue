@@ -4,7 +4,7 @@
     <!-- <div  v-if="terrains && google"  >  -->
  
  
-		  <div style=" height: 80vh" id="map" ref="googleMap" >
+		  <div style=" height: 72vh" id="map" ref="googleMap" >
         
 			
 		</div>   

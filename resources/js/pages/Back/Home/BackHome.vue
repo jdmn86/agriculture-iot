@@ -4,7 +4,7 @@
                   <HeadContainer :title="title" >
                        
                         <template slot="search">
-                              <h1>search slot</h1>
+                              
                         </template>
 
                   </HeadContainer> 
@@ -12,7 +12,7 @@
                   <BodyContainer >
 
                         <template slot="body">
-                              <h1>Back home</h1>
+                              <h1>Back home</h1> 
                         </template> 
 
                   </BodyContainer>
@@ -33,7 +33,7 @@ export default {
   name: "Back",
   data() {
     return {
-      title: "home Back",
+       title: "Home ",
     };
   },
   components: {

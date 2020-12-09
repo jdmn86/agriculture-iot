@@ -21,9 +21,14 @@ class PermissionTableSeeder extends Seeder
 
         $permissions = [
             'role-list',
-            'role-create',
+            'role-create', 
             'role-edit',
             'role-delete',
+
+            'permission-list',
+            'permission-create', 
+            'permission-edit',
+            'permission-delete',
 
             'user-list',
             'user-create',
@@ -134,6 +139,33 @@ class PermissionTableSeeder extends Seeder
             'PlaguePlantPartsAnatomy-create',
             'PlaguePlantPartsAnatomy-edit',
             'PlaguePlantPartsAnatomy-delete',
+
+            'companyAddress-list',
+            'companyAddress-create',
+            'companyAddress-edit',
+            'companyAddress-delete',
+
+            'cropPlague-list',
+            'cropPlague-create',
+            'cropPlague-edit',
+            'cropPlague-delete',
+
+            'device-list',
+            'device-create',
+            'device-edit',
+            'device-delete',
+
+            'plantAnalyse-list',
+            'plantAnalyse-create',
+            'plantAnalyse-edit',
+            'plantAnalyse-delete',
+
+            'plantPlague-list',
+            'plantPlague-create',
+            'plantPlague-edit',
+            'plantPlague-delete',
+
+            
             ];
 
             foreach ($permissions as $permission) {

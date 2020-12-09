@@ -4,7 +4,7 @@ import { ErrorWrapper, ResponseWrapper } from './util'
 
 export class PermissionService extends BaseService {
   static get entity () {
-    return 'permissions'
+    return 'permission'
   }
 
 //   static async getPostsByUserId (params = {}) {

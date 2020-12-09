@@ -51,6 +51,7 @@ export class BaseService {
       //   content: response.data.data,
       //   total: Number(response.headers['x-total-count'])
       // }
+      
       const data = response.data;
 
       return new ResponseWrapper(response, data)
@@ -94,8 +95,8 @@ export class BaseService {
     assert.object(data, { required: true })
 
     try {
-      const response = await this.request({ auth: true }).post(`${this.entity}`, data)
-      return new ResponseWrapper(response, response.data.data)
+      const response = await this.request({ auth: true }).post(`${this.entity}`, data)      
+      return new ResponseWrapper(response, response.data)
     } catch (error) {
       throw new ErrorWrapper(error)
     }
@@ -106,8 +107,8 @@ export class BaseService {
     assert.object(data, { required: true })
 
     try {
-      const response = await this.request({ auth: true }).patch(`${this.entity}/${id}`, data)
-      return new ResponseWrapper(response, response.data.data)
+      const response = await this.request({ auth: true }).patch(`${this.entity}/${id}`, data)  
+      return new ResponseWrapper(response, response.data)
     } catch (error) {
       throw new ErrorWrapper(error)
     }

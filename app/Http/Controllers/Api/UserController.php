@@ -4,58 +4,107 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use App\Models\User;
 
-// use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Auth;
-// use Spatie\Permission\Models\Role;
-// use DB; 
-// use Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission; 
+use DB;
 
-class UserController extends Controller
+use Illuminate\Support\Facades\Hash;
+
+
+class UserController extends Controller 
 {
-   
+    function __construct() 
+    { 
+        $this->middleware('auth');//->except('logout');
+    
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:user-create', ['only' => ['store']]);
+        $this->middleware('permission:user-edit', ['only' => ['update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
    
 /**
 * Display a listing of the resource.
 *
 * @return \Illuminate\Http\Response
 */
-public function index(Request $request)
+public function index(): JsonResponse
 {
-    $data = User::orderBy('id','DESC')->paginate(5);
-    return view('users.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
+    
+//exemplo so para um     return new UserResource(User::findOrFail(1));
+
+//     $currentUser =  Auth::user()->company_id;
+// return response()->json($currentUser);
+
+    if(auth()->user()->hasRole('admin')){
+        
+        $users = User::all();
+
+    }else {
+        $users = User::where('company_id',auth()->user()->company_id)->get();
+
+    }
+    
+    return response()->json($users);
+    
 }
-/**
-* Show the form for creating a new resource.
-*
-* @return \Illuminate\Http\Response
-*/
-public function create()
-{
-    $roles = Role::pluck('name','name')->all();
-    return view('users.create',compact('roles'));
-}
+
 /**
 * Store a newly created resource in storage.
 *
 * @param  \Illuminate\Http\Request  $request
 * @return \Illuminate\Http\Response
 */
-public function store(Request $request)
+public function store(Request $request): JsonResponse
 {
-    $this->validate($request, [
-    'name' => 'required',
-    'email' => 'required|email|unique:users,email',
-    'password' => 'required|same:confirm-password',
-    'roles' => 'required'
-    ]);
+    // $this->validate($request, [
+    // 'name' => 'required',
+    // 'email' => 'required|email|unique:users,email',
+    // 'company_id' => 'required',
+    // // 'password' => 'required|same:confirm-password',
+    // // 'roles' => 'required'
+    // ]);
 
-    $input = $request->all();
-    $input['password'] = Hash::make($input['password']);
-    $user = User::create($input);
-    $user->assignRole($request->input('roles'));
-    return redirect()->route('users.index')->with('success','User created successfully');
+// return Role::findByName('adminCompany');;
+
+    if(auth()->user()->hasRole('admin')){
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['email']);
+        $user = User::create($input);
+
+
+        $role = Role::findByName('adminCompany');
+
+        $permissions = Role::findByName('adminCompany')->permissions;
+        
+        $role->syncPermissions($permissions);
+
+        $user->assignRole($role);        
+
+    }else if(auth()->user()->hasRole('adminCompany') ){
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['email']);
+        $user = User::create($input);
+
+
+        // $role = Role::create(['name' => 'adminCompany']);
+        $role =Role::findByName('user');
+
+        $permissions = Role::findByName('user')->permissions;
+        
+        $role->syncPermissions($permissions);
+
+        $user->assignRole($role);
+        
+    }
+    
+    return response()->json($user);    
+    
 }
 /**
 * Display the specified resource.
@@ -63,24 +112,12 @@ public function store(Request $request)
 * @param  int  $id
 * @return \Illuminate\Http\Response
 */
-public function show($id)
+public function show($id): JsonResponse
 {
     $user = User::find($id);
-    return view('users.show',compact('user'));
+    return response()->json($user);    
 }
-/**
-* Show the form for editing the specified resource.
-*
-* @param  int  $id
-* @return \Illuminate\Http\Response
-*/
-public function edit($id)
-{
-    $user = User::find($id);
-    $roles = Role::pluck('name','name')->all();
-    $userRole = $user->roles->pluck('name','name')->all();
-    return view('users.edit',compact('user','roles','userRole'));
-}
+
 /**
 * Update the specified resource in storage.
 *
@@ -88,7 +125,7 @@ public function edit($id)
 * @param  int  $id
 * @return \Illuminate\Http\Response
 */
-public function update(Request $request, $id)
+public function update(Request $request, $id): JsonResponse
 {
     $this->validate($request, [
     'name' => 'required',
@@ -117,7 +154,7 @@ public function update(Request $request, $id)
 * @param  int  $id
 * @return \Illuminate\Http\Response
 */
-public function destroy($id)
+public function destroy($id): JsonResponse
 {
     User::find($id)->delete();
     return redirect()->route('users.index')->with('success','User deleted successfully');

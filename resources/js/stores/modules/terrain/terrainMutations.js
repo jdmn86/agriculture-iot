@@ -1,15 +1,22 @@
 export default {
-    terrains: (state, terrains) => {
-        state.terrains = terrains;
+    setTerrains: (state, list) => {
+        state.terrains = list;
     },
-    addFarm: (state, farm) => {
-        state.farms.push(farm);
+    addTerrain: (state, terrain) => {
+        state.terrains.push(terrain);
     },
-    updateFarm:(state,farm) =>{
-        const f = state.farms.find(item => item.id == farm.id);
-        Object.assign(f, farm);
+    updateTerrain:(state,terrain) =>{
+        const t = state.terrains.find(item => item.id == terrain.id);
+        Object.assign(t, terrain);
     },
-    removerFarm: (state, farm) =>{
-        state.farms.pop(farm);
+    removerTerrain: (state, terrain) =>{
+        state.terrains.pop(terrain);
+    },
+    setTerrainSelected:(state,terrain)=>{
+        
+        if(state.terrains){
+            state.terrainSelected = terrain;
+            
+        }
     }
-}   
+}    

@@ -19,8 +19,8 @@ class CompanyController extends Controller
     $this->middleware('auth');//->except('logout');
 
     $this->middleware('permission:company-list|company-create|company-edit|company-delete', ['only' => ['index','store']]);
-    $this->middleware('permission:company-create', ['only' => ['create','store']]);
-    $this->middleware('permission:company-edit', ['only' => ['edit','update']]);
+    $this->middleware('permission:company-create', ['only' => ['store']]);
+    $this->middleware('permission:company-edit', ['only' => ['update']]);
     $this->middleware('permission:company-delete', ['only' => ['destroy']]);
 }
 
@@ -39,20 +39,21 @@ class CompanyController extends Controller
      */
     public function index(): JsonResponse
     {
-        $companys = Company::orderBy('id','DESC')->paginate(5);
-        // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-        return response()->json($companys);
-    }
+        //so mostra o do user current se for adminCompany or user
+        if(auth()->user()->hasRole('admin')){
+            $company=Company::all();
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $company = Company::get();
-        return view('companys.create',compact('company'));
+        if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
+
+            // $user = Auth::user();//->company_id();    
+
+           $company = Company::where('id',auth()->user()->company_id)->get();
+        }
+        
+        
+        return response()->json($company);
+
     }
 
     /**
@@ -64,12 +65,25 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+            // 'is_company' => 'required',
+            'name' => 'required',
+            'company_name' => 'required',
+            'nif' => 'required',
+            'email' => 'required',
+            'email_notifications' => 'required',
             ]);
-            $role = Role::create(['name' => $request->input('name')]);
-            $role->syncPermissions($request->input('permission'));
-            return redirect()->route('roles.index')->with('success','Role created successfully');
+
+            $company = Company::create([
+                 'is_company' => true, //$request->input('is_company'),
+                'name' => $request->input('name'),
+                'company_name' => $request->input('company_name'),
+                'nif' => $request->input('nif'),
+                'email' => $request->input('email'),
+                'email_notifications' => $request->input('email_notifications'),
+                ]);
+
+            //$role->syncPermissions($request->input('permission'));
+            return response()->json($company);
     }
 
     /**
@@ -86,21 +100,6 @@ class CompanyController extends Controller
 
         return response()->json($company);
         // return view('roles.show',compact('role','rolePermissions'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Company $company)
-    {
-        $role = Role::find($id);
-        $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-        ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')->all();
-        return view('roles.edit',compact('role','permission','rolePermissions'));
     }
 
     /**

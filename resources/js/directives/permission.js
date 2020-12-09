@@ -1,14 +1,15 @@
-// Register a global custom directive called `v-focus`
-Vue.directive('can', {
-    // When the bound element is inserted into the DOM...
-    bind: function (el, binding, vnode) {
+import Vue from 'vue'
+import Store from './../stores'
 
-        if( this.$store.getters.auth.userPermissions.indexOf(el.binding.value) !== -1){
-            
+export default Vue.directive('can', {
+
+    bind: function (el, binding, vnode) {
+        if( Store.getters["auth/userPermissions"].indexOf(binding.value) !== -1){
+            //Store
         }else{
             el.style.visibility = "hidden" ;
         }       
         
     }
-  })
+   })
 

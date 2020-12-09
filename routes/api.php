@@ -48,14 +48,15 @@ use Illuminate\Support\Str;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 
+// Route::group(['prefix' => 'auth:api'], function () {
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', [AuthController::class,'login'])->name('login');
+    Route::post('login', [AuthController::class,'login'])->name('login')->middleware('api');
     Route::post('register', [AuthController::class,'register'])->name('register');
     Route::get('current-user', [AuthController::class,'getCurrentUser'])->name('current-user')->middleware('auth:api');
     Route::delete('logout', [AuthController::class,'logout'])->name('logout')->middleware('auth:api');
@@ -68,15 +69,18 @@ Route::group(['prefix' => 'auth', 'as' => 'api.auth.'], function () {
     Route::post('reset', [ResetPasswordController::class,'reset'])->name('reset');
 });
 
-
+// Route::group(['middleware' => ['auth:api']], function () {
+//  Auth::routes();
+// });
 
 Route::group(['middleware' => ['auth:api']], function() {
-    Route::resources([
-    'roles' => RoleController::class,
-    'users' => UserController::class,
-    'companys' => CompanyController::class,
-    'permissions' => PermissionController::class,
-    'farm' => FarmController::class,
+    Route::apiResources([
+    'role' => RoleController::class,
+    'user' => UserController::class,
+    'company' => CompanyController::class,
+    'farm' => FarmController::class,    
+    'permission' => PermissionController::class,
+    
     'plant' => PlantController::class,
     'crop' => CropController::class,
     'terrain' => TerrainController::class,

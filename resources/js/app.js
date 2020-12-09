@@ -61,6 +61,12 @@ import VueGeolocation from 'vue-browser-geolocation';
 Vue.use(VueGeolocation);
 
 
+import vSelect from 'vue-select'
+
+Vue.component('v-select', vSelect)
+
+import "./directives/permission"
+
 const app = new Vue({
     el: "#app",
 

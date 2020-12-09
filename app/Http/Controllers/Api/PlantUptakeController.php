@@ -12,14 +12,14 @@ use Spatie\Permission\Models\Permission;
 use DB;
 
 class PlantUptakeController extends Controller
-{
+{ 
     function __construct()
     {
         $this->middleware('auth');//->except('logout');
     
         $this->middleware('permission:plantUptake-list|plantUptake-create|plantUptake-edit|plantUptake-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:plantUptake-create', ['only' => ['create','store']]);
-        $this->middleware('permission:plantUptake-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:plantUptake-create', ['only' => ['store']]);
+        $this->middleware('permission:plantUptake-edit', ['only' => ['update']]);
         $this->middleware('permission:plantUptake-delete', ['only' => ['destroy']]);
     }
         /**
@@ -33,25 +33,14 @@ class PlantUptakeController extends Controller
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
             return response()->json($terrain);
         }
-    
-        /**
-         * Show the form for creating a new resource.
-         *
-         * @return \Illuminate\Http\Response
-         */
-        // public function create()
-        // {
-        //     $company = Company::get();
-        //     return view('companys.create',compact('company'));
-        // }
-    
+
         /**
          * Store a newly created resource in storage.
          *
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */
-        public function store(Request $request)
+        public function store(Request $request): JsonResponse
         {
             $this->validate($request, [
                 'name' => 'required',//|unique:roles,name',
@@ -85,20 +74,6 @@ class PlantUptakeController extends Controller
             // return view('roles.show',compact('role','rolePermissions'));
         }
     
-        /**
-         * Show the form for editing the specified resource.
-         *
-         * @param  \App\Models\Company  $company
-         * @return \Illuminate\Http\Response
-         */
-        public function edit(Company $company)
-        {
-            $role = Role::find($id);
-            $permission = Permission::get();
-            $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')->all();
-            return view('roles.edit',compact('role','permission','rolePermissions'));
-        }
     
         /**
          * Update the specified resource in storage.
@@ -107,7 +82,7 @@ class PlantUptakeController extends Controller
          * @param  \App\Models\Company  $company
          * @return \Illuminate\Http\Response
          */
-        public function update(Request $request, Company $company)
+        public function update(Request $request, Company $company): JsonResponse
         {
             $this->validate($request, [
             'name' => 'required',
@@ -127,7 +102,7 @@ class PlantUptakeController extends Controller
          * @param  \App\Models\Company  $company
          * @return \Illuminate\Http\Response
          */
-        public function destroy(Company $company)
+        public function destroy(Company $company): JsonResponse
         {
             DB::table("roles")->where('id',$id)->delete();
             return redirect()->route('roles.index')->with('success','Role deleted successfully');

@@ -24,7 +24,8 @@ class FarmSeeder extends Seeder
             // 'id' => '1',
             'name' => "Farm 1",
 	        'farm_company' => '1',
-	        'localizacao' => 'Leiria',	        
+            'localizacao' => 'Leiria',
+            'areaTotal' => '4488.50',
 	        
         ]);
     }

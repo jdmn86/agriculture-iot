@@ -1,4 +1,4 @@
-import { FrontHome, BackHome, Welcome, PasswordReset, Company,NotFound,Users,Permissions,Role,Farm,CompanyUser,FarmCreate,Terrain,TerrainCreate,Crop,Plant} from "../pages";
+import { FrontHome, BackHome, Welcome, PasswordReset, Company,NotFound,Users,PermissionRole,Farm,FarmShow,CompanyUser,Terrain,TerrainCreate,FarmCreate,Crop,Plant,CompanyCreate,UserCreate} from "../pages";
 
 // import TopNavBar from "../layouts/TopNavBar";
 import TopNavBarUser from "../layouts/TopNavBarUser";
@@ -56,8 +56,26 @@ export const routes = [
         },
         children: [            
             {
+                name: 'farmShow',
+                path: ':farmId',
+                component: FarmShow,
+                meta: {
+                    role: 'adminCompany',
+                    requireAuth: true,
+                },
+            },
+            {
                 name: 'farmCreate',
                 path: 'create',
+                component: FarmCreate,
+                meta: {
+                    role: 'adminCompany',
+                    requireAuth: true,
+                },
+            },
+            {
+                name: 'farmEdit',
+                path: 'edit/:farmId',
                 component: FarmCreate,
                 meta: {
                     role: 'adminCompany',
@@ -67,7 +85,7 @@ export const routes = [
         ]         
     },       
     {
-        name: "farm",
+        name: "Terrain",
         path: "/front/terrain",
         components: { 
                 default: Terrain,
@@ -147,30 +165,46 @@ export const routes = [
                     role: 'admin',
                     requireAuth: true,
                 },
+                children: [
+                    {
+                        name: "userCreate",
+                        path: 'create',
+                        component: UserCreate,
+                        meta: {
+                            role: 'admin',
+                            requireAuth: true,
+                        },
+                    },
+                ]
             },
-            {
-                path: 'permissions',
-                component: Permissions,
+             {
+                name: "permissionRole",
+                path: 'permissionRole',
+                component: PermissionRole,
                 meta: {
                     role: 'admin',
                     requireAuth: true,
                 },
             },
+           
             {
-                path: 'roles',
-                component: Role,
-                meta: {
-                    role: 'admin',
-                    requireAuth: true,
-                },
-            },
-            {
-                path: 'companys',
+                path: 'company',
                 component: Company,
                 meta: {
                     role: 'admin',
                     requireAuth: true,
                 },
+                children: [
+                    {
+                        name: "companyCreate",
+                        path: 'create',
+                        component: CompanyCreate,
+                        meta: {
+                            role: 'admin',
+                            requireAuth: true,
+                        },
+                    },
+                ]
             }
         ]
     },    

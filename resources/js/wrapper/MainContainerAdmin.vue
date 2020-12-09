@@ -1,17 +1,23 @@
 <template>
+    <main> 
       <div id="demo" :class="[{'collapsed' : collapsed}]">
-            <b-container fluid>
+            <!-- <b-container fluid> -->
       <!--  <div class="py-4 main">
                   <div class="container">
                         <div class="row justify-content-center"> -->
                         <!-- <div class="container-fluid"> -->
 
+                            <TopNavBarUser/>
+
                               <slot></slot>
 
                               
 
-                              <template>
-                                    <sidebar-menu :menu="menu" :width="'180px'"/>
+                              <template> 
+                                   <sidebar-menu :collapsed="collapsed"
+                                    :show-one-child="true"
+                                    @toggle-collapse="onToggleCollapse"
+                                    @item-click="onItemClick" :menu="menu" :width="'180px'"/>
                                   </template>
 
                               <!-- <SidebarMenu :collapsed="collapsed"
@@ -22,16 +28,19 @@
                         <!-- </div> -->
             <!--      </div>
             </div> -->
-            </b-container> 
+            <!-- </b-container> -->
       </div>
+    </main> 
 </template>
 
 <script>
-      import { SidebarMenu } from 'vue-sidebar-menu'
+      import { SidebarMenu } from 'vue-sidebar-menu';
+      import TopNavBarUser from "../layouts/TopNavBarUser";
 export default {
   name: "MainContainerAdmin",
  components:{
       SidebarMenu,
+      TopNavBarUser
  },
  data(){
             return{
@@ -48,8 +57,8 @@ export default {
                         icon: 'fa fa-user'
                     },
                     {
-                        href: '/backAdmin/permissions',
-                        title: 'permissions',
+                        href: '/backAdmin/permissionRole',
+                        title: 'permissionRole',
                         icon: 'fa fa-user'
                     },
                     {

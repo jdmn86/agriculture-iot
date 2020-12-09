@@ -12,14 +12,14 @@ use Spatie\Permission\Models\Permission;
 use DB;
 
 class PlantTypeController extends Controller
-{
+{ 
     function __construct()
     {
         $this->middleware('auth');//->except('logout');
     
         $this->middleware('permission:plantType-list|plantType-create|plantType-edit|plantType-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:plantType-create', ['only' => ['create','store']]);
-        $this->middleware('permission:plantType-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:plantType-create', ['only' => ['store']]);
+        $this->middleware('permission:plantType-edit', ['only' => ['update']]);
         $this->middleware('permission:plantType-delete', ['only' => ['destroy']]);
     }
         /**
@@ -35,23 +35,12 @@ class PlantTypeController extends Controller
         }
     
         /**
-         * Show the form for creating a new resource.
-         *
-         * @return \Illuminate\Http\Response
-         */
-        // public function create()
-        // {
-        //     $company = Company::get();
-        //     return view('companys.create',compact('company'));
-        // }
-    
-        /**
          * Store a newly created resource in storage.
          *
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */
-        public function store(Request $request)
+        public function store(Request $request): JsonResponse
         {
             $this->validate($request, [
                 'name' => 'required',//|unique:roles,name',
@@ -91,7 +80,7 @@ class PlantTypeController extends Controller
          * @param  \App\Models\Company  $company
          * @return \Illuminate\Http\Response
          */
-        public function edit(Company $company)
+        public function edit(Company $company): JsonResponse
         {
             $role = Role::find($id);
             $permission = Permission::get();
@@ -107,7 +96,7 @@ class PlantTypeController extends Controller
          * @param  \App\Models\Company  $company
          * @return \Illuminate\Http\Response
          */
-        public function update(Request $request, Company $company)
+        public function update(Request $request, Company $company): JsonResponse
         {
             $this->validate($request, [
             'name' => 'required',
@@ -127,7 +116,7 @@ class PlantTypeController extends Controller
          * @param  \App\Models\Company  $company
          * @return \Illuminate\Http\Response
          */
-        public function destroy(Company $company)
+        public function destroy(Company $company): JsonResponse
         {
             DB::table("roles")->where('id',$id)->delete();
             return redirect()->route('roles.index')->with('success','Role deleted successfully');

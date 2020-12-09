@@ -9,46 +9,38 @@ use Illuminate\Http\JsonResponse;
 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DB;
+use DB; 
+
 
 class PermissionController extends Controller
 {
     function __construct()
 {
-    // $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-    // $this->middleware('permission:role-create', ['only' => ['create','store']]);
-    // $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-    // $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    $this->middleware('permission:permission-list|permission-create|permission-edit|permission-delete', ['only' => ['index','store']]);
+    $this->middleware('permission:permission-create', ['only' => ['store']]);
+    $this->middleware('permission:permission-edit', ['only' => ['update']]);
+    $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
 }
 /**
 * Display a listing of the resource.
 *
 * @return \Illuminate\Http\Response
 */
-public function index(Request $request)
+public function index(): JsonResponse
 {
-    $permission = Permission::orderBy('id','DESC')->paginate(5);
+    if(auth()->user()->hasRole('admin')){
 
-    return response()->json($permission);
-    // return view('roles.index',compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return response()->json(Permission::all());
+    }
 }
-/**
-* Show the form for creating a new resource.
-*
-* @return \Illuminate\Http\Response
-*/
-public function create()
-{
-    $permission = Permission::get();
-    return view('roles.create',compact('permission'));
-}
+
 /**
 * Store a newly created resource in storage.
 *
 * @param  \Illuminate\Http\Request  $request
 * @return \Illuminate\Http\Response
 */
-public function store(Request $request): JsonResponse
+public function store(PermissionRequest $request): JsonResponse
 {
     $this->validate($request, [
     'name' => 'required|unique:permissions,name',    
@@ -66,27 +58,12 @@ public function store(Request $request): JsonResponse
 * @param  int  $id
 * @return \Illuminate\Http\Response
 */
-public function show($id)
+public function show($id): JsonResponse
 {
-    $role = Role::find($id);
-    $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-    ->where("role_has_permissions.role_id",$id)->get();
-    return view('roles.show',compact('role','rolePermissions'));
+    
+    return response()->json(Role::find($id));
 }
-/**
-* Show the form for editing the specified resource.
-*
-* @param  int  $id
-* @return \Illuminate\Http\Response
-*/
-public function edit($id)
-{
-    $role = Role::find($id);
-    $permission = Permission::get();
-    $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-    ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')->all();
-    return view('roles.edit',compact('role','permission','rolePermissions'));
-}
+
 /**
 * Update the specified resource in storage.
 *
@@ -94,7 +71,7 @@ public function edit($id)
 * @param  int  $id
 * @return \Illuminate\Http\Response
 */
-public function update(Request $request, $id)
+public function update(Request $request, $id): JsonResponse
 {
     $this->validate($request, [
     'name' => 'required',
@@ -113,7 +90,7 @@ public function update(Request $request, $id)
 * @param  int  $id
 * @return \Illuminate\Http\Response
 */
-public function destroy($id)
+public function destroy($id): JsonResponse
 {
     DB::table("roles")->where('id',$id)->delete();
     return redirect()->route('roles.index')->with('success','Role deleted successfully');

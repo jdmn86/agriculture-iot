@@ -4,7 +4,7 @@ import { ErrorWrapper, ResponseWrapper } from './util'
 
 export class RoleService extends BaseService {
   static get entity () {
-    return 'roles'
+    return 'role'
   }
 
 //   static async getPostsByUserId (params = {}) {

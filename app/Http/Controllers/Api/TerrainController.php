@@ -12,15 +12,15 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
 
-class TerrainController extends Controller
+class TerrainController extends Controller 
 {
     function __construct()
     {
         $this->middleware('auth');//->except('logout');
     
         $this->middleware('permission:terrain-list|terrain-create|terrain-edit|terrain-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:terrain-create', ['only' => ['create','store']]);
-        $this->middleware('permission:terrain-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:terrain-create', ['only' => ['store']]);
+        $this->middleware('permission:terrain-edit', ['only' => ['update']]);
         $this->middleware('permission:terrain-delete', ['only' => ['destroy']]);
     }
         /**
@@ -30,7 +30,7 @@ class TerrainController extends Controller
          */
         public function index(): JsonResponse
         {
-            $terrain = Terrain::orderBy('id','DESC')->paginate(5);
+            $terrain = Terrain::all();
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
             return response()->json($terrain);
         }
@@ -52,7 +52,7 @@ class TerrainController extends Controller
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */
-        public function store(Request $request)
+        public function store(Request $request): JsonResponse
         {
             $this->validate($request, [
                 'name' => 'required',//|unique:roles,name',
@@ -85,22 +85,6 @@ class TerrainController extends Controller
             return response()->json($terrain);
             // return view('roles.show',compact('role','rolePermissions'));
         }
-    
-        /**
-         * Show the form for editing the specified resource.
-         *
-         * @param  \App\Models\Company  $company
-         * @return \Illuminate\Http\Response
-         */
-        public function edit(Company $company)
-        {
-            $role = Role::find($id);
-            $permission = Permission::get();
-            $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')->all();
-            return view('roles.edit',compact('role','permission','rolePermissions'));
-        }
-    
         /**
          * Update the specified resource in storage.
          *
@@ -108,7 +92,7 @@ class TerrainController extends Controller
          * @param  \App\Models\Company  $company
          * @return \Illuminate\Http\Response
          */
-        public function update(Request $request, Company $company)
+        public function update(Request $request, Terrain $company): JsonResponse
         {
             $this->validate($request, [
             'name' => 'required',
@@ -128,7 +112,7 @@ class TerrainController extends Controller
          * @param  \App\Models\Company  $company
          * @return \Illuminate\Http\Response
          */
-        public function destroy(Company $company)
+        public function destroy(Terrain $company): JsonResponse
         {
             DB::table("roles")->where('id',$id)->delete();
             return redirect()->route('roles.index')->with('success','Role deleted successfully');

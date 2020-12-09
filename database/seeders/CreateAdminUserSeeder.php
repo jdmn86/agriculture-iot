@@ -8,6 +8,8 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+use Illuminate\Support\Facades\Hash;
+
 class CreateAdminUserSeeder extends Seeder
 {
 /**
@@ -17,19 +19,23 @@ class CreateAdminUserSeeder extends Seeder
 */
     public function run()
     {
+        // 'password' => bcrypt('admin'),
+        // 'password' => Hash::make('admin'),
+
         $user = User::create([
         'name' => 'admin',
         'email' => 'admin@admin.com',
-        'password' => bcrypt('admin'),
+        'password' => Hash::make('admin'),
         'company_id' => null
         ]);
 
-        $role = Role::create(['name' => 'admin']);
+         $role = Role::create(['name' => 'admin']);
+        // $role =Role::findByName('Super Admin');
 
         $permissions = Permission::pluck('id','id')->all();
         
         $role->syncPermissions($permissions);
         
-        $user->assignRole([$role->id]);
+        $user->assignRole($role);
     }
 }

@@ -127,7 +127,7 @@
   import BodyContainer from "../../../wrapper/BodyContainer";
 //   import NoDataContainer from "../../../components/NoDataContainer";
 
-  import UiModal from "../../../components/UiModal";
+  // import UiModal from "../../../components/UiModal";
 
   // import Sidebar from '../../../components/menu/SidebarMenu.vue';
 

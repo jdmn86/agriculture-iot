@@ -13,7 +13,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Spatie\Permission\Traits\HasRoles;
 
 use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Auth;
+
+ use Illuminate\Support\Facades\Auth;
 
 
 
@@ -28,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name', 
         'email',
         'password',
         'company_id'
@@ -53,14 +54,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-     protected $appends = ['all_permissions'];
-
     
-     public function Company()
+
+    //  protected $guard_name = 'api';
+    
+     public function company()
     {
         return $this->belongsTo(Company::class,'company_id','id'); 
     }
 
+    protected $appends = ['all_permissions'];
+    
     public function getAllPermissionsAttribute() {
         $permissions = []; 
           foreach (Permission::all() as $permission) {

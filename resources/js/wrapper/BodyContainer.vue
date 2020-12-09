@@ -2,7 +2,7 @@
     <div>
         <b-row style="margin: 10px; padding-top: 25px; ">
 
-            <b-container fluid  style=" background-color: #f8f9fa; margin: 0px; ">
+            <b-container fluid  align-h="center" style=" background-color: #f8f9fa; margin: 0px; ">
 
                 <slot name="body"></slot>
 
@@ -67,7 +67,7 @@
 <script>
     import {mapGetters,mapMutations,mapActions} from 'vuex'
     export default {
-      name: "BodyContent",
+      name: "BodyContainer",
       props: {
         //  data: { type: Boolean, default: false },
         title: { type: String, default: null },

@@ -1,14 +1,20 @@
 <template>
 
-  <MainContainerAdmin>
-    <div class="col-md-12">
-          <HeadContainer>
+  <!-- <MainContainerAdmin> -->
+      
+      
+
+            <!-- <HeadContainer :title="title">
                 <template slot="top">Users</template>
                 <template slot="search">searche</template>
-          </HeadContainer>
+          </HeadContainer> -->
 
-          <BodyContainer>
-                <template slot="body">
+          <!-- <BodyContainer> -->
+                <!-- <template slot="body"> -->
+            <div>
+                  <Loading :loading.sync="loading" ></Loading>
+                  <!-- <router-view></router-view> -->
+
                       <table class="table table-borderless">
                             <thead>
                                   <tr>
@@ -18,7 +24,7 @@
                                   </tr>
                             </thead>
                             <tbody>
-                                  <tr v-if="users.length == 0">
+                                  <tr v-if="users && users.length == 0">
                                         <td colspan="4" style="text-align: center">No data available</td>
                                   </tr>
                                   <tr v-for="(user, index) in users" :key="user.id" v-else>
@@ -28,16 +34,15 @@
                                   </tr>
                             </tbody>
                       </table>
-                </template> 
-                 
-          </BodyContainer> 
+                <!-- </template>  -->
+                <b-button   @click="$router.push({name:'userCreate'})" variant="light"   style=" border-color: #4AAD37 ;color: #4AAD37;margin-bottom: 10px ">Add Company</b-button>
 
-           <router-view></router-view>
-           <slot></slot>
-    </div>
+                <router-view></router-view>
+      </div>
+
 
   
-   </MainContainerAdmin>
+   <!-- </MainContainerAdmin> -->
 </template>
 
 <script>
@@ -45,33 +50,64 @@
   import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContainer from "../../../wrapper/BodyContainer";
   // import Sidebar from '../../../components/menu/SidebarMenu.vue';
-
+  import Loading from "../../../components/Loading";
   // import UserService from "../../../services/UserService";
+  import {mapGetters,mapActions} from 'vuex'
+  import {UserService} from "../../../services/UserService";
 
   export default {
     name: "Users",
     data() {
-      return {users: []};
+      return {
+            title: "Users",
+            loading: false,
+            // users: [],
+      };
     },
     components: {
       MainContainerAdmin,
       HeadContainer,
       BodyContainer,
+      Loading
+    },
+    computed : {
+            ...mapGetters('user',['users']),
     },
     created() {
       // this.getAllUsers();
     },
     methods: {
-      // getAllUsers() {
-      //   UserService.getAllUsers()
-      //     .then(userList => {
-      //       this.users = userList;
-      //     })
-      //     .catch(error => {
-      //       console.log(error);
-      //     });
-      // }
-    }
+      ...mapActions('user',['setUsers']),
+      async fetchData () {
+
+            this.loading = true
+            try {
+                  const { data } = await UserService.getList();//this.fetchParams)
+                  this.setUsers(data);
+
+            } catch (e) {
+                  // this.$store.commit('toast/NEW', { type: 'error', message: e.message, e })
+                  this.error = e.message
+                  console.log(e)
+            } finally {
+             this.loading = false
+            }
+
+
+            }
+      },
+      mounted () {
+
+            console.log("---------Mounted---------");
+      this.fetchData().then(() => {
+
+            console.log("afect fetch");
+
+            });
+
+            console.log("Mounted Farm.vue");
+
+      },
   };
 </script>
 

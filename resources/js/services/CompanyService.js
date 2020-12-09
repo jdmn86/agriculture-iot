@@ -4,7 +4,7 @@ import { ErrorWrapper, ResponseWrapper } from './util'
 
 export class CompanyService extends BaseService {
   static get entity () {
-    return 'companys'
+    return 'company'
   }
 
 //   static async getPostsByUserId (params = {}) {
@@ -25,7 +25,7 @@ export class CompanyService extends BaseService {
 //     }
 //   }
 }
-
+ 
 // import Api from "./Api";
 
 // /**

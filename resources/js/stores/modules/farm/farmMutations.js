@@ -1,5 +1,5 @@
 export default {
-    farms: (state, list) => {
+    setFarms: (state, list) => {
         state.farms = list;        
     },
     addFarm: (state, f) => {
@@ -16,7 +16,14 @@ export default {
     },
     removerFarm: (state, farm) =>{
         state.farms.pop(farm);
+    },
+    setFarmSelected:(state,farm)=>{
+                
+        if(state.farms){
+            state.farmSelected = farm;
+           
+        }
     }
 }  
 
-
+ 
