@@ -2,7 +2,7 @@ require("./bootstrap");
 
 import Vue from "vue";
 import MainApp from "./layouts/MainApp";
-import stores from "./stores/index";
+// import stores from "./stores/index";
 import Router from "./routes";
 
 //bootstrap  and awesome
@@ -71,7 +71,7 @@ const app = new Vue({
     el: "#app",
 
     router: Router,
-    store: stores,
+    // store: stores,
     i18n,
 
     render: h => h(MainApp)

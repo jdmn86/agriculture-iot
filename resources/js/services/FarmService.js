@@ -24,7 +24,7 @@ export class FarmService extends BaseService {
 //       throw new ErrorWrapper(error, message)
 //     }
 //   }
-}
+} 
 
 // import Api from "./Api";
 

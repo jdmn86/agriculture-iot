@@ -9,12 +9,13 @@
       id="modal-Login"
       ref="modal"      
       title="Login"
-      hide-footer       
+      hide-footer 
+      header-class="backcolor"      
     >
 
  
    <form @submit.prevent="handleLogin">
-
+  
                         <div class="form-group row">
                             <label for="email" class="col-sm-4 col-form-label text-md-right">Email</label>
 
@@ -79,9 +80,14 @@
 
 <script>
   
-import {mapGetters,mapActions,mapMutations} from 'vuex'
+// import {mapGetters,mapActions,mapMutations} from 'vuex'
 import {AuthService} from "../services/AuthService";
+import {RoleService} from "../services/RoleService";
+import {PermissionService} from "../services/PermissionService";
 import Form from "../services/FormService";
+
+import store from '@/store'
+import Auth from '@/models/Auth'
 
   export default {
     name: `Login`,
@@ -89,7 +95,7 @@ import Form from "../services/FormService";
       return {
         modalShow: false,
         credentials: {
-          email: "",
+          email: "", 
           password: ""
         },
         credentialsOnlyEmail: {
@@ -101,14 +107,14 @@ import Form from "../services/FormService";
     },
 
     computed : {
-          ...mapGetters('auth',[
-            'userRole']),         
+          // ...mapGetters('auth',[
+          //   'userRole']),         
             
-          },
+           },
 
     methods: {
-        ...mapMutations([]),           
-        ...mapActions(['']),
+        // ...mapMutations([]),           
+        // ...mapActions(['']),
         updateCredentialsOnlyEmail(){
           this.credentialsOnlyEmail.email = this.credentials.email;
         },
@@ -116,6 +122,13 @@ import Form from "../services/FormService";
           try {
 
             await AuthService.login(this.credentials)
+
+            // const {data} = await RoleService.getList();
+            // Role.insert({data: data});
+
+            // const {data2} = await PermissionService.getList();
+            // Permission.insert({data: data2});
+
             this.error = ''
             
            
@@ -148,13 +161,13 @@ import Form from "../services/FormService";
   }
 </script>
 
-<style scoped lang="scss">
+<style  scoped>
 
-.color-bg {
-  
-  background-color: #914323;
-  
+ /deep/ .backcolor {
+  background: #914323 ;
+  color: white;
 }
+
 
 
 </style>

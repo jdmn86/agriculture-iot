@@ -10,7 +10,7 @@ class Crop extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    protected $fillable = [ 
         'id', 
         'num_plantas' ,
         'id_plant', 

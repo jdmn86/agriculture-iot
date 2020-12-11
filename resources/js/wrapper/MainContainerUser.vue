@@ -1,7 +1,8 @@
 <template>
-<main> 
+<!-- <main>  -->
+
       <div id="demo" :class="[{'collapsed' : collapsed}]">
-            <!-- <b-container fluid style="padding-left: 0px; padding-right: 0px;"> -->
+            <b-container fluid style="padding-left: 0px; padding-right: 0px;">
       <!--  <div class="py-4 main">
                   <div class="container">
                         <div class="row justify-content-center"> -->
@@ -10,22 +11,22 @@
                               <TopNavBarUser/>
                                
                               
-                              <slot></slot>
+                              <slot></slot> 
                               <!-- <router-view></router-view> -->
                               
 
-                              <template>
+                              <!-- <template> -->
                                     <sidebar-menu :collapsed="collapsed"
         :show-one-child="true"
         @toggle-collapse="onToggleCollapse"
         @item-click="onItemClick" :menu="menu" :width="'180px'"/>
-                              </template> 
+                              <!-- </template>  -->
                         <!-- </div> -->
-            <!--      </div>
+            <!--      </div> 
             </div> -->
-            <!-- </b-container>  -->
+            </b-container> 
       </div>
-</main> 
+<!-- </main>  -->
 </template>
 
 <script>
@@ -190,7 +191,7 @@ export default {
                         you can mark link as external
                         // external: true
                         */
-                        href: { path:'/front/terrain'},
+                        href: { path:'/front/terrain/terrainList'},
 
                         title: 'Land',
 

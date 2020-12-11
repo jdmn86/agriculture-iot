@@ -1,6 +1,8 @@
 
 <template>
-  <b-modal id="ModalToDelete" hide-footer title="Confirmation" :header-text-variant="headerTextVariant">
+  <b-modal id="ModalToDelete" hide-footer  title="Confirmation" :header-text-variant="headerTextVariant" header-class="backcolor" >
+
+  
               <div class="modal-window" style="padding: 20px">
   
               <p>Are you sure? Want to delete <strong v-if="toDelete.name">{{ toDelete.name }}</strong> ?</p>
@@ -61,9 +63,19 @@
   
   <style scoped>
   
+  /deep/ .backcolor {
+  background: red ;
+  color: white;
+}
+/*
+  #backcolor{
+     background-color: #4AAD37 !important;
+  }*/
+/*
   .modal-header{
-  background-color: #4AAD37;
-  }
+    background-color: #4AAD37 !important;
+  }*/
+
   </style>
 
   

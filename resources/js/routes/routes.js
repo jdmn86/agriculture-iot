@@ -1,9 +1,9 @@
-import { FrontHome, BackHome, Welcome, PasswordReset, Company,NotFound,Users,PermissionRole,Farm,FarmShow,CompanyUser,Terrain,TerrainCreate,FarmCreate,Crop,Plant,CompanyCreate,UserCreate} from "../pages";
+import { FrontHome, BackHome, Welcome, PasswordReset, Company,NotFound,Users,PermissionRole,Farm,FarmShow,CompanyUser,Terrain,TerrainCreate,TerrainShow,TerrainList,FarmCreate,Crop,Plant,CompanyCreate,UserCreate} from "../pages";
 
 // import TopNavBar from "../layouts/TopNavBar";
 import TopNavBarUser from "../layouts/TopNavBarUser";
 
-import Store from './../stores'
+// import Store from './../stores'
 
 // import { SidebarMenu } from 'vue-sidebar-menu'
 
@@ -12,7 +12,7 @@ export const routes = [
         name: "welcome",
         path: "/",
         components: {  
-                default: Welcome,
+                default: Welcome, 
                 // navTop: TopNavBar,  
             },
     },
@@ -95,7 +95,16 @@ export const routes = [
             role: 'user',
             requireAuth: true,
         },
-        children: [            
+        children: [      
+            {
+                name: 'terrainList',
+                path: 'terrainList',
+                component: TerrainList,
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                },
+            },                  
             {
                 name: 'terrainCreate',
                 path: 'create',
@@ -105,6 +114,16 @@ export const routes = [
                     requireAuth: true,
                 },
             },
+            {
+                name: 'terrainShow',
+                path: 'show/:terrainId',
+                component: TerrainShow,
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                },
+            },  
+             
         ]         
     },      
     {

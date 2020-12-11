@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Terrain;
+use App\Models\Farm;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -11,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
-
+ 
 class TerrainController extends Controller 
 {
     function __construct()
@@ -54,19 +55,38 @@ class TerrainController extends Controller
          */
         public function store(Request $request): JsonResponse
         {
-            $this->validate($request, [
-                'name' => 'required',//|unique:roles,name',
-                'localizacao' => 'required',
-                ]);
+              $validatedData = $request->validate([
+                'name' => 'required|max:255',
+                'coords' => 'required',
+                'farm_id' => 'required',
+                'area' => 'required', 
+            ]);
     
-                $id = Auth()->user()->company_id;
+                // $id = auth()->user()->company_id;
     
-                $farm = Farm::create(['name' => $request->input('name'),
-                                        'farm_company' => $id,
-                                        'localizacao' => $request->input('localizacao')]);
-                // $role->syncPermissions($request->input('permission'));
+            $terrain = new Terrain;
+            try{
+                
+                $terrain->name = $request['name'];
+                // $terrain->terrain_user = $user->id;
+                $terrain->coords = $request['coords'];
+                $terrain->farm_id = $request['farm_id'];
+                $terrain->area = $request['area'];
+
+                $terrain->save();
+            }
+            catch(\Exception $e){ 
+               // do task when error
+                return  $e->getMessage();
+            }
     
-                return response()->json($farm);
+
+            $farm = Farm::Where('id',$request['farm_id'])->first();
+
+            $farm->areaTotal = $farm->areaTotal + $request['area'];
+            $farm->save();
+
+            return response()->json($terrain);
                 // return redirect()->route('roles.index')->with('success','Role created successfully');
         }
     

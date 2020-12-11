@@ -28,11 +28,21 @@ class Terrain extends Model
 
    }
 
-//    public function cultivo(){
+   public function crop(){
     
-//        return $this->hasOne(Cultivo::class,'id_terrain');
+       return $this->hasOne(Crop::class,'id_terrain');
    
-//    }
+   }
+
+   protected $with = ['crop'];
+
+   //  public function getCropAttribute($value)
+   // {
+   //      return $this->crop();
+   //     //return $dateStart->format('Y-m-d');
+   //     //return date('Y-m-d H:i:s', strtotime($value->startCrop_date));
+   // }
+
 
 //    public function device(){
      

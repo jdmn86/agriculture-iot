@@ -1,10 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Store from "./../stores";
 import { routes } from "./routes";
-// import { initCurrentUserStateMiddleware, checkAccessMiddleware, setPageTitleMiddleware } from './middlewares'
-import { checkAccessMiddleware,checkRoleAccessMiddleware } from './middlewares'
+import { checkAuthMiddleware,checkRoleAccessMiddleware } from './middlewares'
 
 
 Vue.use(VueRouter);
@@ -17,12 +15,8 @@ const router = new VueRouter({
 }); 
 
 
-router.beforeEach(checkAccessMiddleware)
+router.beforeEach(checkAuthMiddleware)
 router.beforeEach(checkRoleAccessMiddleware)
-
-
-// router.beforeEach(setPageTitleMiddleware)
-
 
 
 

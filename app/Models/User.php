@@ -21,19 +21,19 @@ use Spatie\Permission\Models\Permission;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
-    
+     
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array 
      */
     protected $fillable = [
         'name', 
         'email',
         'password',
         'company_id'
-    ];
+    ]; 
 
     /**
      * The attributes that should be hidden for arrays.
@@ -51,19 +51,46 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime', 
     ];
 
-    
-
-    //  protected $guard_name = 'api';
-    
-     public function company()
+       public function company()
     {
         return $this->belongsTo(Company::class,'company_id','id'); 
     }
 
-    protected $appends = ['all_permissions'];
+
+      // protected $with = ['roles'];
+
+
+    // public function all_permissions()
+    // {
+    //     return $this->getPermissionNames();
+    // }
+
+    //   public function roles()
+    // {
+    //     return Auth::user() ->roles ->pluck('name') ->toArray() 
+    // }
+    //  protected $guard_name = 'api';
+    
+  
+
+    //      public function role()
+    // {
+    //     // return $this->hasMany(Role::class); 
+    //     return Auth::user()->role()
+    // }
+
+    //      public function permissions()
+    // {
+    //     return $this->hasMany(Permission::class,'id'); 
+    // }
+
+ // $permissionNames = $user->getPermissionNames();
+ // $roles = $user->getRoleNames();
+
+     protected $appends = ['all_permissions'];
     
     public function getAllPermissionsAttribute() {
         $permissions = []; 
@@ -74,18 +101,5 @@ class User extends Authenticatable
           }
           return $permissions;
       }
-
-      // public function getCanAttribute()
-      // {
-      //     $permissions = [];
-      //     foreach (Permission::all() as $permission) {
-      //         if (Auth::user()->can($permission->name)) {
-      //             $permissions[$permission->name] = true;
-      //         } else {
-      //             $permissions[$permission->name] = false;
-      //         }
-      //     }
-      //     return $permissions;
-      // }
 
 }

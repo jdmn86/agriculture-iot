@@ -9,7 +9,7 @@
 			<BodyContainer>
 				<template slot="body">
 
-					<b-container v-if="companySelected" fluid="fluid" style=" background-color: #f8f9fa; margin: 0px; ">
+					<b-container v-if="company" fluid="fluid" style=" background-color: #f8f9fa; margin: 0px; ">
 
 						<b-row style="padding:10px;">
 
@@ -21,7 +21,7 @@
 
 										<b-row style="padding: 0px; margin: 5px" align-h="center">
 
-											<h3>{{companySelected.name}}</h3>
+											<h3>{{company.name}}</h3>
 
 										</b-row>
 
@@ -29,11 +29,11 @@
 
 											<b-col>
 												<div class="d-flex justify-content-between">
-													<div>
+													<div> 
 														<h5>Company</h5>
 													</div>
 													<div>
-														<p>{{companySelected.company_name}}</p>
+														<p>{{company.company_name}}</p>
 													</div>
 												</div>
 											</b-col>
@@ -48,7 +48,7 @@
 														<h5>Company</h5>
 													</div>
 													<div>
-														<p>{{companySelected.nif}}</p>
+														<p>{{company.nif}}</p>
 													</div>
 												</div>
 											</b-col>
@@ -63,7 +63,7 @@
 														<h5>Email Customers</h5>
 													</div>
 													<div>
-														<p>{{companySelected.email}}</p>
+														<p>{{company.email}}</p>
 													</div>
 												</div>
 											</b-col>
@@ -78,7 +78,7 @@
 														<h5>Email notifications</h5>
 													</div>
 													<div>
-														<p>{{companySelected.email_notifications}}</p>
+														<p>{{company.email_notifications}}</p>
 													</div>
 												</div>
 											</b-col>
@@ -97,7 +97,7 @@
 									<h1>lista dos colegas</h1>
 									
 								</b-row>
-								<b-row v-for="user in companySelected.all_users" :key="user.id">
+								<b-row v-for="user in company.all_users" :key="user.id">
 									<h1>{{user.name}}</h1>
 								</b-row>
 							</b-col>
@@ -138,14 +138,17 @@ import HeadContainer from "../../../wrapper/HeadContainer";
 import MainContainerUser from "../../../wrapper/MainContainerUser";
 import BodyContainer from "../../../wrapper/BodyContainer";
 import NoDataContainer from "../../../components/NoDataContainer";
+
 import {CompanyService} from "../../../services/CompanyService";
-import {mapGetters, mapActions} from 'vuex'
+// import {mapGetters, mapActions} from 'vuex'
+import Company from '@/models/Company'
+import Auth from '@/models/Auth'
 
 export default {
 name: "CompanyUser",
 data() {
 	return {
-		company: null, 
+		// company: null, 
 		title: "Company"
 	}
 },
@@ -156,23 +159,35 @@ components: {
 	NoDataContainer
 },
 computed: {
-	...mapGetters('auth', ['currentUser']),
-	...mapGetters('company', ['companySelected'])
+	// ...mapGetters('auth', ['currentUser']),
+	// ...mapGetters('company', ['companySelected'])
+	company(){
+           return Company.query().where('id',this.auth.company_id).first();
+           
+    },
+    auth(){
+          return Auth.query().first();
+    },
 },
 created() {
 	this.fetchData()
 },
 methods: {
-	...mapActions('company', ['setCompanySelected']),
-
+	// ...mapActions('company', ['setCompanySelected']),
+	
 	async fetchData() {
 		this.loading = true
 
 		try {
-			const {data} = await CompanyService.getById(this.currentUser.company_id); //this.fetchParams)
-			this.setCompanySelected(data);
+			// console.log("company_id :"+JSON.stringify(this.auth.company_id))
+			const {data} = await CompanyService.getById(this.auth.company_id); //this.fetchParams)
 
-			console.log("company :" + JSON.stringify(this.companySelected))
+			console.log("data :"+JSON.stringify(data));
+			Company.insert({data: data});
+
+			// this.setCompanySelected(data);
+
+			// console.log("company :" + JSON.stringify(this.companySelected))
 			// this.pagination.total = data.total
 		} catch (e) {
 			// this.$store.commit('toast/NEW', { type: 'error', message: e.message, e })

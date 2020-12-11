@@ -1,8 +1,10 @@
 import { Http } from './Api'
 import axios from 'axios'
 
-import Store from './../stores'
+// import Store from './../stores'
 import router from './../routes'
+import store from '@/store'
+import Auth from '@/models/Auth'
 
 import { ResponseWrapper, ErrorWrapper } from './util'
 /**
@@ -16,18 +18,13 @@ export class AuthService {
     static async login(credentials) { 
         
         try {
-              const response = await axios.post('api/auth/login',
-              credentials);
+              const response = await axios.post('api/auth/login',credentials);
 
-              await Store.dispatch("auth/setCurrentUser", response.data);
- 
-              // console.log("Store.getters.userRole.name" + await Store.getters.userRole.name);
+              // await Store.dispatch("auth/setCurrentUser", response.data);
+              Auth.insert({data: response.data});
 
-              // if(Store.getters.userRole.name == 'admin'){
-              //   router.push("/backHome");
-              // }else{
-              //    router.push("/front");
-              // }
+              localStorage.setItem("auth", JSON.stringify(response.data));
+
               router.push("/front");
 
               return new ResponseWrapper(response, response.data.data)
@@ -35,7 +32,7 @@ export class AuthService {
               throw new ErrorWrapper(error)
             }
     }
-    
+     
 
     /**
      * Call the auth register api.
@@ -72,11 +69,11 @@ export class AuthService {
         const response = await new Http().post("/auth/reset", passwordData,);
         
         //tem de fazer login a seguir
-        if(Store.getters.userRole.name == 'admin'){
-          router.push("/backHome");
-        }else{
-           router.push("/front");
-        }
+      // if(Store.getters.userRole.name == 'admin'){
+      //   router.push("/backHome");
+      // }else{
+      //    router.push("/front");
+      // }
 
         return new ResponseWrapper(response, response.data.data)
       } catch (error) {
@@ -91,14 +88,18 @@ export class AuthService {
     //     return response.data;
     // }
 
-    static async logout(credentials) { 
+    static async logout(auth) { 
         
         try {
         
-            console.log("here in static async login(credentials) ");
+            console.log("authservice auth:"+JSON.stringify(auth));
               // const response = await axios.delete('/auth/logout',credentials);
-              const response = await new Http().delete("/auth/logout", credentials,);
+              const response = await new Http().delete("/auth/logout");
               
+              localStorage.removeItem('auth');
+
+              Auth.deleteAll();
+
               router.push('/');
 
               return new ResponseWrapper(response, response.data.data)

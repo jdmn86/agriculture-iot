@@ -29,7 +29,8 @@
       </container> -->
 
 <!-- <div style="margin-left: -180px"> -->
-<div >
+<!-- <div > -->
+  <b-container fluid style="margin: 0px; padding: 0px">
   
       <TopNavBar/>
 
@@ -126,13 +127,13 @@ Created for Farmers and Agronomists, but also for small home-grown crops, or ent
                   
                     <h1 class=" title-text font-weight-bold " style="padding: 35px; font-size: 40px" >Product</h1>
                       <div class="row" >
-                        <div class="col-7  text-center" style="margin-top: 25px" >
-                            <img  src="img/prodSiteTransp.png" alt="Generic placeholder image" width="700" height="450">
+                        <div class="col-6  text-center" style="margin-top: 25px" >
+                            <img  src="img/prodSiteTransp.png" alt="Generic placeholder image" width="600" height="450">
                       </div>
                        <div class="col-5   text-center" >
-                            <img  src="img/devicesMap.png" alt="Generic placeholder image" width="550" height="300" style="margin-bottom: 20px">
+                            <img  src="img/devicesMap.png" alt="Generic placeholder image" width="400" height="300" style="margin-bottom: 20px">
                      
-                            <img  src="img/graph.png" alt="Generic placeholder image" width="550" height="300">
+                            <img  src="img/graph.png" alt="Generic placeholder image" width="400" height="300">
                       </div>
                     </div>
                 </div>
@@ -239,7 +240,8 @@ Created for Farmers and Agronomists, but also for small home-grown crops, or ent
 
       </div>
     </section>
-</div>
+<!-- </div> -->
+</b-container>
 
 </template>
 

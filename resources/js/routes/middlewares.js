@@ -1,59 +1,57 @@
-import Store from './../stores'
-import { AuthService } from '../services/AuthService'
+// import Store from './../stores'
+// import { AuthService } from '../services/AuthService'
+
+import Auth from '@/models/Auth'
+ 
 
 
-export function checkAccessMiddleware (to, from, next) {
-    console.log("checkAccessMiddleware");
+export function checkAuthMiddleware (to, from, next) {
 
-    const currentUser = Store.getters["auth/currentUser"];
-    const isLoggedIn = Store.getters["auth/isLoggedIn"];
+    let user =  Auth.query().with('roles').find(1) || null;
+    if(!user){
+        
+        user = JSON.parse(localStorage.getItem("auth"))|| null;         
+        if (user) {
+         
+            Auth.create({data: user});
+        }
+    }
 
-    if (isLoggedIn) {
+    if (user) {
+        console.log("user.token :"+user.token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${
-            currentUser.token
+             user.token
         }`;
     }
 
-    if (to.meta.requireAuth && !isLoggedIn) {
+    if (to.meta.requireAuth && !user) {
         console.log("go to : /");
         next("/");
     } else {
         next();
     }
-    // else if (
-    //     (to.path === "/login" && isLoggedIn) ||
-    //     (to.path === "/register" && isLoggedIn)
-    // ) {
-    //     console.log("go to : name home");
-    //     next({name: 'home'});
-    // } else {
-    //     next();
-        
-    // }
+   
 }
 
 
 
 export  function checkRoleAccessMiddleware (to, from, next) {
-    console.log("checkRoleAccessMiddleware");
-    
-    const role =  Store.getters["auth/userRole"];
-    const isLoggedIn = Store.getters["auth/isLoggedIn"];
-    
-    if(to.meta.requireAuth && isLoggedIn && role){
-        console.log("role : "+ role.name);
-        // const role = Store.getters["auth/role"];
+   
+    const user =   Auth.query().with('roles').find(1);
+
+    if(to.meta.requireAuth && user && user.roles[0]){
+        console.log("role : "+ user.roles[0].name);
 
         if(to.meta.role == 'user' || to.meta.role == 'adminCompany'){
-            if(role.name == 'user' || role.name == 'adminCompany'){
+            if(user.roles[0].name == 'user' || user.roles[0].name == 'adminCompany'){
                 next();
-            }else if(role.name == 'admin'){
+            }else if(user.roles[0].name == 'admin'){
                 next('/backAdmin');
             }
         }else if(to.meta.role == 'admin' ){
-            if(role.name == 'admin'){
+            if(user.roles[0].name == 'admin'){
                 next();
-            }else if(role.name == 'user' || role.name == 'adminCompany'){
+            }else if(user.roles[0].name == 'user' || user.roles[0].name == 'adminCompany'){
                 next('/front');
             }
         }else{

@@ -66,7 +66,8 @@ export class BaseService {
 
     try {
       const response = await this.request({ auth: true }).get(`${this.entity}/${id}`)
-      return new ResponseWrapper(response, response.data.data)
+      
+      return new ResponseWrapper(response, response.data)
     } catch (error) {
       const message = error.response.data ? error.response.data.error : error.response.statusText
       throw new ErrorWrapper(error, message)
@@ -84,6 +85,7 @@ export class BaseService {
 
     try {
       const response = await this.request({ auth: true }).get(`${this.entity}/${id}`)
+
       return new ResponseWrapper(response, response.data)
     } catch (error) {
       const message = error.response.data ? error.response.data.error : error.response.statusText

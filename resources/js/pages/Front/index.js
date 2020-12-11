@@ -8,5 +8,7 @@ export { default as FarmShow } from "./Farm/FarmShow";
 export { default as FarmCreate } from "./Farm/FarmCreate";
 export { default as Terrain } from "./Terrain/Terrain";
 export { default as TerrainCreate } from "./Terrain/TerrainCreate";
+export { default as TerrainShow } from "./Terrain/TerrainShow";
+export { default as TerrainList } from "./Terrain/TerrainList";
 
 

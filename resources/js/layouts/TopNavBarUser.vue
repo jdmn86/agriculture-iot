@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <!-- <div> -->
     <b-navbar toggleable="lg" type="light" style="background-color: #f2f2f2; height: 42px">
         <b-collapse id="nav-collapse" is-nav>
           <!-- Right aligned nav items -->
@@ -15,18 +15,18 @@
             <b-nav-item-dropdown right> 
               <!-- Using 'button-content' slot -->
               <template v-slot:button-content>
-                <em>{{currentUser.name}}</em>
+                <em>{{auth.name}}</em>
               </template>
               <b-dropdown-item  @click="account">Account</b-dropdown-item>
-              <b-dropdown-item @click="logoutClick">Sign Out</b-dropdown-item>
+              <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
-    </div>
+    <!-- </div> -->
  
 <!-- <nav class="container-fluid"  style="background-color: #f5f5f5; height: 50px">
-  
+   
       <div class="row">
         <div class="col-12 col-md-9">
           
@@ -47,8 +47,10 @@
 
 <script>
 import Vue from 'vue';
-import {mapGetters,mapMutations,mapActions} from 'vuex'
+// import {mapGetters,mapMutations,mapActions} from 'vuex'
 import {AuthService} from "../services/AuthService";
+
+import Auth from '@/models/Auth'
 
     export default {
         name: 'TopNavBarUser',
@@ -63,21 +65,25 @@ import {AuthService} from "../services/AuthService";
             }
         },
         computed : {
-          ...mapGetters("auth", {      
-            isLoggedIn: "isLoggedIn",
-            currentUser: "currentUser"
-          }),
+          // ...mapGetters("auth", {      
+          //   isLoggedIn: "isLoggedIn",
+          //   currentUser: "currentUser"
+          // }),
+          auth () {
+            return Auth.query().first();
+        }
           },
   
         methods: {          
-          ...mapActions('auth',['logout']),          
+          // ...mapActions('auth',['logout']),          
           account(){
             this.$router.push('/front/Account');
           },
-          async logoutClick(){
+          async logout(){
             try {
-                await AuthService.logout(this.currentUser)
-                this.logout();
+              console.log("this.auth :"+JSON.stringify(this.auth))
+                 await AuthService.logout(this.auth)
+                // this.logout();
               
             } catch (error) {
             // this.$store.commit('toast/NEW', { type: 'error', message: error.message })
@@ -91,11 +97,11 @@ import {AuthService} from "../services/AuthService";
             //this.currentUser = this.$store.getters.currentUser;
             //this.currentUser = JSON.parse(localStorage.getItem("user"));
  
-              const user_data = JSON.parse(localStorage.getItem('user'));
-                if(user_data){
-                  this.$store.commit('SET_USER',user_data);
-                  // SET_USER(JSON.parse(user_data));
-                }
+              // const user_data = JSON.parse(localStorage.getItem('user'));
+              //   if(user_data){
+              //     this.$store.commit('SET_USER',user_data);
+                  
+              //   }
               
             
 

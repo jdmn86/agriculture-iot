@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Hash;
 
+
 /** 
  * Undocumented class.
  * @package category
@@ -23,9 +24,10 @@ class AuthController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
-     */
+     */ 
     public function login(Request $request): JsonResponse
-    {
+    {        
+
         $credentials = $this->validate($request, [
             'email'    => 'required|email|exists:users',
             'password' => 'required|min:4',
@@ -36,6 +38,14 @@ class AuthController extends Controller
                 $user = auth()->user();
                 /** @var User $user */
                 $user['token'] = $this->generateTokenForUser($user);
+
+                 // $user['roles']= $user->getRoleNames();
+
+                  // $user['permissions']=$user->getPermissionsViaRoles();
+                  // $user['roles']= $user->getRoleNames();
+                 
+
+                 // $send['user_id'] = $user;
 
                 return response()->json($user);
             } else {

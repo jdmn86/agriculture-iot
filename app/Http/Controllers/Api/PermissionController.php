@@ -28,10 +28,10 @@ class PermissionController extends Controller
 */
 public function index(): JsonResponse
 {
-    if(auth()->user()->hasRole('admin')){
+    // if(auth()->user()->hasRole('admin')){
 
         return response()->json(Permission::all());
-    }
+    // }
 }
 
 /**

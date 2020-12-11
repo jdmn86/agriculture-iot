@@ -10,9 +10,9 @@
                               <!-- <TopNavBarUser/> -->
                               
                               <h1>Front HOME</h1>
-                              <!-- <slot></slot> -->                              
+                              <!-- <slot></slot> -->                               
                               
-
+  
                               <!-- <template>
                                     <sidebar-menu :menu="menu" :width="'180px'"/>
                               </template> -->

@@ -13,7 +13,7 @@
       
       <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto align-items-end"> 
-            <template v-if="!currentUser"> 
+            <template v-if="!auth"> 
           
                 <b-nav-item href="#what"><h5>What we do</h5></b-nav-item>
                 <b-nav-item href="#product"><h5>Products</h5></b-nav-item>
@@ -40,26 +40,29 @@
                 <b-nav-item-dropdown right>
               <!-- Using 'button-content' slot -->
                 <template v-slot:button-content>
-                    <em>{{ currentUser.name }}</em>
+                    <em>{{ auth.name }}</em>
                 </template>
                 <router-link class="dropdown-item" :to="{name: 'home'}">Home</router-link>
-                    <b-dropdown-item href="#" @click="logout">Sign Out</b-dropdown-item>
+                    <b-dropdown-item  @click="logout">Sign Out</b-dropdown-item>
                 </b-nav-item-dropdown>
 
       
             </template>
         </b-navbar-nav>
     </b-collapse>
-  </b-navbar>
+  </b-navbar> 
 </div>
 
 </template> 
 <script>
-    import {mapGetters,mapMutations,mapActions} from 'vuex'
+    // import {mapGetters,mapMutations,mapActions} from 'vuex'
     import Login from '../components/Login.vue';
     import {AuthService} from "../services/AuthService";
+
+    import Auth from '@/models/Auth'
+
   export default {
-    name: "app-header",
+    name: 'TopNavBar',
     components: {
         Login
     },
@@ -70,17 +73,22 @@
             }
         },
     computed: {        
-       ...mapGetters("auth", {      
-          isLoggedIn: "isLoggedIn",
-          currentUser: "currentUser"
-        }),
+       // ...mapGetters("auth", {      
+       //    isLoggedIn: "isLoggedIn",
+       //    currentUser: "currentUser"
+       //  }),
+        auth () {
+            return Auth.query().first();
+        }
     },
     methods: {
-        ...mapGetters('auth',['logout']), 
+        // ...mapGetters('auth',['logout']), 
         async logout() {
             try {
-                await AuthService.logout(this.currentUser)
-                this.logout();
+                console.log("this.auth :"+JSON.stringify(this.auth))
+                // await AuthService.logout(this.currentUser)
+                // this.logout();
+                  await AuthService.logout(this.auth)
               
             } catch (error) {
             // this.$store.commit('toast/NEW', { type: 'error', message: error.message })

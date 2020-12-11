@@ -10,7 +10,7 @@ class Company extends Model
 { 
     use HasFactory;
 
-    protected $fillable = [ 
+    protected $fillable = [  
         'id',
          'is_company',
          'name',
@@ -19,16 +19,18 @@ class Company extends Model
          'email',
          'email_notifications',     ];
     
-    protected $appends = ['all_users'];
+    // protected $appends = ['all_users'];
 
-    // public function users()
-    // {
+         protected $with =['users'];
+
+    public function users()
+    {
+        return $this->hasMany(User::class,'company_id');
+    }
+
+    // public function getAllUsersAttribute() {
     //     return $this->hasMany(User::class)->get();
-    // }
-
-    public function getAllUsersAttribute() {
-        return $this->hasMany(User::class)->get();
-      }
+    //   }
 
 
     // public function address()

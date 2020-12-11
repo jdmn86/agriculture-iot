@@ -10,7 +10,7 @@ class Plant extends Model
     use HasFactory;
 
     protected $fillable = [  
-        'id',  
+        'id',   
         'name' ,
         'master_plant_id',
         'nome_variedade' ,

@@ -14,7 +14,7 @@
               </NoDataContainer>
         </b-row>
         
-  </b-col> 
+  </b-col>  
      
 </template> 
     
@@ -25,6 +25,8 @@
     import MapLoaderTerrains from '../../../components/GoogleMaps/MapLoaderTerrains.vue'
     import NoDataContainer from "../../../components/NoDataContainer";
     import {mapGetters,mapMutations,mapActions} from 'vuex'
+
+
 
     export default {  
       name: 'TerrainsOfFarm',          
