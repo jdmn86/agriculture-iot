@@ -10,7 +10,7 @@ export default class User extends Model {
       id: this.uid(),
       name: this.string(''),
       email: this.string(''),      
-      company_id: this.belongsTo(Company, 'id'),//this.number(null).nullable(),
+      company_id: this.number(null).nullable(),//this.number(null).nullable(),
 
         //roles:  this.belongsToMany(Role, RoleUser, 'user_id', 'role_id')
 

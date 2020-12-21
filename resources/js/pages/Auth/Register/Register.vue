@@ -1,5 +1,5 @@
 <template>
-    <MainContainerAdmin>
+    <!-- <MainContainerAdmin> -->
         <div class="col-md-8">
             <HeadContainer>
                 <template slot="top">Register</template>
@@ -20,7 +20,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row"> 
                             <label for="email" class="col-sm-4 col-form-label text-md-right">Email</label>
 
                             <div class="col-md-6">
@@ -68,11 +68,11 @@
             </BodyContainer>
 
         </div>
-    </MainContainerAdmin>
+    <!-- </MainContainerAdmin> -->
 </template>
 
 <script >
-import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
+// import MainContainerAdmin from "../../../layouts/MainContainerAdmin";
 import HeadContainer from "../../../wrapper/HeadContainer";
 import BodyContainer from "../../../wrapper/BodyContainer"
 import {AuthService} from "../../../services/AuthService";
@@ -88,7 +88,7 @@ export default {
   },
   components: {
     HeadContainer,
-    MainContainerAdmin,
+    // MainContainerAdmin,
     BodyContainer
   },
   methods: {

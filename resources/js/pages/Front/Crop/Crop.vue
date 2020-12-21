@@ -1,7 +1,7 @@
 <template>
     
-  <MainContainerUser>
-            
+  <!-- <MainContainerUser> -->
+<div>
     <HeadContainer :title="title">
       
           <template slot="search" v-if="get_farms && get_plants">
@@ -164,11 +164,12 @@
 
     </BodyContainer>
     
-</MainContainerUser>
+<!-- </MainContainerUser> -->
+</div>            
 </template> 
     <script>
     import HeadContainer from "../../../wrapper/HeadContainer";
-    import MainContainerUser from "../../../wrapper/MainContainerUser";
+    // import MainContainerUser from "../../../wrapper/MainContainerUser";
     import BodyContainer from "../../../wrapper/BodyContainer";
     import NoDataContainer from "../../../components/NoDataContainer";
   
@@ -184,7 +185,7 @@
     export default {
       name: "Crop",
       components: {
-        MainContainerUser,
+        // MainContainerUser,
         HeadContainer,
         BodyContainer,
         NoDataContainer,

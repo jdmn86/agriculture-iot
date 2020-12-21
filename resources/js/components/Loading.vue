@@ -1,26 +1,28 @@
 <template>    
 
+
         <loading :active.sync="loading" 
         :can-cancel="false" 
         :on-cancel="onCancel"
         :color="color"
         :height="110"
         :width="110"
-        :is-full-page="fullPage"></loading>
-        
+        :is-full-page="fullPage"
+        :blur="'1'"></loading>
+
 </template>
   <script>
     import Loading from 'vue-loading-overlay';
     import 'vue-loading-overlay/dist/vue-loading.css';
 
     export default {
-        props:{
+        props:{ 
             loading: { type: Boolean, default: false },
         },
       data() {
         return {
                 // isLoading: false,
-                fullPage: true,
+                fullPage: false,
                 color: "#4AAD37",
             }
       },

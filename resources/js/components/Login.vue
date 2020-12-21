@@ -80,7 +80,6 @@
 
 <script>
   
-// import {mapGetters,mapActions,mapMutations} from 'vuex'
 import {AuthService} from "../services/AuthService";
 import {RoleService} from "../services/RoleService";
 import {PermissionService} from "../services/PermissionService";
@@ -88,6 +87,8 @@ import Form from "../services/FormService";
 
 import store from '@/store'
 import Auth from '@/models/Auth'
+
+import  $bus   from '@/app';
 
   export default {
     name: `Login`,
@@ -107,14 +108,11 @@ import Auth from '@/models/Auth'
     },
 
     computed : {
-          // ...mapGetters('auth',[
-          //   'userRole']),         
-            
+          
            },
 
     methods: {
-        // ...mapMutations([]),           
-        // ...mapActions(['']),
+        
         updateCredentialsOnlyEmail(){
           this.credentialsOnlyEmail.email = this.credentials.email;
         },
@@ -123,18 +121,14 @@ import Auth from '@/models/Auth'
 
             await AuthService.login(this.credentials)
 
-            // const {data} = await RoleService.getList();
-            // Role.insert({data: data});
-
-            // const {data2} = await PermissionService.getList();
-            // Permission.insert({data: data2});
+           
 
             this.error = ''
             
            
             
           } catch (error) {
-            // this.$store.commit('toast/NEW', { type: 'error', message: error.message })
+            this.$bus.$emit('warningFixTop', error.message);
             console.log("error : "+error.message);
             this.error = error.status === 404 ? 'User with same email not found' : error.message
           }
@@ -148,7 +142,7 @@ import Auth from '@/models/Auth'
             this.error = ''
 
           } catch(error){
-            // this.$store.commit('toast/NEW', { type: 'error', message: error.message })
+            this.$bus.$emit('warningFixTop', error.message);
             console.log("error : "+error.message);
             this.error = error.status === 404 ? 'User with same email not found' : error.message
           }
@@ -166,6 +160,11 @@ import Auth from '@/models/Auth'
  /deep/ .backcolor {
   background: #914323 ;
   color: white;
+}
+
+/deep/ .modal-backdrop
+{
+    opacity:0.8 !important;
 }
 
 

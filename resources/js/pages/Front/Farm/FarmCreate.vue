@@ -1,75 +1,109 @@
 <template>
-    
-  <b-row  style="padding:10px;" align-h="center">
-    <b-col sm="5"   >
-      <b-container fluid  style=" background-color: white; margin: 0px; ">
-          <b-row align-h="center" style="background-color: #4AAD37;" class="text-white">
-            <b-col cols="auto" class="mr-auto p-3">
-              <h4 v-if="farmToEdit">Edit Farm</h4>
-              <h4 v-else>Add New Farm</h4>
+
+   <div >
+
+            <HeadContainer :title="title"/>
+
+            <BodyContainer :loading.sync="loading"> 
+
+             <template slot="body" > 
+
+    <b-col sm="6" >
+
+      <b-container fluid  style=" background-color: #f8f9fa; margin: 0px; ">
+          <b-row align-h="center" align-v="center" style="background-color: #4AAD37;" class="text-white">
+            <b-col cols="auto" class="mr-auto p-1">
+              <h4 >Add New Farm</h4>
             </b-col>
-            <b-col cols="auto" class="p-3" >
+            <b-col cols="auto" class="p-1" >
               <a @click="$router.go(-1)">
                 <i class="fas fa-times fa-2x"/>
               </a>
             </b-col>
           </b-row> 
 
-         <b-form @submit.prevent="saveFarm" style="margin-top: 40px;margin-left: 25px">
+  <validation-observer ref="observer" v-slot="{ handleSubmit }">
 
-                  <b-form-group  label="Designação : " label-for="designacao"
-                    label-cols-sm="5"> 
+         <b-form @submit.stop.prevent="handleSubmit(saveFarm)" style="margin-top: 40px;margin-left: 25px">
 
+
+      <ValidationProvider 
+        name="designacao" 
+        rules="required|min:3" 
+        v-slot=" validationContext ">
+                  <b-form-group  id="input-group-designacao" label="Designação" label-for="input-designacao"> 
                     <b-form-input
-                        id="designacao"
+                        id="input-designacao"
+                        name="input-designacao"
                         v-model="farm.name"
-                        type="text"
-                        required
-                        placeholder="Designação"
-                        class="w-75 p-3" 
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="input-designacao-live-feedback"
                     ></b-form-input>
+
+        <b-form-invalid-feedback id="input-designacao-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+  
                   </b-form-group>
+</ValidationProvider>
 
-                  <b-form-group  label-cols-sm="5" label="Localização : " label-for="localizacao">
 
+ <ValidationProvider 
+        name="localizacao" 
+        rules="required|min:3" 
+        v-slot=" validationContext ">
+                  <b-form-group  id="input-group-localizacao" label="Localização : " label-for="input-localizacao">
                     <b-form-input
-                      id="localizacao"
+                      id="input-localizacao"
+                      name="input-localizacao"
                       v-model="farm.localizacao"
-                      required
-                      type="text"
-                      placeholder="Localização"
-                      class="w-75 p-3"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="input-localzacao-live-feedback"
                     ></b-form-input>
-                  </b-form-group>
 
-           
+<b-form-invalid-feedback id="input-designacao-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+
+
+                  </b-form-group>
+  </ValidationProvider>
+
+
           </b-form>
-          
+        </validation-observer>
           <b-row align-h="center" style="margin-top: 20px">
-                <b-button v-if="farmToEdit" type="submit" btn-block @click="updateFarm" variant="light" class="text-white"  style=" background-color: #4AAD37; padding: 10px; margin:10px">Update Farm</b-button>
-                <b-button v-else type="submit" btn-block @click="saveFarm" variant="light" class="text-white"  style=" background-color: #4AAD37; padding: 10px; margin:10px">Save Farm</b-button>
+
+                <b-button v-can="'farm-create'" type="submit" btn-block @click="saveFarm" variant="light" class="text-white"  style=" background-color: #4AAD37; padding: 10px; margin:10px">Save Farm</b-button>
                
           </b-row>
 
       </b-container>
+
       </b-col>
-    </b-row>
+
+    </template>
+
+            </BodyContainer>
+</div>
   </template>
   
   <script>
 
-  import {mapGetters,mapActions} from 'vuex'
+import {FarmService} from "@/services/FarmService"; 
+import Farm from '@/models/Farm'
 
-import {FarmService} from "../../../services/FarmService"; 
-   
+import  $bus   from '@/app';
+
+import HeadContainer from "@/wrapper/HeadContainer";
+import BodyContainer from "@/wrapper/BodyContainer";
+
+
   export default {
     name: "FarmCreate",
     components: {
+      HeadContainer,
+        BodyContainer,
     
     },
     props: {
-        onClose: { type: Function },
-
+        // farmSelected: { type: Object, default: null },
       },
     data() {
       return {        
@@ -84,55 +118,33 @@ import {FarmService} from "../../../services/FarmService";
          
     }
   },
+
     computed : {
-      ...mapGetters('farm',['farms','farmById']),   
-      farmToEdit: function(){
-        return this.$route.params.farmId ;
-      }
-      },
+    
+    },
     created() {
-        if(this.$route.params.farmId){
-          
-          console.log("parmID : " +JSON.stringify(this.$route.params.farmId));
-            let f =  this.farmById(this.$route.params.farmId);
-            console.log("f : " +JSON.stringify(f));
-            this.id = f.id; 
-             this.farm.name = f.name;
-             this.farm.localizacao = f.localizacao;
-        }
+      
     },
     methods: { 
-      ...mapActions('farm',['addFarm','setFarmSelected','updateDarm']),
-     
-      async updateFarm(){
-        try {
-          console.log("this.farm.id"+this.id);
-              const { data } = await FarmService.update(this.id,this.farm);//this.fetchParams)
-                this.updateFarm(data);
+       getValidationState({ dirty, validated, valid = null }) {
+      return dirty || validated ? valid : null;
+        },
 
-                this.$router.push({path: '/front/farm/'+data.id});
-          } catch (e) {
-                // this.$store.commit('toast/NEW', { type: 'error', message: e.message, e })
-                this.error = e.message
-                console.log(e)
-          } finally {
-                this.loading = false;
-                
-          }
+      async saveFarm(){      
 
-      },
-      async saveFarm(){
         try {
-            
-              const { data } = await FarmService.create(this.farm);//this.fetchParams)
+             this.loading = true;
+
+              const { data } = await FarmService.create(this.farm);
                 
                 console.log("response :"+JSON.stringify(data))
-                this.addFarm(data);
+                Farm.insert({data: data});
                 
                 this.$router.push({path: '/front/farm/'+data.id});
               
           } catch (e) {
-                // this.$store.commit('toast/NEW', { type: 'error', message: e.message, e })
+                this.$bus.$emit('warningFixTop', e.message);
+
                 this.error = e.message
                 console.log(e)
           } finally {
@@ -142,11 +154,6 @@ import {FarmService} from "../../../services/FarmService";
 
       },
 
-      async fetchData () {
-
-            this.loading = true
-
-      }
     },
     mounted () {
         console.log("Mounted FarmCreate.vue");

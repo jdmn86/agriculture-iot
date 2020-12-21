@@ -1,6 +1,6 @@
 <template>
-      <MainContainerAdmin>
-            
+      <!-- <MainContainerAdmin> -->
+          <div>
                   <HeadContainer :title="title" >
                        
                         <template slot="search">
@@ -20,12 +20,13 @@
 
                   <router-view></router-view>
             
-      </MainContainerAdmin>
+            </div>
+      <!-- </MainContainerAdmin> -->
 </template>
 
 <script>
 import HeadContainer from "../../../wrapper/HeadContainer";
-import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
+// import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContainer from "../../../wrapper/BodyContainer";
 //import UserService from "../../services/UserService"; 
 
@@ -37,7 +38,7 @@ export default {
     };
   },
   components: {
-    MainContainerAdmin,
+    // MainContainerAdmin,
     HeadContainer,
     BodyContainer,
   },

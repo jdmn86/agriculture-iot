@@ -17,7 +17,7 @@
           
                 <b-nav-item href="#what"><h5>What we do</h5></b-nav-item>
                 <b-nav-item href="#product"><h5>Products</h5></b-nav-item>
-                <b-nav-item href="#for"><h5>For</h5></b-nav-item>
+                <b-nav-item href="#for"><h5>For</h5></b-nav-item> 
                 <b-nav-item href="#who"><h5>Founders</h5></b-nav-item> 
                 <b-nav-item href="#contact"><h5>Contact</h5></b-nav-item>
 

@@ -30,7 +30,7 @@ class TerrainController extends Controller
          * @return \Illuminate\Http\Response
          */
         public function index(): JsonResponse
-        {
+        { 
             $terrain = Terrain::all();
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
             return response()->json($terrain);
@@ -55,6 +55,8 @@ class TerrainController extends Controller
          */
         public function store(Request $request): JsonResponse
         {
+            
+            
               $validatedData = $request->validate([
                 'name' => 'required|max:255',
                 'coords' => 'required',
@@ -112,18 +114,33 @@ class TerrainController extends Controller
          * @param  \App\Models\Company  $company
          * @return \Illuminate\Http\Response
          */
-        public function update(Request $request, Terrain $company): JsonResponse
+        public function update(int $id, Request $terrain): JsonResponse
         {
-            $this->validate($request, [
-            'name' => 'required',
-            'permission' => 'required',
+
+            $this->validate($terrain, [
+                'name' => 'required|max:255',
+                'coords' => 'required',
+                'farm_id' => 'required',
+                'area' => 'required', 
             ]);
-        
-            $role = Role::find($id);
-            $role->name = $request->input('name');
-            $role->save();
-            $role->syncPermissions($request->input('permission'));
-            return redirect()->route('roles.index')->with('success','Role updated successfully');
+             $terrainToUpdate = Terrain::find($id);
+
+              try{
+                
+                $terrainToUpdate->name = $terrain['name'];
+                // $terrain->terrain_user = $user->id;
+                $terrainToUpdate->coords = $terrain['coords'];
+                $terrainToUpdate->farm_id = $terrain['farm_id'];
+                $terrainToUpdate->area = $terrain['area'];
+
+                $terrainToUpdate->save();
+            }
+            catch(\Exception $e){ 
+               // do task when error
+                return  $e->getMessage();
+            }
+
+            return response()->json($terrainToUpdate);
         }
     
         /**

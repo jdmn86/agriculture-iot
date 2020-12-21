@@ -1,14 +1,14 @@
 <template>
     <!-- <b-container > -->
-        <b-row   style="margin: 10px; padding-top: 55px; " align-h="center" align-v="start">
+        <!-- <b-row   style="margin: 10px; padding-top: 55px; " align-h="center" align-v="start"> -->
 
-            <b-col sm="10">
+            <b-col  >
 
-                <b-container style=" background-color: #f8f9fa; margin: 0px; ">
+                <!-- <b-container style=" margin: 0px; padding-top: 55px; "> -->
 
                     <b-jumbotron>
     
-                        <b-row align-v="center" align-h="center">
+                        <b-row align-v="center" align-h="center"> 
     
                             <b-col sm="10">
     
@@ -40,15 +40,15 @@
                         
                       </b-jumbotron>
     
-                </b-container> 
+                <!-- </b-container>  -->
 
             </b-col>            
 
-        </b-row>
+        <!-- </b-row> -->
 
            
          
-         </b-row>
+         <!-- </b-row> -->
      <!-- </b-container> --> 
 </template>
 

@@ -16,6 +16,6 @@ export default class Company extends Model {
       users: this.hasMany(User, 'company_id')
     } 
   }
-} 
+}  
 
-  
+   

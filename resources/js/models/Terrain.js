@@ -8,7 +8,7 @@ export default class Terrain extends Model {
     return {
       id: this.uid(),
       name: this.string(''),
-      farm_id: this.belongsTo(Farm, 'id'),
+      farm_id: this.number(null).nullable(),//this.belongsTo(Farm, 'id'),
       coords: this.attr(''),
       enabled: this.boolean(true),
       area: this.number(null).nullable(),

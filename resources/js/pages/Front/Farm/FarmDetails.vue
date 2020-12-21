@@ -1,40 +1,34 @@
 <template>
-    <b-col sm="3"  style=" border-radius: 4px; color: black; " v-if="farmSelected">
 
-        <b-row  class="h-100 " style=" background-color: white;  padding: 10px">
+    <b-col sm="3"  style=" color: black; " v-if="farmSelected">
 
+        <b-row  style=" background-color: #f8f9fa;  ">
             <b-col col-sm="1" >
-                <b-row style="padding: 10px">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4 style="margin-right: 10px" id="name" class="">{{farmSelected.name}}</h4>
-                        </div>
-                    </div>
+
+                 <b-row align-h="start" align-v="center" style="background-color: #4AAD37;padding: 10px" class="text-white ">
+                        <h4 >{{farmSelected.name}}</h4>
+            
                 </b-row> 
 
+                <b-row style="padding: 10px" align-h="start" align-v="center">
+              
+                        <h4 style="margin: 10px" id="localizacao" class="">{{farmSelected.localizacao}}</h4>
+                     
+                </b-row>
+ 
                 <b-row style="padding: 10px">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                        <h4 style="margin-right: 10px" id="localizacao" class="">{{farmSelected.localizacao}}</h4>
-                        </div>
-                    </div>
+                  
+                    <h4 style="margin: 10px" id="areaTotal" class="">{{farmSelected.areaTotal}} m<sup>2</sup></h4>
+                  
                 </b-row>
 
                 <b-row style="padding: 10px">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4 style="margin-right: 10px" id="areaTotal" class="">{{farmSelected.areaTotal}} m<sup>2</sup></h4>
-                        </div>
-                    </div>
-                </b-row>
-
-                <b-row>
 
                     <slot name="edit"></slot>
                   
                 </b-row>
 
-                <b-row>
+                <b-row style="padding: 10px">
                     <slot name="delete"></slot>
                    
                 </b-row>
@@ -43,19 +37,18 @@
 
         </b-row>
     </b-col>
+
 </template>
 
 
 <script>
-    
-import {mapGetters,mapActions} from 'vuex'
-  
       export default {
         name: "FarmDetails",
-        components: {        
+        components: {    
         },
-        props:{
-            // farm: { type: Object,   required: true },
+        props: {
+            farmSelected: { type: Object, default: null },
+
         },
         data() {
           return {        
@@ -64,14 +57,14 @@ import {mapGetters,mapActions} from 'vuex'
         },
        
         computed : {
-            ...mapGetters('auth',['userSettings']),
-            ...mapGetters('farm',['farmSelected']),
+            
+            
 
           },
         created() {
         },
         methods: {
-       
+      
         },
         mounted () {
             console.log("Mounted FarmDetails");

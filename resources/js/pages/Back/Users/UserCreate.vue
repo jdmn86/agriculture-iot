@@ -89,7 +89,7 @@
 
 <script>
 import HeadContainer from "../../../wrapper/HeadContainer";
-import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
+// import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContainer from "../../../wrapper/BodyContainer"
 import {UserService} from "../../../services/UserService"; 
 import Loading from "../../../components/Loading";
@@ -111,7 +111,7 @@ return {
 };
 },
 components: {
-MainContainerAdmin,
+// MainContainerAdmin,
 HeadContainer,
 BodyContainer,
 Loading,

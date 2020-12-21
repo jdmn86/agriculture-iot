@@ -1,31 +1,37 @@
 
 <template>
-  <b-modal id="ModalToDelete" hide-footer  title="Confirmation" :header-text-variant="headerTextVariant" header-class="backcolor" >
+   
+<b-col align-h="center">
+    <b-button @click="$bvModal.show('ModalToDelete')" variant="light" block  style=" border-color: #ff0000;color: #ff0000;margin: 5px">Delete</b-button>
+
+      <b-modal id="ModalToDelete" hide-footer  title="Confirmation" :header-text-variant="headerTextVariant" header-class="backcolor" >
 
   
               <div class="modal-window" style="padding: 20px">
   
-              <p>Are you sure? Want to delete <strong v-if="toDelete.name">{{ toDelete.name }}</strong> ?</p>
+              <p>Are you sure? Want to delete <strong v-if="name">{{ name }}</strong> ?</p>
               
               <div class="actions">
                 <button type="button" class="btn btn-primary"  @click="$bvModal.hide('ModalToDelete')">Anular</button>
-                <button type="button"  class="btn btn-danger" @click="onConfirm">Confirmar</button>
+
+                <slot name="deleteButton"/>
+               
               </div>
             </div>
           
           </b-modal>
+</b-col>
+
   </template>
   
   <script>
-  
-  import {mapGetters,mapMutations,mapActions} from 'vuex'
   
   
       export default {
           name: 'ModalToDelete',
             props:{
-            toDelete: Object,
-            onConfirm: Function,
+             name: String,
+            // onConfirmDelete: Function,
           },
       components: {
         
@@ -47,12 +53,11 @@
                 console.log("click on cancel");
                 // this.confirmModal = false;
                 // this.$emit('update');
-  
               },
-              },
+              
+            },
                     
-          async mounted () { // point 3
-  
+          async mounted () { 
             // this.toDelete=this.$props.terrainToDelete;
   
             console.log('Component modalToDelete mounted.');
@@ -67,14 +72,11 @@
   background: red ;
   color: white;
 }
-/*
-  #backcolor{
-     background-color: #4AAD37 !important;
-  }*/
-/*
-  .modal-header{
-    background-color: #4AAD37 !important;
-  }*/
+
+/deep/ .modal-backdrop
+{
+    opacity:0.8 !important;
+}
 
   </style>
 

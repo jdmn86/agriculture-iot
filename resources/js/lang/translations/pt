@@ -1,4 +1,53 @@
+
+import en from "vee-validate/dist/locale/en.json";
+
 export default {
-  title: 'Monitoriza, analisa, avisa e previne as culturas',
-  plantsnumber: 'Num. de plantas :',
-};
+
+  		title: 'Monitoriza, analisa, avisa e previne as culturas',
+	  	plantsnumber: 'Num. de plantas :',
+
+	    
+	 	fields: {
+	        email: "E-mail",
+	        password: "Password",
+	        designacao: "Designacao",
+	        localizacao: "Localizacao",
+	        name: "Nome",
+	      },
+      	validation: {
+      		required: 'require sdfv pt',
+      		min: 'this {field} field must have no less than {length} characters pt',
+      		alpha: 'change text here pt',
+			alpha_dash: 'change text here pt',
+			alpha_num: 'change text here pt',
+			alpha_spaces: 'change text here pt',
+			between: 'change text here pt',
+			confirmed: 'change text here pt',
+			digits: 'change text here pt',
+			dimensions: 'change text here pt',
+			email: 'change text here pt',
+			excluded: 'change text here pt',
+			ext: 'change text here pt',
+			image: 'change text here pt',
+			oneOf: 'change text here pt',
+			integer: 'change text here pt',
+			is: 'change text here pt',
+			is_not: 'change text here pt',
+			length: 'change text here pt',
+			max: 'change text here pt',
+			max_value: 'change text here pt',
+			mimes: 'change text here pt',
+			min: 'change text here pt',
+			min_value: 'change text here pt',
+			numeric: 'change text here pt',
+			regex: 'change text here pt',
+			required: 'change text here pt',
+			required_if: 'change text here pt',
+			size: 'change text here pt',
+			double: 'change text here pt',
+      	}
+
+	
+
+}; 
+

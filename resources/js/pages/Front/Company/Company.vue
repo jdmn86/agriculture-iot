@@ -1,13 +1,11 @@
 <template>
-	<MainContainerUser>
+	<!-- <MainContainerUser> -->
 	<!-- <div class="col-md-12"> -->
 		<div>
-			<HeadContainer :title="title">
-				<template slot="search"></template>
-			</HeadContainer>
+			<HeadContainer :title="title"/>
 
 			<BodyContainer>
-				<template slot="body">
+				<template >
 
 					<b-container v-if="company" fluid="fluid" style=" background-color: #f8f9fa; margin: 0px; ">
 
@@ -129,13 +127,13 @@
 		<!-- <slot></slot> -->
 		</div>
 
-	</MainContainerUser>
+	<!-- </MainContainerUser> -->
 
 </template>
 
 <script>
 import HeadContainer from "../../../wrapper/HeadContainer";
-import MainContainerUser from "../../../wrapper/MainContainerUser";
+// import MainContainerUser from "../../../wrapper/MainContainerUser";
 import BodyContainer from "../../../wrapper/BodyContainer";
 import NoDataContainer from "../../../components/NoDataContainer";
 
@@ -153,7 +151,7 @@ data() {
 	}
 },
 components: {
-	MainContainerUser,
+	// MainContainerUser,
 	HeadContainer,
 	BodyContainer,
 	NoDataContainer

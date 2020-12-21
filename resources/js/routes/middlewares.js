@@ -7,7 +7,7 @@ import Auth from '@/models/Auth'
 
 export function checkAuthMiddleware (to, from, next) {
 
-    let user =  Auth.query().with('roles').find(1) || null;
+    let user =  Auth.query().with('roles').first() || null;
     if(!user){
         
         user = JSON.parse(localStorage.getItem("auth"))|| null;         
@@ -18,7 +18,7 @@ export function checkAuthMiddleware (to, from, next) {
     }
 
     if (user) {
-        console.log("user.token :"+user.token);
+        // console.log("user.token :"+user.token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${
              user.token
         }`;
@@ -36,17 +36,18 @@ export function checkAuthMiddleware (to, from, next) {
 
 
 export  function checkRoleAccessMiddleware (to, from, next) {
-   
-    const user =   Auth.query().with('roles').find(1);
+
+    let user =   Auth.query().with('roles').first();
+
 
     if(to.meta.requireAuth && user && user.roles[0]){
-        console.log("role : "+ user.roles[0].name);
+        // console.log("role : "+ user.roles[0].name);
 
         if(to.meta.role == 'user' || to.meta.role == 'adminCompany'){
             if(user.roles[0].name == 'user' || user.roles[0].name == 'adminCompany'){
                 next();
             }else if(user.roles[0].name == 'admin'){
-                next('/backAdmin');
+                next('/back');
             }
         }else if(to.meta.role == 'admin' ){
             if(user.roles[0].name == 'admin'){

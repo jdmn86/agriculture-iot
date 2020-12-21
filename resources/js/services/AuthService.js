@@ -25,7 +25,7 @@ export class AuthService {
 
               localStorage.setItem("auth", JSON.stringify(response.data));
 
-              router.push("/front");
+              router.push({name:"home"});
 
               return new ResponseWrapper(response, response.data.data)
             } catch (error) {

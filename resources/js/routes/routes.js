@@ -1,11 +1,6 @@
-import { FrontHome, BackHome, Welcome, PasswordReset, Company,NotFound,Users,PermissionRole,Farm,FarmShow,CompanyUser,Terrain,TerrainCreate,TerrainShow,TerrainList,FarmCreate,Crop,Plant,CompanyCreate,UserCreate} from "../pages";
+import { MainContainerUser, MainContainerAdmin,FrontHome, BackHome, Welcome, PasswordReset, Company,NotFound,Users,PermissionRole,Farm,FarmShow,CompanyUser,Terrain,TerrainCreate,TerrainEdit,FarmCreate,Crop,Plant,CompanyCreate,UserCreate,FarmEdit} from "../pages";
 
-// import TopNavBar from "../layouts/TopNavBar";
 import TopNavBarUser from "../layouts/TopNavBarUser";
-
-// import Store from './../stores'
-
-// import { SidebarMenu } from 'vue-sidebar-menu'
 
 export const routes = [
     {
@@ -19,157 +14,169 @@ export const routes = [
 
 
     {
-        name: "home",
+        // name: "home",
         path: "/front",
         components: { 
-                default: FrontHome,
+                default: MainContainerUser,
                 // nav: SidebarMenu, 
             },
         meta: {
             role: 'user',
             requireAuth: true,
           },
-    },
-    {
-        name: "company",
-        path: "/front/company",
-        components: { 
-                default: CompanyUser,
-                // navTop: TopNavBarUser, 
-            },
-        meta: {
-            role: 'user',
-            requireAuth: true,
-            },
+        children: [
+        {
+                name: "home",
+                path: "home",
+                components: { 
+                        default: FrontHome, 
+                        // navTop: TopNavBarUser, 
+                    },
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                    },
+                    
+            },   
+         {
+                name: "company",
+                path: "company",
+                components: { 
+                        default: CompanyUser, 
+                        // navTop: TopNavBarUser, 
+                    },
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                    },
+                    
+            },   
+            {
+                name: "farm",
+                path: "farm",
+                components: { 
+                        default: Farm,
+                        // navTop: TopNavBarUser, 
+                    },
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                },
+                children: [            
+                    {
+                        name: 'farmShow',
+                        path: ':farmId',
+                        component: FarmShow,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        // children: [
+                           
+                        // ]
+                    },
+                     {
+                        name: 'farmEdit',
+                        path: ':farmId/edit',
+                        component: FarmEdit,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                    },
+                    
+                    
+                ]         
+            },     
+            {
+                    name: 'farmCreate',
+                    path: 'farmCreate',
+                    component: FarmCreate,
+                    meta: {
+                        role: 'adminCompany',
+                        requireAuth: true,
+                    },
+                },  
+            {
             
-    },   
-    {
-        name: "farm",
-        path: "/front/farm",
-        components: { 
-                default: Farm,
-                // navTop: TopNavBarUser, 
-            },
-        meta: {
-            role: 'user',
-            requireAuth: true,
-        },
-        children: [            
-            {
-                name: 'farmShow',
-                path: ':farmId',
-                component: FarmShow,
-                meta: {
-                    role: 'adminCompany',
-                    requireAuth: true,
+                        name: 'terrain',
+                        path: 'terrain',
+                        component: Terrain,
+                        meta: {
+                            role: 'user',
+                            requireAuth: true,
+                        },
+                    
                 },
-            },
-            {
-                name: 'farmCreate',
-                path: 'create',
-                component: FarmCreate,
-                meta: {
-                    role: 'adminCompany',
-                    requireAuth: true,
+                {
+                        name: 'terrainEdit',
+                        path: 'terrain/:terrainId/edit',
+                        component: TerrainEdit,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                            },
+                        },  
+                
+                {
+                    name: 'terrainCreate',
+                    path: 'terrain/create',
+                    component: TerrainCreate,
+                    meta: {
+                        role: 'adminCompany',
+                        requireAuth: true,
+                    },
                 },
-            },
+                     
             {
-                name: 'farmEdit',
-                path: 'edit/:farmId',
-                component: FarmCreate,
-                meta: {
-                    role: 'adminCompany',
-                    requireAuth: true,
-                },
-            },
-        ]         
-    },       
-    {
-        name: "Terrain",
-        path: "/front/terrain",
-        components: { 
-                default: Terrain,
-                // navTop: TopNavBarUser, 
-            },
-        meta: {
-            role: 'user',
-            requireAuth: true,
-        },
-        children: [      
-            {
-                name: 'terrainList',
-                path: 'terrainList',
-                component: TerrainList,
+                name: "crop",
+                path: "crop",
+                components: { 
+                        default: Crop,
+                        // navTop: TopNavBarUser, 
+                    },
                 meta: {
                     role: 'user',
                     requireAuth: true,
                 },
-            },                  
+                // children: [            
+                //     {
+                //         name: 'cropCreate',
+                //         path: 'create',
+                //         component: CropCreate,
+                //         meta: {
+                //             role: 'adminCompany',
+                //             requireAuth: true,
+                //         },
+                //     },
+                // ]         
+            },       
             {
-                name: 'terrainCreate',
-                path: 'create',
-                component: TerrainCreate,
-                meta: {
-                    role: 'adminCompany',
-                    requireAuth: true,
-                },
-            },
-            {
-                name: 'terrainShow',
-                path: 'show/:terrainId',
-                component: TerrainShow,
+                name: "plant",
+                path: "plant",
+                components: { 
+                        default: Plant,
+                        // navTop: TopNavBarUser, 
+                    },
                 meta: {
                     role: 'user',
                     requireAuth: true,
                 },
-            },  
-             
-        ]         
-    },      
-    {
-        name: "crop",
-        path: "/front/crop",
-        components: { 
-                default: Crop,
-                // navTop: TopNavBarUser, 
-            },
-        meta: {
-            role: 'user',
-            requireAuth: true,
-        },
-        // children: [            
-        //     {
-        //         name: 'cropCreate',
-        //         path: 'create',
-        //         component: CropCreate,
-        //         meta: {
-        //             role: 'adminCompany',
-        //             requireAuth: true,
-        //         },
-        //     },
-        // ]         
-    },       
-    {
-        name: "plant",
-        path: "/front/plant",
-        components: { 
-                default: Plant,
-                // navTop: TopNavBarUser, 
-            },
-        meta: {
-            role: 'user',
-            requireAuth: true,
-        },
-              
-    },       
+                      
+            },       
+
+        ]
+
+    },
+   
            
 
 
     {
-        name: "home",
-        path: "/backAdmin",
+        
+        path: "/back",
         components: { 
-                default: BackHome,
+                default: MainContainerAdmin,
                 // navTop: TopNavBarUser, 
             },
         meta: {
@@ -177,6 +184,19 @@ export const routes = [
             requireAuth: true,
           },
           children: [
+          {
+                name: "home",
+                path: "home",
+                components: { 
+                        default: BackHome, 
+                        // navTop: TopNavBarUser, 
+                    },
+                meta: {
+                    role: 'admin',
+                    requireAuth: true,
+                    },
+                    
+            },   
             {
                 path: 'users',
                 component: Users,
@@ -228,6 +248,7 @@ export const routes = [
         ]
     },    
     {
+        name: "NotFound",
         path :'*',
         component: NotFound,
     },

@@ -1,6 +1,6 @@
 <template>
-	<MainContainerAdmin >
-
+	<!-- <MainContainerAdmin > -->
+		<div>
 		<Loading :loading.sync="loading" ></Loading>
 
 		<HeadContainer :title="title">
@@ -89,14 +89,14 @@
 					</template>
 
 		</BodyContainer>
-
-</MainContainerAdmin>
+</div>
+<!-- </MainContainerAdmin> -->
 
 </template>
 
 <script>
 import HeadContainer from "../../../wrapper/HeadContainer";
-import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
+// import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContainer from "../../../wrapper/BodyContainer"
 
 import {PermissionService} from "../../../services/PermissionService";
@@ -117,7 +117,7 @@ return {
 };
 },
 components: {
-MainContainerAdmin,
+// MainContainerAdmin,
 HeadContainer,
 BodyContainer,
 Loading,

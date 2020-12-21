@@ -13,19 +13,21 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
-import VueI18n from 'vue-i18n';
-import VueInternationalization from 'vue-i18n';
-import Locale from './lang/translations/vue-i18n-locales.generated';
+import { i18n } from "./lang";
 
-Vue.use(VueI18n);
+// import VueI18n from 'vue-i18n';
+// import VueInternationalization from 'vue-i18n';
+// import Locale from './lang/translations/vue-i18n-locales.generated';
 
-import messages from './lang';
+// Vue.use(VueI18n);
 
-export const i18n = new VueI18n({
-  locale: 'en',
-  fallbackLocale: 'en',
-  messages
-});
+// import messages from './lang';
+
+// export const i18n = new VueI18n({ 
+//   locale: 'en',
+//   fallbackLocale: 'en',
+//   messages
+// });
 
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
@@ -66,6 +68,21 @@ import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 
 import "./directives/permission"
+
+
+import './plugins'
+
+import './validation/validation.js'
+
+// import PortalVue from 'portal-vue'
+
+// Vue.use(PortalVue)
+// import { ToastPlugin } from 'bootstrap-vue'
+// Vue.use(ToastPlugin)
+
+import { ValidationProvider, extend } from 'vee-validate';
+
+
 
 const app = new Vue({
     el: "#app",

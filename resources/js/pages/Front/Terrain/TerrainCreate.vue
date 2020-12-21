@@ -2,229 +2,295 @@
 
 <div>
 
-   <BodyContainer  :title="title">
-    <template slot="body">
-      <b-row  style="padding:10px;" align-h="center">
-        
-        <Loading :loading.sync="loading" ></Loading>
+        <HeadContainer :title="title"/>
 
-        <b-col  >
-          <b-container fluid  style=" background-color: white; margin: 0px; ">
+        <BodyContainer :loading.sync="loading">  
 
-              <b-row class=" align-items-center " style="padding: 14px 0px 0px 14px">
-                <b-col >
-                  <b-row class=" align-items-center " style="margin: 5px">
-                    <b-col>
-                      <!-- <form class="form-inline" > -->
-                        <h5 for="nameTerrain">Terrain name: </h5>
+            <template slot="body">
 
-                        <!-- </form> -->
-                      </b-col>
-                      <b-col>
-                        <input type="text"  v-model="terrainName" id="nameTerrain" required  class="form-control " >
+                <b-col v-if="farms.length " style="margin: 0px">
+                    <b-row fluid style=" background-color: #f8f9fa; margin: 0px; margin-bottom: 10px; padding: 10px">
+                        <validation-observer ref="observer" v-slot="{ handleSubmit }">
 
-                      </b-col>
+                             <b-form inline @submit.stop.prevent="handleSubmit(saveTerrain)" style="margin-top: 10px;margin-left: 20px">
+
+                                <ValidationProvider 
+                                    name="name" 
+                                    rules="required|min:3" 
+                                    v-slot=" validationContext ">
+
+                                    <b-form-group class="mr-sm-2" id="input-group-name" label="Name" label-for="input-name" > 
+                                        <b-form-input
+                                            style="margin-left: 10px"
+                                            class="mb-2 mr-sm-2 mb-sm-0"
+                                            id="input-name"
+                                            name="input-name"
+                                            v-model="terrain.name"
+                                            :state="getValidationState(validationContext)"
+                                            aria-describedby="input-name-live-feedback">
+                                        </b-form-input>
+
+                                        <b-form-invalid-feedback id="input-name-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                              
+                                    </b-form-group>
+                                </ValidationProvider>
+
+
+                                <ValidationProvider 
+                                    name="farm" 
+                                    rules="required" 
+                                    v-slot=" validationContext ">
+                                    <b-form-group id="input-group-farm" label="Farm" label-for="input-farm" >
+
+                                        <b-form-select 
+                                            style="margin-left: 10px"
+                                            id="input-farm"
+                                            name="input-farm"
+                                            v-model="farmSelected"
+                                            :state="getValidationState(validationContext)"
+                                            aria-describedby="input-farm-live-feedback">
+                                            <option v-for="item in farms" :selected="farmSelected == item "
+                                                :key="item.id"
+                                                :value="item">
+                                                {{ item.name }} 
+                                            </option>
+                                        </b-form-select> 
+                                                
+                                             
+                                        <b-form-invalid-feedback id="input-farm-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                              
+                                    </b-form-group>
+                                </ValidationProvider>
+
+
+                            </b-form>
+                        </validation-observer>
+
+                            <!-- <b-col class="col-auto align-self-end" style="margin-left: 10px">
+                                <b-button block  @click="saveTerrain"  style=" border-color: #4AAD37;background-color: #4AAD37; ">Save Terrain</b-button>
+
+                            </b-col>  -->              
+                        <ModalToConfirm  v-can="'terrain-create'" v-if="terrain.name" :name="terrain.name">
+                            <template slot="confirmButton">
+                                 <button type="button"  class="btn btn-danger" @click="saveTerrain">Confirmar</button>
+                            </template>
+                        </ModalToConfirm>
 
 
                     </b-row>
 
-                    <b-row class=" align-items-center " style="margin: 5px"> 
-                      
-                      <b-col>
-                        <h5 style="margin-right: 10px"  for="selectfarm">Farms :</h5>
-                      </b-col>
+                    <MapCreateTerrain v-if="google"
+                        @updateTerrainCords="updateTerrainCords"
+                        :terrains="terrainsToSend"
+                        :google="google"
+                        >  
 
-                      <b-col >
+                    </MapCreateTerrain> 
 
-                        <select v-if="farms" class="form-control" size="sm" id="selectfarm"  v-model="farm">
-                                  <option value>None</option>
-                                  <option :key="item.id" v-for="item in farms" :value="item">{{item.name}} </option>
-                              </select>
+                </b-col>
 
-
-                      </b-col>
-
-                    </b-row>
-                  </b-col>
-
-                  <b-col class="col-auto align-self-end" style="">
-                  <b-button block  @click="saveTerrain"  style=" border-color: #4AAD37;background-color: #4AAD37; ">Save Terrain</b-button>
-
-                </b-col>               
-
-              </b-row>
+                <NoDataContainer v-else :title="title" >
+                    <slot >
+                        <b-button v-can="'farm-create'" @click="$router.push({name: 'farmCreate'})" variant="light"  style=" border-color: #4AAD37 ;color: #4AAD37;margin-bottom: 10px ">Add Farm</b-button>
+                    </slot>
+                </NoDataContainer>
 
 
-              <b-col v-if=" google " style="padding: 14px 0px 14px 0px;">
+            </template>
 
-                <MapCreateTerrain 
-                @updateTerrainCords="updateTerrainCords"
-                :terrains="terrainsToSend"
-                :google="google"
-                >  
-
-              </MapCreateTerrain> 
-            </b-col>
-
-
-          </b-container>
-        </b-col>
-      </b-row>
-    </template >
-   </BodyContainer>
- </div>
+        </BodyContainer>
+                            
+</div>
 </template>
 
 <script>
-  import HeadContainer from "../../../wrapper/HeadContainer";
-//   import MainContainerUser from "../../../wrapper/MainContainerUser";
-  import BodyContainer from "../../../wrapper/BodyContainer";
-//   import NoDataContainer from "../../../components/NoDataContainer";
-//   import HeaderComponent from "../../../components/HeaderComponent";
+import HeadContainer from "@/wrapper/HeadContainer";
+import BodyContainer from "@/wrapper/BodyContainer";
+import NoDataContainer from "@/components/NoDataContainer";
+import ModalToConfirm from "@/components/ModalToConfirm";
 
-// import Sidebar from '../../../components/menu/SidebarMenu.vue';
-
-import {mapGetters,mapActions} from 'vuex'
 import GoogleMapsApiLoader from 'google-maps-api-loader'
-import MapCreateTerrain from "../../../components/GoogleMaps/MapCreateTerrain.vue";
+import MapCreateTerrain from "@/components/GoogleMaps/MapCreateTerrain.vue";
 
-import {TerrainService} from "../../../services/TerrainService"; 
-import {FarmService} from "../../../services/FarmService"; 
+import {TerrainService} from "@/services/TerrainService"; 
+import {FarmService} from "@/services/FarmService"; 
 
-import Loading from "../../../components/Loading";
+import  $bus   from '@/app';
+
+import Terrain from '@/models/Terrain'
+import Farm from '@/models/Farm'
+import Auth from '@/models/Auth'
+
 
 export default {
-  name: "TerrainCreate",
-  components: {
-  //   MainContainerUser,
-    HeadContainer,
-    BodyContainer,
-  //   NoDataContainer,
-    MapCreateTerrain,
-    Loading
-  },
-  data() {
-    return {        
-          title: "Create Terrain",
-      loading: false, 
-    //   farms: null,
-    terrainName: null,    
-    google: null,
-      terrain: {
-          name: null,
-          farm_id: null,
-          coords: null,
-          area: null,
-      },
-    };
-  },
-  
-  computed : {
-    ...mapGetters('farm',['farms','farmSelected']),   
-    ...mapGetters('terrain',['terrainsByFarm','terrainSelected']),
-    farm: {
-        get () {
-          return this.farmSelected;
-        },
-        set (value) {
-              if(value){
-                this.setFarmSelected(value);
-                this.terrainsToSend = this.terrainsByFarm(this.farmSelected);
-                this.farm=this.farmSelected;
-
-                // if(this.$route.params){
-                //       if(this.$route.params && this.$route.params.farmId != value.id ){
-                //             this.$router.push({name:'farmShow', params: { farmId: value.id } });
-                //       }
-                // }
-                
-              }
-        }
-      }
+    name: "TerrainCreate",
+    components: {
+      //   MainContainerUser,
+        HeadContainer,
+        BodyContainer,
+        NoDataContainer,
+        MapCreateTerrain,
+        ModalToConfirm
+          
     },
-  created() {
-      this.fetchData()
-  },
-  methods: {
-    ...mapActions('farm',['setFarms','setFarmSelected']),
-    ...mapActions('terrain',['addTerrain','setTerrainSelected']),
+    props: {
+       // title: { type: String, default: "without text" },
+      
+    },
+    data() {
+        return {        
+            title: "Add Terrain",
+            loading: false, 
+            // terrainName: null,    
+            google: null,
+            terrain: {
+                name: null,
+                farm_id: null,
+                coords: null,
+                area: null,
+            },
+            farmSelected: null,
+            terrainsToSend: null,
+        };
+    },
+    // watch:{
+    //     farm: function(value){
+    //         this.terrainsToSend = Terrain.query().where('farm_id', this.farmSelected.id).get(); 
+    //         console.log("terrainsToSend :" + JSON.stringify(this.terrainsToSend));
+    //         this.terrain.farm_id = value.id;
+    //     }
+    // },
+    // farmSelected: {
+    //     get () {
+    //         console.log("get farmSelected");
+    //       return this.farmSelected;
+    //     },
+    //     set (value) {
+    //         console.log("set farmSelected");
+    //           if(value){
+    //             this.farmSelected = value;
+
+    //             this.terrainsToSend = Terrain.query().where('farm_id', this.farmSelected.id).get(); 
+    //             console.log("terrainsToSend :" + JSON.stringify(this.terrainsToSend));
+                
+    //           }
+    //     }
+    //   }
+    // },
+    async created() {
+        const googleMapApi = await GoogleMapsApiLoader({
+            apiKey: "AIzaSyDGqrxG_MOLgoZ3mA9ZZQrRMRQe_k5QOPo&libraries=drawing"
+        });
+        
+        this.google = googleMapApi;
+
+        this.fetchFarms().then(()=>{
+            this.fetchTerrains().then(()=>{
+
+                console.log("finish fetch farms")            
+
+                this.farmSelected = Farm.query().first();
+
+                this.loading = false
+            });
+        });
+    },
+     computed : {
+        farms(){
+            return Farm.all() ;
+       
+        },
+    },
+    methods: {
+        getValidationState({ dirty, validated, valid = null }) {
+            return dirty || validated ? valid : null;
+        },
+    
     updateTerrainCords(e) {
         console.log("coords in ADDTERRAIN : ");
         console.log(e);
 
         if(e==null){
-          this.selectPolygon=null 
+            this.selectPolygon=null 
         }else{
-          this.terrain.coords = e[0];
-          this.terrain.area = e[1];
-          console.log("terrain in AddTerrain");
-          console.log(this.terrain);
+            this.terrain.coords = e[0];
+            this.terrain.area = e[1];
+            console.log("terrain in AddTerrain");
+            console.log(this.terrain);
         }
     },
     async saveTerrain(){
 
         if(!this.terrain.area){
-          alert("Please add Terrain");
-        }else if(this.farm){
+           
+            alert("Please add Terrain");
+        }else if(this.farmSelected){
           
-          this.terrain.farm_id = this.farm.id;
-          this.terrain.name=this.terrainName;
+           this.terrain.farm_id = this.farmSelected.id;
+          // this.terrain.name=this.terrainName;
           
-          try {
-            this.loading = true;
+            try {
+                this.loading = true;
                 const { data } = await TerrainService.create(this.terrain);//this.fetchParams)
                 //this.farms(data);
                 // this.farms = data;
-                this.addTerrain(this.terrain);
+                 Terrain.insert({data: data});
 
                 console.log("terrain :"+ JSON.stringify(data))
-                this.$router.push({path: '/front/terrain/terrainList'});
+                this.$router.push({path: '/front/terrain'});
                 
                 // this.pagination.total = data.total
-          } catch (e) {
+            } catch (e) {
                 // this.$store.commit('toast/NEW', { type: 'error', message: e.message, e })
+                this.$bus.$emit('warningFixTop', e.message);
                 this.error = e.message
                 console.log(e)
-          } finally {
+            } finally {
                 this.loading = false
-          }
+            }
         }else{
           alert("Please select the farm");
         }
       
 
     },
-    async fetchData () {
+    async fetchFarms () {
 
-          // this.loading = true
-          
-          // try {
-          //       const { data } = await FarmService.getList();//this.fetchParams)
-          //       this.setFarms(data);
-          //       // this.farms = data;
-          //       console.log("farms :"+ JSON.stringify(data))
-          //       // this.pagination.total = data.total
-          // } catch (e) {
-          //       // this.$store.commit('toast/NEW', { type: 'error', message: e.message, e })
-          //       this.error = e.message
-          //       console.log(e)
-          // } finally {
-          //       this.loading = false
-          // }
+        this.loading = true
+        try {
+            const { data } = await FarmService.getList();
+            Farm.insert({data: data});
+        } catch (e) {
+            this.$bus.$emit('warningFixTop', e.message);
+            this.error = e.message
+            console.log(e)
+        } finally {
+           this.loading = false
+        }          
 
-        const googleMapApi = await GoogleMapsApiLoader({
-        apiKey: "AIzaSyDGqrxG_MOLgoZ3mA9ZZQrRMRQe_k5QOPo&libraries=drawing"
-        });
-        this.google = googleMapApi;
+    },
 
-      this.terrainsToSend = this.terrainsByFarm(this.farmSelected);
-      this.farm=this.farmSelected;
+      async fetchTerrains () {
 
+            // this.loading = true
+            try {
+                console.log("fetch terrains")
+                const { data } = await TerrainService.getList();
+                Terrain.insert({data: data});
+            } catch (e) {
+                this.$bus.$emit('warningFixTop', e.message);
+                this.error = e.message
+                console.log(e)
+            } finally {
+               // this.loading = false
+            }          
+        },
+   
+    },
+    mounted () {
+        console.log("Mounted TerrainCreate.vue");
 
-    }
-  },
-  mounted () {
-      console.log("Mounted TerrainCreate.vue");
+          // this.title = "add Terrain"
     }
 };
 </script>

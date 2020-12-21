@@ -47,7 +47,7 @@
 
 <script>
   import HeadContainer from "../../../wrapper/HeadContainer";
-  import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
+  // import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContainer from "../../../wrapper/BodyContainer";
   // import Sidebar from '../../../components/menu/SidebarMenu.vue';
   import Loading from "../../../components/Loading";
@@ -65,7 +65,7 @@ import BodyContainer from "../../../wrapper/BodyContainer";
       };
     },
     components: {
-      MainContainerAdmin,
+      // MainContainerAdmin,
       HeadContainer,
       BodyContainer,
       Loading

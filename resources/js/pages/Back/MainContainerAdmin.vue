@@ -9,16 +9,16 @@
 
                             <TopNavBarUser/>
 
-                              <slot></slot>
+                            <transition name="slide-fade">
+                               <router-view></router-view>
+                            </transition>
 
-                              
-
-                              <template> 
-                                   <sidebar-menu :collapsed="collapsed"
+                              <!-- <template>  -->
+                                   <sidebar-menu :collapsed="collapsed" 
                                     :show-one-child="true"
                                     @toggle-collapse="onToggleCollapse"
                                     @item-click="onItemClick" :menu="menu" :width="'180px'"/>
-                                  </template>
+                                  <!-- </template> -->
 
                               <!-- <SidebarMenu :collapsed="collapsed"
                               :show-one-child="true"
@@ -29,13 +29,13 @@
             <!--      </div>
             </div> -->
             <!-- </b-container> -->
-      </div>
+      </div> 
     </main> 
 </template>
 
 <script>
       import { SidebarMenu } from 'vue-sidebar-menu';
-      import TopNavBarUser from "../layouts/TopNavBarUser";
+      import TopNavBarUser from "../../layouts/TopNavBarUser";
 export default {
   name: "MainContainerAdmin",
  components:{
@@ -52,22 +52,22 @@ export default {
                         hiddenOnCollapse: true
                     },
                     {
-                        href: '/backAdmin/users',
+                        href: '/back/users',
                         title: 'Users',
                         icon: 'fa fa-user'
                     },
                     {
-                        href: '/backAdmin/permissionRole',
+                        href: '/back/permissionRole',
                         title: 'permissionRole',
                         icon: 'fa fa-user'
                     },
                     {
-                        href: '/backAdmin/roles',
+                        href: '/back/roles',
                         title: 'roles',
                         icon: 'fa fa-user'
                     },
                     {
-                        href: '/backAdmin/companys',
+                        href: '/back/companys',
                         title: 'Companys',
                         icon: 'fa fa-chart-area',                       
                     }

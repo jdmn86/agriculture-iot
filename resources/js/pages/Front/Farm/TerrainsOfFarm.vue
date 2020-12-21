@@ -1,19 +1,14 @@
 <template>
-  <b-col v-if="terrains" style="padding-right: 0px">
-        <div v-if="terrains.length && google" class="horizontal-scroll-wrapper squares">
-          
-              <MapLoaderTerrains :terrains="terrains" :google="google"/>
+  <b-col v-if="terrains" >
 
-        </div> 
-          
-        <b-row v-else >
-            <NoDataContainer :title="title" > 
+          <MapLoaderTerrains v-if="terrains.length && google" :terrains="terrains" :google="google"/>
+         
+            <NoDataContainer v-else :title="title" > 
                     <slot >
-                        <b-button @click="$router.push({name: 'terrainCreate'})" variant="light"  style=" border-color: #4AAD37 ;color: #4AAD37;margin-bottom: 10px ">Add Terrain</b-button>
+                        <b-button v-can="'farm-create'" @click="$router.push({name: 'terrainCreate'})" variant="light"  style=" border-color: #4AAD37 ;color: #4AAD37;margin-bottom: 10px ">Add Terrain</b-button>
                   </slot> 
               </NoDataContainer>
-        </b-row>
-        
+    
   </b-col>  
      
 </template> 
@@ -22,17 +17,16 @@
       import Vue from 'vue';
     
     import GoogleMapsApiLoader from 'google-maps-api-loader'
-    import MapLoaderTerrains from '../../../components/GoogleMaps/MapLoaderTerrains.vue'
-    import NoDataContainer from "../../../components/NoDataContainer";
-    import {mapGetters,mapMutations,mapActions} from 'vuex'
+    import MapLoaderTerrains from '@/components/GoogleMaps/MapLoaderTerrains.vue'
+    import NoDataContainer from "@/components/NoDataContainer";
 
-
+import  $bus   from '@/app';
 
     export default {  
       name: 'TerrainsOfFarm',          
        components: {
          MapLoaderTerrains,
-         NoDataContainer
+         NoDataContainer,
        },
        props: {
         terrains: { type: Array, default: null},
@@ -48,14 +42,14 @@
     
         },
       computed:{
-          ...mapGetters('terrain',['terrainsByFarm']),
+          
           
       },
       created() {
        
       },
       methods: { 
-        ...mapActions('terrain',['saveTerrains']),
+        
         
         async fetchData () {
   
@@ -76,7 +70,6 @@
     };
     </script>
     
-    
-    
-    
+    <style>    
+      
     </style>

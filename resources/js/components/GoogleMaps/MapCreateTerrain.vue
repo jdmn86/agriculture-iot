@@ -1,6 +1,6 @@
 <template>
 
-    <div id="map" ref="googleMap"  class="card-block" style=" height: 90vh" ></div>
+    <div id="map" ref="googleMap"  class="card-block" style=" height: 80vh" ></div>
     
     </template>
     
@@ -8,11 +8,11 @@
     import GoogleMapsApiLoader from 'google-maps-api-loader'
     // import MapProvider from './MapProvider.vue' 
     
-    import {mapGetters,mapMutations,mapActions} from 'vuex'
+    // import {mapGetters,mapMutations,mapActions} from 'vuex'
     
     export default {
      props:{
-        // mapConfig: Object,
+        // mapConfig: Object,  
         // apiKey: String,
         // mapIsFor: String,
         // terrainCoords: JSON, 
@@ -25,7 +25,7 @@
      },
      data(){
       return {
-          // google: null,
+          // google: null, 
           map: null,
           mapConfig:null,
           mapContainer: null,
@@ -38,8 +38,10 @@
           polygons: [],
           selectedShape: '',
           newTerrain: [],
-          center: null,   
+          center: null, 
+
           farmTerrains: null,
+          newTerrain: [],
        }
     },
     watch: {
@@ -114,7 +116,7 @@
                        drawingControlOptions: {
                                      position: google.maps.ControlPosition.TOP_CENTER,
                                      drawingModes: [
-                                           google.maps.drawing.OverlayType.MARKER,
+                                           // google.maps.drawing.OverlayType.MARKER,
                                              // google.maps.drawing.OverlayType.CIRCLE,
                                            google.maps.drawing.OverlayType.POLYGON,
                                            ]
@@ -285,11 +287,13 @@
     
           },
           async HandleTerrains(vm){
+
+            this.bounds = new google.maps.LatLngBounds();
+
              if(this.farmTerrains && this.farmTerrains.length>0){
                 console.log("with terrains");
                  var polygon = null;
     
-                 this.bounds = new google.maps.LatLngBounds();
     
                  let i = 0;
                   this.farmTerrains.forEach(function(entry) {
@@ -321,9 +325,7 @@
     
                 });
     
-                this.map.fitBounds( this.bounds);
-    
-                this.map.panToBounds( this.bounds);
+              
              }else{
                 console.log("without terrains");
     
@@ -345,6 +347,11 @@
                    });
     
              }
+
+               this.map.fitBounds( this.bounds);
+    
+                this.map.panToBounds( this.bounds);
+                
           },
     
        }

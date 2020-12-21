@@ -1,129 +1,126 @@
 <template>
-    <MainContainerUser>
-          
-            <!-- <HeadContainer :title="title">
-                  <template slot="search" >
-                  </template>
-            </HeadContainer> -->
-  
-        <BodyContainer  :title="title">
+<!-- <MainContainerUser> -->
+<div>
+<!-- <HeadContainer :title="title">
+<template slot="search" >
+</template>
+</HeadContainer> -->
 
-                  
+    <BodyContainer  :title="title">
 
-            <template slot="body">
+        <template slot="body">
 
-                <b-row   style="padding:10px;" >
+            <b-row   style="padding:10px;" >
 
-                    <b-col style="padding: 15px; ">
-                        <nav>
-                          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-      
+                <b-col style="padding: 15px; ">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+
                             <a v-if="plantTypes" v-for="t in plantTypes" :key="t.id" class="nav-item nav-link"  data-toggle="tab"  role="tab"  aria-selected="false" v-on:click="typePlantsFilter(t.id)" v-bind:class="[ tipoPlantaId === t.id ? 'show active' : ' ' ]">{{t.name}}</a>
-      
+
                             <!-- <a class="nav-item nav-link"  data-toggle="tab" href="#nav-Fruticulas" role="tab" aria-controls="nav-Fruticulas" aria-selected="false" v-on:click="tipoPlantaId=2" v-bind:class="[ tipoPlantaId === 2 ? 'show active' : ' ' ]">Fruticulas</a>
                             <a class="nav-item nav-link"  data-toggle="tab" href="#nav-Viticultura" role="tab" aria-controls="nav-Viticultura" aria-selected="false" v-on:click="tipoPlantaId=3" v-bind:class="[ tipoPlantaId === 3 ? 'show active' : ' ' ]">Viticultura</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#nav-Olivicolas" role="tab" aria-controls="nav-Olivicolas" aria-selected="false" v-on:click="tipoPlantaId=4" v-bind:class="[ tipoPlantaId === 4 ? 'show active' : ' ' ]">Olivicolas</a>     -->                
-                          </div>
-                        </nav>
-                        <div class="tab-content px-3 px-sm-0" id="nav-tabContent" style="background-color: #f8f9fa; padding-top: 15px">
-                          
-                          <div class="tab-pane fade show active" id="nav-Horticulas" role="tabpanel" >
+                        </div>
+                    </nav>
+                    <div class="tab-content px-3 px-sm-0" id="nav-tabContent" style="background-color: #f8f9fa; padding-top: 15px">
+
+                        <div class="tab-pane fade show active" id="nav-Horticulas" role="tabpanel" >
                             <div class="row"  style="padding:10px;">
                                 <!-- <ShowPlant :plantId="p.id"/> -->
-      
-      
+
+
                                 <b-col sm="3" style="padding: 0px" v-if="plantsFilter" v-for="p in plantsFilter" :key="p.id">
                                     <div class="card card-flip " style="margin: 5px; height: 180px;">
                                         <div class="card-front text-white ">
-                                            
+
                                             <b-img :src="p.image" style="height: 180px" fluid-grow alt="tomato"  />
-                                            
-                                            <p style="position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%);">{{p.name}}</p>
-      
-                                             <p style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);">{{p.nome_variedade}}</p>
-      
+
+                                                <p style="position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%);">{{p.name}}</p>
+
+                                                <p style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);">{{p.nome_variedade}}</p>
+
                                         </div>
                                         <div class="card-back bg-white">
                                             <div class="card-body " style="padding: 5px; color: #327927">
-                                               <b-row>
-                                                
-                                                <b-col>                                                                            
-                                                  <b-row align-h="center" align-v="center" style="margin: 5px">
-                                                    <b-col sm="6">
-                                                      <h6 class="card-text">name cientifico</h6>
+                                                <b-row>
+
+                                                    <b-col>                                                                            
+                                                        <b-row align-h="center" align-v="center" style="margin: 5px">
+                                                            <b-col sm="6">
+                                                                <h6 class="card-text">name cientifico</h6>
+                                                            </b-col>
+                                                            <b-col sm="6">
+                                                                <p class="card-text">{{p.name_cientifico}}</p>
+                                                            </b-col>
+                                                        </b-row>
+
+                                                        <b-row  v-if="p.user_id" align-h="center" align-v="center" style="margin: 5px">
+                                                            <b-col sm="6">
+                                                                <h6 class="card-text">mine :</h6>
+                                                            </b-col>
+                                                            <b-col sm="6">
+                                                                <p class="card-text">{{p.user_id}}</p>
+                                                            </b-col>
+                                                        </b-row>
+
+                                                        <b-row align-h="center" ><!-- style="margin: 5px"> -->
+                                                            <b-col sm="7">
+                                                                <b-button @click="goTodetail(p.id)" variant="outline-light" block style=" border-color: #327927;color: #327927; ">Plant Details</b-button>  
+                                                            </b-col>
+                                                        </b-row> 
+
+
                                                     </b-col>
-                                                    <b-col sm="6">
-                                                      <p class="card-text">{{p.name_cientifico}}</p>
-                                                    </b-col>
-                                                  </b-row>
-      
-                                                  <b-row  v-if="p.user_id" align-h="center" align-v="center" style="margin: 5px">
-                                                    <b-col sm="6">
-                                                      <h6 class="card-text">mine :</h6>
-                                                    </b-col>
-                                                    <b-col sm="6">
-                                                      <p class="card-text">{{p.user_id}}</p>
-                                                    </b-col>
-                                                  </b-row>
-      
-                                                  <b-row align-h="center" ><!-- style="margin: 5px"> -->
-                                                    <b-col sm="7">
-                                                      <b-button @click="goTodetail(p.id)" variant="outline-light" block style=" border-color: #327927;color: #327927; ">Plant Details</b-button>  
-                                                     </b-col>
-                                                   </b-row> 
-      
-      
-                                                </b-col>
-      
-                                              </b-row>
-      
-                                             </div>
-                                                
+
+                                                </b-row>
+
                                             </div>
-                                      </div>
-                                    </b-col>
-                                </div>
+
+                                        </div>
+                                    </div>
+                                </b-col>
                             </div>
-      
-      
-                          </div>
-                          
                         </div>
-                      
-                      </b-col>
-    
 
-                    <!-- <transition>
-                        <router-view></router-view>
-                    </transition> -->
+
+                    </div>
+                </b-col>        
+            </b-row>   
             
-                    <!-- <UiModal v-if="confirmModal" :terrainToDelete="toDelete" @update="closeModal"/> -->
-                
-            
-                </b-row>   
 
-                <!-- <b-row v-if="!terrenosSearch" >
-                    <NoDataContainer :title="title" > 
-                        <slot >
-                            <b-button @click="$router.push({name: 'terrainCreate'})" variant="light"  style=" border-color: #4AAD37 ;color: #4AAD37;margin-bottom: 10px ">Add Terrains</b-button>
-                        </slot> 
-                    </NoDataContainer>
-                </b-row> -->
-                        
-                          
-            </template> 
-                 
-       
 
-        </BodyContainer>
-            
-  </MainContainerUser>
+        <!-- <transition>
+        <router-view></router-view>
+        </transition> -->
 
-  </template>
+        <!-- <UiModal v-if="confirmModal" :terrainToDelete="toDelete" @update="closeModal"/> -->
+
+
+        
+
+      <!-- <b-row v-if="!terrenosSearch" >
+      <NoDataContainer :title="title" > 
+      <slot >
+      <b-button @click="$router.push({name: 'terrainCreate'})" variant="light"  style=" border-color: #4AAD37 ;color: #4AAD37;margin-bottom: 10px ">Add Terrains</b-button>
+      </slot> 
+      </NoDataContainer>
+      </b-row> -->
+
+
+    </template> 
+
+
+
+    </BodyContainer>
+
+<!-- </MainContainerUser> -->
+</div>
+</template>
   
   <script>
   import HeadContainer from "../../../wrapper/HeadContainer";
-  import MainContainerUser from "../../../wrapper/MainContainerUser";
+  // import MainContainerUser from "../../../wrapper/MainContainerUser";
   import BodyContainer from "../../../wrapper/BodyContainer";
 //   import NoDataContainer from "../../../components/NoDataContainer";
 
@@ -139,7 +136,7 @@ import {PlantService} from "../../../services/PlantService";
   export default {
     name: "Plant",
     components: {
-      MainContainerUser,
+      // MainContainerUser,
       HeadContainer,
       BodyContainer,
     //   NoDataContainer,

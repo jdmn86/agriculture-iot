@@ -1,15 +1,7 @@
 <template >
   	
-
-    <!-- <div  v-if="this.terrain && this.google" @click.prevent='select($event, t)' >  -->
- 
- 
-		<!-- <div style=" height: 250px;min-width: 200px" id="myMap" ref="myMap" > -->
-    <div style=" height: 40vh" id="myMap" ref="myMap" >
-			
-		<!-- </div>   -->
-    
-
+    <div style=" height: 35vh" id="myMap" ref="myMap" >
+		
 	</div> 
 	
 
@@ -17,11 +9,10 @@
 
 <script> 
 import GoogleMapsApiLoader from 'google-maps-api-loader'
-// import MapProvider from './MapProvider.vue'
  
 export default {
   props:{
-    terrain: Object,
+    terrain: Object, 
     google:Object,
     items: Array,
      
@@ -30,9 +21,7 @@ export default {
      
    },
   data(){
-    return {
-     // cgoogle: null,
-     // cterrain: null,
+    return {     
       map: null,
       mapContainer: null,
       mapConfig:null,

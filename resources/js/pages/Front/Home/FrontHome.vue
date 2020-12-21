@@ -1,5 +1,5 @@
 <template>
-      <MainContainerUser>
+      <!-- <MainContainerUser> -->
       <!-- <div id="demo" :class="[{'collapsed' : collapsed}]">
             <b-container fluid style="padding-left: 0px; padding-right: 0px;"> -->
       <!--  <div class="py-4 main">
@@ -21,12 +21,12 @@
             </div> -->
             <!-- </b-container> 
       </div> -->
-</MainContainerUser>
+<!-- </MainContainerUser> -->
 </template>
 
-<script>
+<script> 
  import HeadContainer from "../../../wrapper/HeadContainer";
- import MainContainerUser from "../../../wrapper/MainContainerUser";
+ // import MainContainerUser from "../../../wrapper/MainContainerUser";
  import BodyContainer from "../../../wrapper/BodyContainer";
 // import HeaderComponent from "../../../components/HeaderComponent";
 //import UserService from "../../services/UserService"; 
@@ -36,10 +36,10 @@ export default {
   data() {
     return {
       title: "Home",
-    }
+    } 
   },
   components: {
-      MainContainerUser,
+      // MainContainerUser,
       HeadContainer,
       BodyContainer,
 //     HeaderComponent,

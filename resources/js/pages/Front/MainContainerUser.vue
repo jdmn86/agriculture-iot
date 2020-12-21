@@ -1,37 +1,36 @@
 <template>
-<!-- <main>  -->
 
-      <div id="demo" :class="[{'collapsed' : collapsed}]">
-            <b-container fluid style="padding-left: 0px; padding-right: 0px;">
-      <!--  <div class="py-4 main">
-                  <div class="container">
-                        <div class="row justify-content-center"> -->
-                        <!-- <div class="container-fluid"> -->
+      <div id="demo" :class="[{'collapsed' : collapsed}]" style="background-color:white;">
 
-                              <TopNavBarUser/>
-                               
-                              
-                              <slot></slot> 
-                              <!-- <router-view></router-view> -->
-                              
+            <!-- <b-container fluid style="background-color:white; padding-left: 0px; padding-right: 0px; "> -->
 
-                              <!-- <template> -->
-                                    <sidebar-menu :collapsed="collapsed"
-        :show-one-child="true"
-        @toggle-collapse="onToggleCollapse"
-        @item-click="onItemClick" :menu="menu" :width="'180px'"/>
-                              <!-- </template>  -->
-                        <!-- </div> -->
-            <!--      </div> 
-            </div> -->
-            </b-container> 
+                  <WarningFixTop />
+
+                  <TopNavBarUser/>
+
+
+                  <transition name="slide-fade">
+                        <router-view ></router-view>
+                  </transition> 
+                  
+
+                  <sidebar-menu :collapsed="collapsed"
+                          :show-one-child="true"
+                          @toggle-collapse="onToggleCollapse"
+                          @item-click="onItemClick" :menu="menu" :width="'180px'"/>
+                        
+            <!-- </b-container>  -->
+
       </div>
-<!-- </main>  -->
-</template>
+
+</template>  
 
 <script>
       import { SidebarMenu } from 'vue-sidebar-menu'
-      import TopNavBarUser from "../layouts/TopNavBarUser";
+      import TopNavBarUser from "../../layouts/TopNavBarUser";
+
+      import WarningFixTop from "../../components/WarningFixTop";
+ 
 
       const logoImg = {
     data() {
@@ -39,14 +38,15 @@
             src: '/img/logo3.png'
         }
     },
-    template: '<div style="padding-left: 35px; background-color: #f2f2f2;" class="row"> <img width="35px" height="35px" :src="src"> <h3 class="font-weight-bolder" style="color: #4AAD37; padding-top: 5px; padding-left: 5px;">Sada Lab</h3> </div>'
+    template: '<div style="padding-left: 35px; background-color: white" class="row"> <img width="35px" height="35px" :src="src"> <h3 class="font-weight-bolder" style="color: #4AAD37; padding-top: 5px; padding-left: 5px;">Sada Lab</h3> </div>'
 }
 
 export default {
   name: "MainContainerUser",
  components:{
       SidebarMenu,
-      TopNavBarUser
+      TopNavBarUser,
+      WarningFixTop,
  },
  data(){
             return{
@@ -145,6 +145,7 @@ export default {
                               // hiddenOnCollapse: true
                               },             
                               {
+
                               href: { path:'/front/farm'},
                               /* with vue-router you can use :to prop
                               href: { path: '/' }
@@ -191,7 +192,7 @@ export default {
                         you can mark link as external
                         // external: true
                         */
-                        href: { path:'/front/terrain/terrainList'},
+                        href: { path:'/front/terrain'},
 
                         title: 'Land',
 
@@ -854,9 +855,9 @@ methods: {
             },
             onItemClick (event, item) {
             console.log('onItemClick')
-            // console.log(event)
-            // console.log(item)
+            
             },
+
       },
       mounted() {
       console.log('Component MainApp mounted.')

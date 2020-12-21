@@ -53,7 +53,7 @@ import {AuthService} from "../services/AuthService";
 import Auth from '@/models/Auth'
 
     export default {
-        name: 'TopNavBarUser',
+        name: 'TopNavBarUser', 
         components:{},
         props: {
         

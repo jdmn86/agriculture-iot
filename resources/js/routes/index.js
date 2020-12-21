@@ -15,7 +15,7 @@ const router = new VueRouter({
 }); 
 
 
-router.beforeEach(checkAuthMiddleware)
+router.beforeEach(checkAuthMiddleware) 
 router.beforeEach(checkRoleAccessMiddleware)
 
 

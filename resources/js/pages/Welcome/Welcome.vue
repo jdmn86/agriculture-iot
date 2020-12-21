@@ -1,35 +1,5 @@
 <template>
-      <!-- <container>
-            <div class="col-md-12">
-                  <card>
-                        <template slot="title">All Users</template>
-                        <template slot="body">
-                              <table class="table table-borderless">
-                                    <thead>
-                                          <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Email</th>
-                                          </tr>
-                                    </thead>
-                                    <tbody>
-                                          <tr v-if="users.length == 0">
-                                                <td colspan="4" style="text-align: center">No data available</td>
-                                          </tr>
-                                          <tr v-for="(user, index) in users" :key="user.id" v-else>
-                                                <td>{{ index + 1 }}</td>
-                                                <td>{{ user.name }}</td>
-                                                <td>{{ user.email }}</td>
-                                          </tr>
-                                    </tbody>
-                              </table>
-                        </template>
-                  </card>
-            </div>
-      </container> -->
-
-<!-- <div style="margin-left: -180px"> -->
-<!-- <div > -->
+    
   <b-container fluid style="margin: 0px; padding: 0px">
   
       <TopNavBar/>
@@ -44,15 +14,6 @@
   
                 </div>
           </div>
-          
-      <!--   <div class="row align-items-center text-center" style="padding-top: 47vh; padding-right: 30px">
-            <div class="col-4 offset-md-8 text-light " >
-
-                <img class="align-items-center img-fluid" src="img/google.png" style=" max-width: 100%; width: 175px; margin-left:all ; height: 72px;" >
-
-                <img class="align-items-center img-fluid" src="img/apple.png" style=" max-width: 100%; width: 150px; margin-left:all ; height: 50px;" >
-            </div>
-        </div> -->
   
     </div>
   </div>
@@ -60,9 +21,6 @@
 <div class="container-fluid position-sticky bar-green">
 
 </div> 
- 
-
-   
  
 <section id="what">
       <div class="container-fluid " style="height: 50vh ;">
@@ -98,7 +56,6 @@
             </div>
   </div>
 </section>
-
 
 
 <section id="for">
@@ -153,19 +110,19 @@ Created for Farmers and Agronomists, but also for small home-grown crops, or ent
                 <h2>João Martins</h2>
                 <p style="font-size: 17px">CEO and Developer</p><br>
               
-              </div><!-- /.col-lg-4 -->
+              </div>
               <div class="col-3 offset-md-1" align="center">
                 <img class="rounded-circle" src="img/cruz.jpg" alt="Generic placeholder image" width="140" height="140">
                 <h2>João Cruz</h2>
                 <p style="font-size: 17px">Commercial and Logistic</p>
               
-              </div><!-- /.col-lg-4 -->
+              </div>
               <div class="col-3 offset-md-1" align="center">
                 <img class="rounded-circle" src="img/trigo.jpg" alt="Generic placeholder image" width="140" height="140">
                 <h2>Nuno Trigo</h2>
                 <p style="font-size: 17px">Marketing and Farmer</p><br>
                
-              </div><!-- /.col-lg-4 -->
+              </div>
             </div>
        </div>
 
@@ -173,8 +130,6 @@ Created for Farmers and Agronomists, but also for small home-grown crops, or ent
     </div>
     </div>
 </section>
-
-
 
 
 
@@ -191,9 +146,6 @@ Created for Farmers and Agronomists, but also for small home-grown crops, or ent
 
       <div class="col-md-5">
            <h1 class=" title-text font-weight-bold " style=" font-size: 25px" ><strong>More info:</strong></h1>
-
-
-
 
 
         <form v-on:submit.prevent="onSubmit">
@@ -233,7 +185,6 @@ Created for Farmers and Agronomists, but also for small home-grown crops, or ent
         </form>
 
 
-
       </div>
     </div>
    
@@ -246,18 +197,14 @@ Created for Farmers and Agronomists, but also for small home-grown crops, or ent
 </template>
 
 <script>
-// import Card from "../../components/Card";
-// import Container from "../../components/Container";
-// import UserService from "../../services/UserService"; 
+
 import TopNavBar from "../../layouts/TopNavBar";
-// import backgroundUrl from "img/landingFull.jpg";
 
 export default {
   name: "Welcome",
   components: {
     TopNavBar,
-    // Container,
-    // Card
+    
   },
   data() {
      return{
@@ -278,7 +225,6 @@ export default {
     };
   },
   created() {
-    // this.getAllUsers();
   },
   methods: {
     callback (token) {
@@ -332,15 +278,7 @@ export default {
                   });  
             
           },
-    // getAllUsers() {
-    //   UserService.getAllUsers()
-    //     .then(userList => {
-    //       this.users = userList;
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
-    // }
+    
   }
 };
 </script>
