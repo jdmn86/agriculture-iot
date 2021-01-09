@@ -32,3 +32,4 @@ configure({
     return i18n.t(`validation.${values._rule_}`, values);
   },
 })
+ 

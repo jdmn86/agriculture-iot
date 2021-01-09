@@ -13,7 +13,7 @@ use DB;
 
 
 class PlaguePlantsPartsAnatomyController extends Controller
-{ 
+{  
     function __construct()
     {
         $this->middleware('auth');//->except('logout');
@@ -30,9 +30,9 @@ class PlaguePlantsPartsAnatomyController extends Controller
          */
         public function index(): JsonResponse
         {
-            $terrain = PlaguePlantsPartsAnatomy::orderBy('id','DESC')->paginate(5);
+            $plaguePlantsPartsAnatomy = PlaguePlantsPartsAnatomy::all();
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-            return response()->json($terrain);
+            return response()->json($plaguePlantsPartsAnatomy);
         }
  
     

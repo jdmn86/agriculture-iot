@@ -12,6 +12,8 @@ use Illuminate\Http\JsonResponse;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
+
+use Illuminate\Database\Eloquent\Builder;
  
 class TerrainController extends Controller 
 {
@@ -31,7 +33,21 @@ class TerrainController extends Controller
          */
         public function index(): JsonResponse
         { 
-            $terrain = Terrain::all();
+
+             if(auth()->user()->hasRole('admin')){
+                $terrain = Terrain::all();
+            }
+
+            if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
+
+                // $terrain = Terrain::with('farm')->has('farm')->where('farm_company',"=",auth()->user()->company_id)->get();
+
+                $terrain = Terrain::whereHas('farm', function (Builder $query) {
+                    $query->where('farm_company',auth()->user()->company_id);
+                })->get();
+            }
+
+            
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
             return response()->json($terrain);
         }
@@ -56,7 +72,7 @@ class TerrainController extends Controller
         public function store(Request $request): JsonResponse
         {
             
-            
+
               $validatedData = $request->validate([
                 'name' => 'required|max:255',
                 'coords' => 'required',

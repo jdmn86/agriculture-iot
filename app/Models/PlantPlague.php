@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+ 
 class PlantPlague extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id', 'plant_id', 'plague_id',
+         'plant_id', 'plague_id',
    ];
 
    public function plant()

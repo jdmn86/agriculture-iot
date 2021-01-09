@@ -42,7 +42,7 @@ class CompanyController extends Controller
         //so mostra o do user current se for adminCompany or user
         if(auth()->user()->hasRole('admin')){
             $company=Company::all();
-        }
+        } 
 
         if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
 

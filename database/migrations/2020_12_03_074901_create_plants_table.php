@@ -47,13 +47,13 @@ class CreatePlantsTable extends Migration
             $table->string('image')->nullable();
             // $table->boolean('cropDaysTotal')->nullable(); 
 
-            $table->unsignedBigInteger('user_id')->nullable()->unsigned();
+            $table->integer('company_id')->nullable()->unsigned();
 
             $table->timestamps();
 
             $table->foreign('tipo_planta_id')->references('id')->on('plant_types')->onDelete('cascade');
             
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

@@ -2,7 +2,7 @@
     <!-- <b-container > -->
         <!-- <b-row   style="margin: 10px; padding-top: 55px; " align-h="center" align-v="start"> -->
 
-            <b-col  >
+            <b-col style="padding: 3vw; padding-top: 4vw">
 
                 <!-- <b-container style=" margin: 0px; padding-top: 55px; "> -->
 

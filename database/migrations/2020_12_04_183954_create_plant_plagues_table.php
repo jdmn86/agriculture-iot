@@ -15,7 +15,7 @@ class CreatePlantPlaguesTable extends Migration
     {
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
             Schema::create('plant_plagues', function (Blueprint $table) {
-                $table->increments('id');
+                // $table->increments('id');
                 $table->integer('plant_id')->unsigned();
                 $table->integer('plague_id')->unsigned();
                 $table->timestamps();

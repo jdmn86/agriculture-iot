@@ -22,3 +22,4 @@ class PlaguePlantsPartsAnatomy extends Model
        return $this->belongsTo(PlantPartsAnatomy::class,'id','part_id');
    }
 }
+ 

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 /** 
  * Undocumented class.
  * @package category
- */
+ */ 
 class AuthController extends Controller
 {
 
@@ -83,7 +83,7 @@ class AuthController extends Controller
         $userData = $this->validate($request, [
             'name'                  => 'required|string|max:255',
             'email'                 => 'required|string|email|max:255|unique:users',
-            'password'              => 'required|string|min:6|confirmed',
+            'password'              => 'required|string|min:4|confirmed',
             'password_confirmation' => 'required',
         ]);
 
@@ -121,5 +121,57 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Successfully logged out'
         ]);
+    }
+
+    public function changePassword(Request $request): JsonResponse
+    {
+     
+        if(Auth::Check())
+        {
+
+            $request->validate([
+                'oldPassword' => 'required|min:4',
+                'password' => 'required|min:4|confirmed',
+
+            ]);
+
+           
+            $currentPassword = Auth::User()->password;
+
+            if(Hash::check($request['oldPassword'], $currentPassword))
+            {
+                $userId = Auth::User()->id;
+                $user = User::find($userId);
+                $user->password = Hash::make($request['password']);;
+                $user->save();
+
+                // $user->token()->revoke();
+                request()->user()->token()->revoke();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Your password has been updated successfully.',
+                ]);
+               
+            }
+            else
+            {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sorry, your current password was not recognised. Please try again.',
+                ]);
+          
+            }
+        }
+        else
+        {
+            return response()->json([
+                        'success' => false,
+                        'message' => 'Not authenticated',
+                    ]);
+        }
+
+
+
     }
 }

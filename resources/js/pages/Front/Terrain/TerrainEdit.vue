@@ -1,19 +1,16 @@
 <template>
 
-<div>
-    <HeadContainer :title="title"/>
+<b-container style="padding: 0px" >
 
-    <BodyContainer :loading.sync="loading">  
+    <b-row style="margin: 0px;padding: 3vw; padding-top: 4vw" align-h="around">
 
+            <b-col  style="margin: 0px">
 
-        <template slot="body">
-
-            <b-col v-if="farms.length " style="margin: 0px">
-                <b-row fluid style=" background-color: #f8f9fa; margin: 0px; margin-bottom: 10px; padding: 10px">
+                <b-row fluid align-v="center" style=" background-color: #f8f9fa; margin: 0px; padding: 15px">
 
                     <validation-observer ref="observer" v-slot="{ handleSubmit }">
 
-                         <b-form inline @submit.stop.prevent="handleSubmit(saveTerrain)" style="margin-top: 10px;margin-left: 20px">
+                         <b-form inline @submit.stop.prevent="handleSubmit(saveTerrain)" style="margin-left: 20px">
 
                              <ValidationProvider 
                                 name="name" 
@@ -78,7 +75,7 @@
                         <b-button v-can="'terrain-edit'"  @click="$bvModal.show('ModalToConfirmUpdate')"  block  style=" border-color: #4AAD37;background-color: #4AAD37; ">Update</b-button>
                     </b-col> -->
 
-                    <ModalToConfirm  v-can="'terrain-edit'" v-if="terrain.name" :name="terrain.name" >
+                    <ModalToConfirm  v-can="'terrain-edit'" v-if="terrain.name" :name="terrain.name" :isTo="'update'">
                         <template slot="confirmButton">
                              <button type="button"  class="btn btn-danger" @click="saveTerrain">Confirmar</button>
                         </template>
@@ -89,7 +86,7 @@
 
                 </b-row>
 
-                <MapEditTerrain v-if="terrain.name && google"
+                <MapEditTerrain v-if="terrain && google && terrainsToSend"
                     :t="terrain"
                     @updateTerrainCords="updateTerrainCords"
                     :terrains="terrainsToSend"
@@ -99,18 +96,16 @@
 
             </b-col>
 
-            <NoDataContainer v-else :title="title" >
+           <!--  <NoDataContainer v-else :title="title" >
                   <slot >
                         <b-button v-can="'farm-create'" @click="$router.push({name: 'terrainCreate'})" variant="light"  style=" border-color: #4AAD37 ;color: #4AAD37;margin-bottom: 10px ">Add Terrain</b-button>
                   </slot>
-            </NoDataContainer>
+            </NoDataContainer> -->
 
 
-        </template>
+</b-row>
 
-    </BodyContainer>
-                            
-</div>
+</b-container>
 
 </template>
  
@@ -123,8 +118,8 @@ import ModalToConfirm from "@/components/ModalToConfirm";
 import GoogleMapsApiLoader from 'google-maps-api-loader'
 import MapEditTerrain from "@/components/GoogleMaps/MapEditTerrain.vue";
 
-import {TerrainService} from "@/services/TerrainService"; 
-import {FarmService} from "@/services/FarmService"; 
+// import {TerrainService} from "@/services/TerrainService"; 
+// import {FarmService} from "@/services/FarmService"; 
 
 import  $bus   from '@/app';
 
@@ -141,24 +136,26 @@ export default {
         MapEditTerrain,
         ModalToConfirm,
     },
+    props: ['terrainId'],
     data() {
         return {        
             title: "Edit Terrain",
             loading: false, 
             google: null,
-            terrain: {
-                name: null,
-                farm_id: null,
-                coords: null,
-                area: null,
-            },
-            farm: null,
-            terrainsToSend: null,
+            // terrain: {
+            //     name: null,
+            //     farm_id: null,
+            //     coords: null,
+            //     area: null,
+            // },
+            // farm: null,
+            // terrainsToSend: null,
         };
     },    
     async created() {
+        console.log("on created of TerrainEdit");
 
-        this.loading=true;
+        // this.loading=true;
 
         const googleMapApi = await GoogleMapsApiLoader({
             apiKey: "AIzaSyDGqrxG_MOLgoZ3mA9ZZQrRMRQe_k5QOPo&libraries=drawing"
@@ -166,28 +163,43 @@ export default {
         
         this.google = googleMapApi;     
 
-        console.log("Created before fetch farms")
-        this.fetchFarms().then(()=>{
-            this.fetchTerrains().then(()=>{
+        console.log("Created before fetch farms");
+        
+        // this.fetchFarms().then(()=>{
+        //     this.fetchTerrains().then(()=>{
 
-                console.log("finish fetch farms")
-                // let t =  Terrain.query().find(this.$route.params.terrainId);
-                this.terrain = Terrain.query().find(this.$route.params.terrainId);
+                // console.log("finish fetch farms")
 
-                this.terrainsToSend = Terrain.query().where('farm_id', this.terrain.farm_id).where('id', (value) => value != this.terrain.id).get();
+                // if(Terrain.query().find(this.$route.params.terrainId) ){
+                //     console.log("with terrain")
 
-                this.farm = Farm.query().where('id', this.terrain.farm_id).first();
+                //     this.terrain = Terrain.query().find(this.$route.params.terrainId);
 
-                this.loading = false
-            });
-        });
+                //     this.terrainsToSend = Terrain.query().where('farm_id', this.terrain.farm_id).where('id', (value) => value != this.terrain.id).get();
+
+                //     this.farm = Farm.query().where('id', this.terrain.farm_id).first();    
+                // }
+
+                // this.loading = false
+        //     });
+        // });
 
     },
     computed : {
-        farms(){
-            return Farm.all() ;
+        farm(){
+            return this.terrain.farm;
         },
-        
+        farms(){
+            return Farm.all();
+        },
+        terrain: {
+          get(){ return Terrain.query().with('farm').find(this.terrainId) },
+          set(value){ this.terrain = value}
+        },
+        terrainsToSend(){
+
+            return Terrain.query().where('farm_id', this.terrain.farm_id).where( (terrain) => { return terrain.id != this.terrainId }).get();
+        },
     },
     methods: {
         getValidationState({ dirty, validated, valid = null }) {
@@ -215,12 +227,13 @@ export default {
               
                 try {
                     this.loading = true;
-                    const { data } = await TerrainService.update(this.terrain.id,this.terrain);
+                    // const { data } = await TerrainService.update(this.terrain.id,this.terrain);
                     
-                     Terrain.update({where: data.id,data: {data}});
+                    //  Terrain.update({where: data.id,data: {data}});
+                    Terrain.api().patch('terrain/'+this.terrain.id,this.terrain);
 
-                    console.log("terrain :"+ JSON.stringify(data))
-                    this.$router.push({path: '/front/terrain'});
+                    // console.log("terrain :"+ JSON.stringify(data))
+                    // this.$router.push({path: '/front/terrain'});
                     
                 } catch (e) {
                     this.$bus.$emit('warningFixTop', e.message);
@@ -228,44 +241,60 @@ export default {
                     console.log(e)
                 } finally {
                     this.loading = false
+                    this.$router.push({path: '/front/terrain/'+this.terrain.id});
                 }
             }
         },
-        async fetchFarms () {
+        // async fetchFarms () {
 
-            // this.loading = true
-            try {
-                console.log("fetch farms")
-                const { data } = await FarmService.getList();
-                Farm.insert({data: data});
-            } catch (e) {
-                this.$bus.$emit('warningFixTop', e.message);
-                this.error = e.message
-                console.log(e)
-            } finally {
-                // this.loading = false
-            }          
+        //     // this.loading = true
+        //     try {
+        //         console.log("fetch farms")
+        //         const { data } = await FarmService.getList();
+        //         Farm.insert({data: data});
+        //     } catch (e) {
+        //         this.$bus.$emit('warningFixTop', e.message);
+        //         this.error = e.message
+        //         console.log(e)
+        //     } finally {
+        //         // this.loading = false
+        //     }          
 
-        },
-        async fetchTerrains () {
+        // },
+        // async fetchTerrains () {
 
-            // this.loading = true
-            try {
-                console.log("fetch terrains")
-                const { data } = await TerrainService.getList();
-                Terrain.insert({data: data});
-            } catch (e) {
-                this.$bus.$emit('warningFixTop', e.message);
-                this.error = e.message
-                console.log(e)
-            } finally {
-               // this.loading = false
-            }          
-        },
+        //     // this.loading = true
+        //     try {
+        //         console.log("fetch terrains")
+        //         const { data } = await TerrainService.getList();
+        //         Terrain.insert({data: data});
+        //     } catch (e) {
+        //         this.$bus.$emit('warningFixTop', e.message);
+        //         this.error = e.message
+        //         console.log(e)
+        //     } finally {
+        //        // this.loading = false
+        //     }          
+        // },
 
     },
     mounted () {
-        console.log("Mounted TerrainEdit.vue");
+        console.log("on mounted of TerrainEdit");
+
+        // if(Terrain.query().find(this.$route.params.farmId).exists() ){
+          
+        //     this.terrain = Terrain.query().find(this.$route.params.terrainId);
+
+        //     this.terrainsToSend = Terrain.query().where('farm_id', this.terrain.farm_id).where('id', (value) => value != this.terrain.id).get();
+
+        //     this.farm = Farm.query().where('id', this.terrain.farm_id).first();
+            
+        // }else{
+            
+        //     console.log("mount without terrain in id")
+
+        //     this.$router.back();
+        // }
 
     },
 

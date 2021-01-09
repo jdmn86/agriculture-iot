@@ -3,7 +3,7 @@
         <div class="col-md-8">
             <HeadContainer>
                 <template slot="top">Register</template>
-            </HeadContainer>
+            </HeadContainer> 
 
             <BodyContainer>
                 <template slot="body">
@@ -75,8 +75,8 @@
 // import MainContainerAdmin from "../../../layouts/MainContainerAdmin";
 import HeadContainer from "../../../wrapper/HeadContainer";
 import BodyContainer from "../../../wrapper/BodyContainer"
-import {AuthService} from "../../../services/AuthService";
-import Form from "../../../services/FormService";
+// import {AuthService} from "../../../services/AuthService";
+// import Form from "../../../services/FormService";
 
 export default {
   name: "register",

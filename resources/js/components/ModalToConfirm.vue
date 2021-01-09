@@ -2,14 +2,15 @@
 <template>
    
 <b-col class="col-auto align-self-end" style="margin-left: 10px">
-   <b-button v-can="'terrain-edit'"  @click="$bvModal.show('ModalToConfirmUpdate')"  block  style=" border-color: #4AAD37;background-color: #4AAD37; ">Update</b-button>
+   <b-button v-can="'terrain-edit'"  @click="$bvModal.show('ModalToConfirmUpdate')"  block  style=" border-color: #4AAD37;background-color: #4AAD37; ">{{isTo}}</b-button>
+   <slot name="saveUpdate"/>
 
       <b-modal id="ModalToConfirmUpdate" hide-footer  title="Confirmation" :header-text-variant="headerTextVariant" header-class="backcolor" >
 
   
               <div class="modal-window" style="padding: 20px">
   
-              <p>Are you sure? Want to delete <strong v-if="name">{{ name }}</strong> ?</p>
+              <p>Are you sure? Want to {{isTo}} <strong v-if="name">{{ name }}</strong> ?</p>
               
               <div class="actions">
                 <button type="button" class="btn btn-primary"  @click="$bvModal.hide('ModalToConfirmUpdate')">Anular</button>
@@ -21,7 +22,7 @@
           
           </b-modal>
 </b-col>
-  </template>
+  </template> 
   
   <script>
   
@@ -30,6 +31,7 @@
           name: 'ModalToConfirm',
             props:{
             name: String,
+            isTo: String,
             // onConfirmDelete: Function,
           },
       components: {

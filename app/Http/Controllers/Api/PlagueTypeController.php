@@ -16,7 +16,7 @@ class PlagueTypeController extends Controller
     function __construct()
     {
         $this->middleware('auth');//->except('logout');
-    
+     
         $this->middleware('permission:plagueType-list|plagueType-create|plagueType-edit|plagueType-delete', ['only' => ['index','store']]);
         $this->middleware('permission:plagueType-create', ['only' => ['store']]);
         $this->middleware('permission:plagueType-edit', ['only' => ['update']]);
@@ -29,9 +29,9 @@ class PlagueTypeController extends Controller
          */
         public function index(): JsonResponse
         {
-            $terrain = Terrain::orderBy('id','DESC')->paginate(5);
+            $plagueType = PlagueType::all();
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-            return response()->json($terrain);
+            return response()->json($plagueType);
         }
 
     

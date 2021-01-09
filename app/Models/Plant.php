@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Plant extends Model
 {
     use HasFactory;
-
+ 
     protected $fillable = [  
         'id',   
         'name' ,
@@ -35,7 +35,7 @@ class Plant extends Model
         'image',
         // 'amontoada',
         'water_consumption',
-        'user_id'
+        'company_id'
 ]; 
 
 public function plantType()
@@ -43,9 +43,9 @@ public function plantType()
     return $this->belongsTo(PlantType::class,'tipo_planta_id');
 }
 
-public function user()
+public function company()
 {
-    return $this->belongsTo(User::class,'user_id');
+    return $this->belongsTo(Company::class,'company_id');
 }
 
     public function plantStage()  

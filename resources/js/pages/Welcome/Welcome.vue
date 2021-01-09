@@ -1,7 +1,8 @@
 <template>
     
   <b-container fluid style="margin: 0px; padding: 0px">
-  
+
+
       <TopNavBar/>
 
       <div class="jumbotron big-banner "  >
@@ -16,7 +17,7 @@
           </div>
   
     </div>
-  </div>
+  </div> 
   
 <div class="container-fluid position-sticky bar-green">
 

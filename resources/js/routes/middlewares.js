@@ -7,12 +7,10 @@ import Auth from '@/models/Auth'
 
 export function checkAuthMiddleware (to, from, next) {
 
-    let user =  Auth.query().with('roles').first() || null;
+    let user =  Auth.query().first() || null;
     if(!user){
-        
         user = JSON.parse(localStorage.getItem("auth"))|| null;         
         if (user) {
-         
             Auth.create({data: user});
         }
     }
@@ -29,7 +27,7 @@ export function checkAuthMiddleware (to, from, next) {
         next("/");
     } else {
         next();
-    }
+    } 
    
 }
 
@@ -37,7 +35,7 @@ export function checkAuthMiddleware (to, from, next) {
 
 export  function checkRoleAccessMiddleware (to, from, next) {
 
-    let user =   Auth.query().with('roles').first();
+    let user =   Auth.query().first();
 
 
     if(to.meta.requireAuth && user && user.roles[0]){

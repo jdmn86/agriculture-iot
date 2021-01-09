@@ -6,7 +6,7 @@ use App\Models\Crop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-
+ 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
@@ -30,9 +30,22 @@ class CropController extends Controller
          */
         public function index(): JsonResponse
         {
-            $companys = Farm::orderBy('id','DESC')->paginate(5);
-            // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-            return response()->json($companys);
+            //so mostra o do user current se for adminCompany or user
+            if(auth()->user()->hasRole('admin')){
+                $crops=Crop::all();
+            }
+
+            if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
+
+              // $crops = Crop::all();
+               $crops = Crop::whereHas('terrain.farm', function($query){
+                
+                    $query->where('farm_company','=', auth()->user()->company_id);
+               })->get();
+            }
+            
+            
+            return response()->json($crops);
         }
     
         /**

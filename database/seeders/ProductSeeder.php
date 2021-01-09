@@ -42,6 +42,7 @@ class ProductSeeder extends Seeder
 	        'storage' => null,
 	        'compatibility'=> null,	        
 	        'warnings'=> null,
+	        'image' => '/img/products/prod1.jpeg',
 	        
         ]);
 
@@ -67,6 +68,7 @@ class ProductSeeder extends Seeder
 	        'storage' => 'in cold dry place',
 	        'compatibility'=> null,	        
 	        'warnings'=> null,
+	        'image' => '/img/products/prod1.jpeg',
         ]);
 
           Product::create([
@@ -90,6 +92,7 @@ class ProductSeeder extends Seeder
 	        'storage' => null,
 	        'compatibility'=> null,	        
 	        'warnings'=> null,
+	        'image' => '/img/products/prod1.jpeg',
         ]);
 
             Product::create([
@@ -113,6 +116,7 @@ class ProductSeeder extends Seeder
 	        'storage' => null,
 	        'compatibility'=> null,	        
 	        'warnings'=> null,
+	        'image' => '/img/products/prod1.jpeg',
         ]);
 
              Product::create([
@@ -136,6 +140,7 @@ class ProductSeeder extends Seeder
 	        'storage' => null,
 	        'compatibility'=> null,	        
 	        'warnings'=> null,
+	        'image' => '/img/products/prod1.jpeg',
         ]);
 
               Product::create([
@@ -159,6 +164,7 @@ class ProductSeeder extends Seeder
 	        'storage' => null,
 	        'compatibility'=> null,	        
 	        'warnings'=> null,
+	        'image' => '/img/products/prod1.jpeg',
         ]);
   Product::create([
             // 'id' => '7',
@@ -181,6 +187,7 @@ class ProductSeeder extends Seeder
 	        'storage' => null,
 	        'compatibility'=> null,	        
 	        'warnings'=> null,
+	        'image' => '/img/products/prod1.jpeg',
         ]);
         Product::create([
             // 'id' => '8',
@@ -203,6 +210,7 @@ class ProductSeeder extends Seeder
 	        'storage' => null,
 	        'compatibility'=> null,	        
 	        'warnings'=> null,
+	        'image' => '/img/products/prod1.jpeg',
         ]);
   Product::create([
             // 'id' => '9',
@@ -225,6 +233,7 @@ class ProductSeeder extends Seeder
 	        'storage' => ' start the agitator. In general, add tank mix partners in this order: products packaged in water-soluble packaging, wettable powders, and water-dispersible granular products first, next liquid flowables, then emulsifiable concentrates, such as Stratego Fungicide(R), and last, liquid soluble products. Always allow each tank mix partner to become fully dispersed before adding the next product. Continue to provide agitation while adding the remainder of the water. Maintain agitation until all of the mixture has been applied.Note: When using Stratego Fungicide(R) in tank mixtures, all products in water-soluble packaging should be added to the tank before any other tank mix partner, including Stratego Fungicide(R). Allow the water-soluble packaging to completely dissolve and the product(s) to completely disperse before adding any other tank mix partner to the tank.If using Stratego Fungicide(R) in a tank mixture, observe all directions for use, crop/sites, use rates, dilution ratios, precautions, and limitations which appear on the tank mix product label. No label dosage rate should be exceeded, and the most restrictive label precautions and limitations should be followed. This product must not be mixed with any product which prohibits such mixing. Tank mixtures, or other applications of products referenced on this label, are permitted only in those states in which the referenced products are labeled.Stratego Fungicide(R) is compatible with most insecticide, fungicide, and foliar nutrient products. However, the physical compatibility of Stratego(R) with tank mix partners should be tested before use. To determine the physical compatibility of Stratego Fungicide(R) with other products, use a jar test, as described below.Using a quart jar, add the proportionate amounts of the products to 1 qt. of water. Add wettable powders and water-dispersible granular products first, next liquid flowables, then emulsifi',
 	        'compatibility'=> ' start the agitator. In general, add tank mix partners in this order: products packaged in water-soluble packaging, wettable powders, and water-dispersible granular products first, next liquid flowables, then emulsifiable concentrates, such as Stratego Fungicide(R), and last, liquid soluble products. Always allow each tank mix partner to become fully dispersed before adding the next product. Continue to provide agitation while adding the remainder of the water. Maintain agitation until all of the mixture has been applied.Note: When using Stratego Fungicide(R) in tank mixtures, all products in water-soluble packaging should be added to the tank before any other tank mix partner, including Stratego Fungicide(R). Allow the water-soluble packaging to completely dissolve and the product(s) to completely disperse before adding any other tank mix partner to the tank.If using Stratego Fungicide(R) in a tank mixture, observe all directions for use, crop/sites, use rates, dilution ratios, precautions, and limitations which appear on the tank mix product label. No label dosage rate should be exceeded, and the most restrictive label precautions and limitations should be followed. This product must not be mixed with any product which prohibits such mixing. Tank mixtures, or other applications of products referenced on this label, are permitted only in those states in which the referenced products are labeled.Stratego Fungicide(R) is compatible with most insecticide, fungicide, and foliar nutrient products. However, the physical compatibility of Stratego(R) with tank mix partners should be tested before use. To determine the physical compatibility of Stratego Fungicide(R) with other products, use a jar test, as described below.Using a quart jar, add the proportionate amounts of the products to 1 qt. of water. Add wettable powders and water-dispersible granular products first, next liquid flowables, then emulsifi',	        
 	        'warnings'=> ' start the agitator. In general, add tank mix partners in this order: products packaged in water-soluble packaging, wettable powders, and water-dispersible granular products first, next liquid flowables, then emulsifiable concentrates, such as Stratego Fungicide(R), and last, liquid soluble products. Always allow each tank mix partner to become fully dispersed before adding the next product. Continue to provide agitation while adding the remainder of the water. Maintain agitation until all of the mixture has been applied.Note: When using Stratego Fungicide(R) in tank mixtures, all products in water-soluble packaging should be added to the tank before any other tank mix partner, including Stratego Fungicide(R). Allow the water-soluble packaging to completely dissolve and the product(s) to completely disperse before adding any other tank mix partner to the tank.If using Stratego Fungicide(R) in a tank mixture, observe all directions for use, crop/sites, use rates, dilution ratios, precautions, and limitations which appear on the tank mix product label. No label dosage rate should be exceeded, and the most restrictive label precautions and limitations should be followed. This product must not be mixed with any product which prohibits such mixing. Tank mixtures, or other applications of products referenced on this label, are permitted only in those states in which the referenced products are labeled.Stratego Fungicide(R) is compatible with most insecticide, fungicide, and foliar nutrient products. However, the physical compatibility of Stratego(R) with tank mix partners should be tested before use. To determine the physical compatibility of Stratego Fungicide(R) with other products, use a jar test, as described below.Using a quart jar, add the proportionate amounts of the products to 1 qt. of water. Add wettable powders and water-dispersible granular products first, next liquid flowables, then emulsifi',
+	        'image' => '/img/products/prod1.jpeg',
         ]);
 
       

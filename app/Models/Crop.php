@@ -17,7 +17,7 @@ class Crop extends Model
         // 'id_device',
         'id_terrain',
         'densidade_distribuicao_terreno',
-        'cropStage_id',
+        'cropStage_id', 
         'created_at',
         'expectedProduction',  
         'start_crop_date',
@@ -39,15 +39,30 @@ class Crop extends Model
 
 public function terrain()
    {
-       return $this->belongsTo(Terrain::class,'id_terrain')->with('farm'); 
+       return $this->belongsTo(Terrain::class,'id_terrain');
+       //->with('farm'); 
+       // return $this->belongsTo(Company::class,'farm_company','id'); 
 
    }
+
+   // public function farm()
+   // {
+   //     return $this->belongsTo(Terrain::class,'id_terrain')->with('farm'); 
+
+   // }
 
 
     public function farm()
    {
     // return $this->belongsToMany('App\Terrain')->withPivot('name', 'areaTotal','localizacao');
-       return $this->hasOneThrough(Farm::class, Terrain::class,'farm_id','id','id','id_terrain');
+       return $this->hasOneThrough(
+            Farm::class, 
+            Terrain::class,
+            'farm_id',
+            'id',
+            'id',
+            'id_terrain'
+          );
    }
 // return $this->hasOneThrough(
 //             'App\Models\farm',

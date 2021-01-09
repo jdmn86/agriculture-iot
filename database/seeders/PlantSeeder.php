@@ -50,7 +50,7 @@ class PlantSeeder extends Seeder
             // 'temperatura_germinacao_max' => '22',
             'water_consumption' => '1',
             'image' => '/img/plantas/Onion/onion1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
             
         ]);
 
@@ -84,7 +84,7 @@ class PlantSeeder extends Seeder
             // 'temperatura_germinacao_max' => '22',
             'water_consumption' => '1',
             'image' => '/img/plantas/Onion/onion1.jpeg',
-            'user_id' => '1',
+            'company_id' => '1',
             
         ]);
 
@@ -104,7 +104,7 @@ class PlantSeeder extends Seeder
             'fotoperiodo' => '12',
             'water_consumption' => '1',
             'image' => '/img/plantas/Leek/leek1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]); 
 
               Plant::create([
@@ -122,7 +122,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '65',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Cabbage/cabbage1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
             
         ]);
 
@@ -141,7 +141,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '65',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Cabbage/cabbage1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
             
         ]);
 
@@ -160,7 +160,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '65',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Cabbage/cabbage1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
             
         ]);
 
@@ -179,7 +179,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '65',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Cabbage/cabbage1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
             
         ]);
 
@@ -198,7 +198,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '65',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Cabbage/cabbage1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
             
         ]);
 
@@ -217,7 +217,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '65',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Cabbage/cabbage1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
             
         ]);
 
@@ -237,7 +237,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '20',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Carrot/carrot1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
 
@@ -256,7 +256,25 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '30',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Tomato/tomato1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
+            
+        ]);
+              Plant::create([
+            'id' => '66',
+            'name' => 'Tomato',
+            'master_plant_id' => '11',
+            'name_cientifico' => 'Solanum lycopersicum',
+            'water_consumption' => '1',
+            'tipo_planta_id' => '1',
+            'nome_variedade' => null,
+            'ph_min' => '6',
+            'ph_max' => '7',
+            'fracao_esgotamento_agua_solo_conforto_hidrico' => '0.35', //kc end p
+            'compasso_plantas' => '10',
+            'compasso_linhas' => '30',
+            'fotoperiodo' => '12',
+            'image' => '/img/plantas/Tomato/tomato1.jpeg',
+            'company_id' => '1',
             
         ]);
 
@@ -275,7 +293,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '75',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Maize/maize1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
             
         ]);
 
@@ -294,7 +312,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '30',
             'fotoperiodo' => '12',
             'image' => '/img/plantas/Olive/olivetree1.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
            Plant::create([
@@ -312,7 +330,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Strawberry/strawberry.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -330,7 +348,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Asparagus/asparagus.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -348,7 +366,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Avocado/avocado.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -366,7 +384,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Barley/barley.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
       Plant::create([
@@ -384,7 +402,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Blackberry/blackberry.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -402,7 +420,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Blueberry/blueberry.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
           Plant::create([
@@ -419,7 +437,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/BrazilNut/brazilNut.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
 
@@ -438,7 +456,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/BroadBean/broadBean.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -456,7 +474,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Buckwheat/buckwheat.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -474,7 +492,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Broccoli/broccoli.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -492,7 +510,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/CashewNuts/cashewNuts.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
       Plant::create([
@@ -510,7 +528,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Chestnut/chestnut.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -528,7 +546,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Chickpea/chickpea.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
           Plant::create([
@@ -546,7 +564,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/ChilliPepper/chilliPepper.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
 
@@ -565,7 +583,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Chives/chives.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -583,7 +601,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Coffee/coffee.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -601,7 +619,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Cotton/cotton.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -619,7 +637,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Cowpea/cowpea.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
       Plant::create([
@@ -637,7 +655,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Cress/cress.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -655,7 +673,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Cucumber/cucumber.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
           Plant::create([
@@ -673,7 +691,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Eggplant/eggplant.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
 
@@ -692,7 +710,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Garlic/garlic.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -710,7 +728,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Grape/grape.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -728,7 +746,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Ginger/ginger.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -746,7 +764,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Hazelnut/hazelnut.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
       Plant::create([
@@ -764,7 +782,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Hop/hop.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -782,7 +800,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Lemon/lemon.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
           Plant::create([
@@ -800,7 +818,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Lentil/lentil.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
 
@@ -819,7 +837,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Lettuce/lettuce.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -837,7 +855,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Nutmeg/nutmeg.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -855,7 +873,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Oats/oats.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -873,7 +891,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/OilPalm/oilPalm.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
       Plant::create([
@@ -891,7 +909,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Orange/orange.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -909,7 +927,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Pea/pea.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
           Plant::create([
@@ -927,7 +945,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Peanut/peanut.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
 
@@ -946,7 +964,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Pear/pear.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -964,7 +982,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/PepperBell/pepperBell.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -982,7 +1000,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Pistachio/pistachio.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
     Plant::create([
@@ -1000,7 +1018,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Potato/potato.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
       Plant::create([
@@ -1018,7 +1036,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Pumpkin/pumpkin.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -1036,7 +1054,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Radish/radish.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
           Plant::create([
@@ -1054,7 +1072,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Rice/rice.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -1072,7 +1090,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Rye/rye.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]); 
 
         Plant::create([
@@ -1090,7 +1108,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Soybean/soybean.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]); 
 
         Plant::create([
@@ -1108,7 +1126,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Spinach/spinach.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);          
 
           Plant::create([
@@ -1126,7 +1144,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Sugarcane/sugarcane.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -1144,7 +1162,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Sunflower/sunflower.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]); 
 
         Plant::create([
@@ -1162,7 +1180,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/SweetPotato/sweetPotato.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]); 
 
         Plant::create([
@@ -1180,7 +1198,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Turnip/turnip.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);          
 
           Plant::create([
@@ -1198,7 +1216,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Walnut/walnut.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]);
 
         Plant::create([
@@ -1216,7 +1234,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Wheat/wheat.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]); 
 
         Plant::create([
@@ -1234,7 +1252,7 @@ class PlantSeeder extends Seeder
             'compasso_linhas' => '1',
             'fotoperiodo' => '1',
             'image' => '/img/plantas/Yams/yams.jpeg',
-            'user_id' => null,
+            'company_id' => null,
         ]); 
     }
 }

@@ -21,7 +21,7 @@ class ProductCompositionController extends Controller
         $this->middleware('permission:productComposition-create', ['only' => ['store']]);
         $this->middleware('permission:productComposition-edit', ['only' => ['update']]);
         $this->middleware('permission:productComposition-delete', ['only' => ['destroy']]);
-    }
+    } 
         /**
          * Display a listing of the resource.
          *
@@ -29,9 +29,9 @@ class ProductCompositionController extends Controller
          */
         public function index(): JsonResponse
         {
-            $terrain = Terrain::orderBy('id','DESC')->paginate(5);
+            $productComposition = ProductComposition::all();
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-            return response()->json($terrain);
+            return response()->json($productComposition);
         }
 
         /**

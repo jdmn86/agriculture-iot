@@ -15,15 +15,26 @@
         <b-navbar-nav class="ml-auto align-items-end"> 
             <template v-if="!auth"> 
           
-                <b-nav-item href="#what"><h5>What we do</h5></b-nav-item>
+                <b-nav-item href="#what"><h5>What we do</h5></b-nav-item> 
                 <b-nav-item href="#product"><h5>Products</h5></b-nav-item>
                 <b-nav-item href="#for"><h5>For</h5></b-nav-item> 
                 <b-nav-item href="#who"><h5>Founders</h5></b-nav-item> 
                 <b-nav-item href="#contact"><h5>Contact</h5></b-nav-item>
 
                 <!-- <b-nav-item href="" @click.prevent="showModal('LoginModal')"> Login</b-nav-item> -->
-                <Login/>
-            
+
+
+                <!-- <Login/> -->
+                 <b-nav-item :to="{path: '/login'}"><h5>Login</h5></b-nav-item>
+
+
+        <transition  name="slide-fade">
+            <router-view ></router-view>
+        </transition>
+
+
+              <!--   <router-link class="dropdown-item" :to="{name: 'login'}">Account</router-link>   -->
+             
             <!-- <b-nav-item right> -->
                 <b-nav-item >
                     <b-form-select v-model="$i18n.locale" :options="langs" right></b-form-select>
@@ -42,7 +53,7 @@
                 <template v-slot:button-content>
                     <em>{{ auth.name }}</em>
                 </template>
-                <router-link class="dropdown-item" :to="{name: 'home'}">Home</router-link>
+                    <router-link class="dropdown-item" :to="{name: 'home'}">Home</router-link>                    
                     <b-dropdown-item  @click="logout">Sign Out</b-dropdown-item>
                 </b-nav-item-dropdown>
 
@@ -57,7 +68,7 @@
 <script>
     // import {mapGetters,mapMutations,mapActions} from 'vuex'
     import Login from '../components/Login.vue';
-    import {AuthService} from "../services/AuthService";
+    // import {AuthService} from "../services/AuthService";
 
     import Auth from '@/models/Auth'
 
@@ -85,10 +96,13 @@
         // ...mapGetters('auth',['logout']), 
         async logout() {
             try {
-                console.log("this.auth :"+JSON.stringify(this.auth))
-                // await AuthService.logout(this.currentUser)
-                // this.logout();
-                  await AuthService.logout(this.auth)
+               await Auth.api().delete('/auth/logout',{delete: this.auth.id});
+               
+               // Auth.deleteAll();
+
+                localStorage.removeItem('auth');
+
+                this.$router.push('/');
               
             } catch (error) {
             // this.$store.commit('toast/NEW', { type: 'error', message: error.message })

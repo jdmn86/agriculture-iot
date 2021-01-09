@@ -29,6 +29,7 @@ class Product extends Model
         'storage',
         'compatibility',
         'warnings',
+        'image',
         'created_at'
     ]; 
 

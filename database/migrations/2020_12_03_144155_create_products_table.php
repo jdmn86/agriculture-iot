@@ -50,7 +50,7 @@ class CreateProductsTable extends Migration
 
             $table->longText('warnings')->nullable(); //rajada
 
-          //  $table->date('date')->nullable();   
+            $table->string('image')->nullable();
 
             $table->timestamps();
 

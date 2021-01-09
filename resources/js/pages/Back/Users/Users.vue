@@ -22,7 +22,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Email<i class="fas fa-user"></i></th>
                                   </tr>
-                            </thead>
+                            </thead> 
                             <tbody>
                                   <tr v-if="users && users.length == 0">
                                         <td colspan="4" style="text-align: center">No data available</td>
@@ -52,8 +52,8 @@ import BodyContainer from "../../../wrapper/BodyContainer";
   // import Sidebar from '../../../components/menu/SidebarMenu.vue';
   import Loading from "../../../components/Loading";
   // import UserService from "../../../services/UserService";
-  import {mapGetters,mapActions} from 'vuex'
-  import {UserService} from "../../../services/UserService";
+  // import {mapGetters,mapActions} from 'vuex'
+  // import {UserService} from "../../../services/UserService";
 
   export default {
     name: "Users",
@@ -71,13 +71,13 @@ import BodyContainer from "../../../wrapper/BodyContainer";
       Loading
     },
     computed : {
-            ...mapGetters('user',['users']),
+            // ...mapGetters('user',['users']),
     },
     created() {
       // this.getAllUsers();
     },
     methods: {
-      ...mapActions('user',['setUsers']),
+      // ...mapActions('user',['setUsers']),
       async fetchData () {
 
             this.loading = true

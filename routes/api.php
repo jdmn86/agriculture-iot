@@ -23,6 +23,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductCompositionController;
 use App\Http\Controllers\Api\PlantUptakeController;
 use App\Http\Controllers\Api\PlantStageController;
+use App\Http\Controllers\Api\PlantPlagueController;
 use App\Http\Controllers\Api\PlagueTypeController;
 use App\Http\Controllers\Api\PlagueController;
 use App\Http\Controllers\Api\AnalyseWaterController;
@@ -58,6 +59,9 @@ use Illuminate\Support\Str;
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class,'login'])->name('login')->middleware('api');
     Route::post('register', [AuthController::class,'register'])->name('register');
+     
+    Route::post('changePassword', [AuthController::class,'changePassword'])->name('changePassword')->middleware('auth:api');
+
     Route::get('current-user', [AuthController::class,'getCurrentUser'])->name('current-user')->middleware('auth:api');
     Route::delete('logout', [AuthController::class,'logout'])->name('logout')->middleware('auth:api');
 });
@@ -93,6 +97,7 @@ Route::group(['middleware' => ['auth:api']], function() {
     'plantStage' => PlantStageController::class,
     'plagueType' => PlagueTypeController::class,
     'plague' => PlagueController::class,
+    'plantPlague' => PlantPlagueController::class,
     'analyseWater' => AnalyseWaterController::class,
     'analyseSoilGuideline' => AnalyseSoilGuidelineController::class,
     'analyseSoil' => AnalyseSoilController::class,
@@ -102,4 +107,9 @@ Route::group(['middleware' => ['auth:api']], function() {
     'PlantPartsAnatomy' => PlantPartsAnatomyController::class,
     
     ]);
+
+
+Route::post('plant/{id}/variety', [PlantController::class,'storeVariety']);
+Route::patch('plant/{id}/variety', [PlantController::class,'updateVariety']);
+    
 });

@@ -1,5 +1,5 @@
-import { MainContainerUser, MainContainerAdmin,FrontHome, BackHome, Welcome, PasswordReset, Company,NotFound,Users,PermissionRole,Farm,FarmShow,CompanyUser,Terrain,TerrainCreate,TerrainEdit,FarmCreate,Crop,Plant,CompanyCreate,UserCreate,FarmEdit} from "../pages";
-
+import { MainContainerUser, MainContainerAdmin,FrontHome, BackHome, Welcome, PasswordReset, AdminCompany,NotFound,Users,PermissionRole,Farm,FarmShow,FarmCreate,FarmEdit,FarmList,Company,CompanyShow,Terrain,TerrainCreate,TerrainEdit,TerrainList,TerrainShow,Crop,CompanyCreate,UserCreate,Account,Plant,PlantList,PlantShow,VarietyCreate,VarietyEdit,Plague,PlagueList,PlagueShow,PlagueEdit,PlagueCreate,Product,ProductList,ProductShow,ProductCreate,ProductEdit} from "../pages";
+import Login from "@/components/Login"
 import TopNavBarUser from "../layouts/TopNavBarUser";
 
 export const routes = [
@@ -10,6 +10,18 @@ export const routes = [
                 default: Welcome, 
                 // navTop: TopNavBar,  
             },
+         children: [
+            {
+                // name: "login",
+                path: "login",
+                component:  Login, 
+                meta: {
+                    role: 'user',
+                    requireAuth: false,
+                    },
+                    
+            }, 
+        ]  
     },
 
 
@@ -36,23 +48,35 @@ export const routes = [
                     role: 'user',
                     requireAuth: true,
                     },
+
                     
             },   
          {
-                name: "company",
+                
                 path: "company",
                 components: { 
-                        default: CompanyUser, 
+                        default: Company, 
                         // navTop: TopNavBarUser, 
                     },
                 meta: {
                     role: 'user',
                     requireAuth: true,
                     },
-                    
+                children: [   
+                    {
+                        name: "company",
+                        path: '',
+                        component: CompanyShow,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+
+                    }, 
+                 ]   
             },   
             {
-                name: "farm",
+                
                 path: "farm",
                 components: { 
                         default: Farm,
@@ -62,18 +86,37 @@ export const routes = [
                     role: 'user',
                     requireAuth: true,
                 },
-                children: [            
+                children: [   
+                    {
+                        name: "farm",
+                        path: '',
+                        component: FarmList,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        // props: route => ({ ...route.query, ...route.params })
+                        props: route => ({ ...route.query})
+
+                    },      
+                   {
+                        name: 'farmCreate',
+                        path: 'create',
+                        component: FarmCreate,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                    }, 
                     {
                         name: 'farmShow',
-                        path: ':farmId',
+                        path: ':farmId/',
                         component: FarmShow,
                         meta: {
                             role: 'adminCompany',
                             requireAuth: true,
                         },
-                        // children: [
-                           
-                        // ]
+                        props: route => ({ ...route.query, ...route.params })
                     },
                      {
                         name: 'farmEdit',
@@ -83,50 +126,69 @@ export const routes = [
                             role: 'adminCompany',
                             requireAuth: true,
                         },
+                        props: route => ({ ...route.query, ...route.params })
                     },
-                    
+                 
                     
                 ]         
             },     
-            {
-                    name: 'farmCreate',
-                    path: 'farmCreate',
-                    component: FarmCreate,
-                    meta: {
-                        role: 'adminCompany',
-                        requireAuth: true,
-                    },
-                },  
+             
             {
             
-                        name: 'terrain',
-                        path: 'terrain',
-                        component: Terrain,
+                path: 'terrain',
+                component: Terrain,
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                },
+                 children: [   
+                    {
+                        name: "terrain",
+                        path: '',
+                        component: TerrainList,
                         meta: {
-                            role: 'user',
+                            role: 'adminCompany',
                             requireAuth: true,
                         },
-                    
-                },
-                {
+                        // props: route => ({ ...route.query, ...route.params })
+                        props: route => ({ ...route.query})
+
+                    },      
+                   {
+                        name: 'terrainCreate',
+                        path: 'create',
+                        component: TerrainCreate,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                    }, 
+                    {
+                        name: 'terrainShow',
+                        path: ':terrainId/',
+                        component: TerrainShow,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                         props: route => ({ ...route.query, ...route.params })
+                    },
+                     {
                         name: 'terrainEdit',
-                        path: 'terrain/:terrainId/edit',
+                        path: ':terrainId/edit',
                         component: TerrainEdit,
                         meta: {
                             role: 'adminCompany',
                             requireAuth: true,
-                            },
-                        },  
-                
-                {
-                    name: 'terrainCreate',
-                    path: 'terrain/create',
-                    component: TerrainCreate,
-                    meta: {
-                        role: 'adminCompany',
-                        requireAuth: true,
+                        },
+                        props: route => ({ ...route.query, ...route.params })
                     },
-                },
+                 
+                    
+                ]    
+                
+            },
+            
                      
             {
                 name: "crop",
@@ -152,10 +214,187 @@ export const routes = [
                 // ]         
             },       
             {
-                name: "plant",
-                path: "plant",
+            
+                path: 'plant',
+                component: Plant,
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                },
+                 children: [   
+                    {
+                        name: "plant",
+                        path: '',
+                        component: PlantList,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        // props: route => ({ ...route.query, ...route.params })
+                        props: route => ({ ...route.query})
+
+                    },      
+                   
+                    {
+                        name: 'plantShow',
+                        path: ':plantId/',
+                        component: PlantShow,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                         props: route => ({ ...route.query, ...route.params }),
+
+                         children:[
+                         {
+                        name: 'varietyCreate',
+                        path: 'variety/create',
+                        component: VarietyCreate,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                            },
+                        }, 
+                         {
+                            name: 'varietyEdit',
+                            path: 'variety/edit',
+                            component: VarietyEdit,
+                            meta: {
+                                role: 'adminCompany',
+                                requireAuth: true,
+                            },
+                            props: route => ({ ...route.query, ...route.params })
+                            },
+
+                         ]
+                    },
+                    
+                 
+                    
+                ]    
+                
+            },  
+             {
+            
+                path: 'plague',
+                component: Plague,
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                },
+                 children: [   
+                    {
+                        name: "plague",
+                        path: '',
+                        component: PlagueList,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        // props: route => ({ ...route.query, ...route.params })
+                        props: route => ({ ...route.query})
+
+                    },    
+                     {
+                        name: 'plagueCreate',
+                        path: 'create',
+                        component: PlagueCreate,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                            },
+                        },   
+                    {
+                        name: 'plagueShow',
+                        path: ':plagueId/',
+                        component: PlagueShow,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                         props: route => ({ ...route.query, ...route.params }),
+
+                    },
+                     {
+                        name: 'plagueEdit',
+                        path: ':plagueId/edit',
+                        component: PlagueEdit,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        props: route => ({ ...route.query, ...route.params })
+                     },
+                    
+                        
+                 
+                    
+                ]    
+                
+            }, 
+            {
+            
+                path: 'product',
+                component: Product,
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                },
+                 children: [   
+                    {
+                        name: "product",
+                        path: '',
+                        component: ProductList,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        // props: route => ({ ...route.query, ...route.params })
+                        props: route => ({ ...route.query})
+
+                    },    
+                     {
+                        name: 'productCreate',
+                        path: 'create',
+                        component: ProductCreate,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                            },
+                        },   
+                    {
+                        name: 'productShow',
+                        path: ':productId/',
+                        component: ProductShow,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                         props: route => ({ ...route.query, ...route.params }),
+
+                    },
+                     {
+                        name: 'productEdit',
+                        path: ':productId/edit',
+                        component: ProductEdit,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        props: route => ({ ...route.query, ...route.params })
+                     },
+                    
+                        
+                 
+                    
+                ]    
+                
+            },  
+            {
+                name: "account",
+                path: "account",
                 components: { 
-                        default: Plant,
+                        default: Account,
                         // navTop: TopNavBarUser, 
                     },
                 meta: {
@@ -228,7 +467,7 @@ export const routes = [
            
             {
                 path: 'company',
-                component: Company,
+                component: AdminCompany,
                 meta: {
                     role: 'admin',
                     requireAuth: true,

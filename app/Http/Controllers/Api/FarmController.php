@@ -9,11 +9,11 @@ use Illuminate\Http\JsonResponse;
 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
-use DB;
+use DB; 
 
  
 class FarmController extends Controller
-{
+{ 
 
     function __construct()
 {

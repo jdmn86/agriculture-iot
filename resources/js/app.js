@@ -82,13 +82,14 @@ import './validation/validation.js'
 
 import { ValidationProvider, extend } from 'vee-validate';
 
+import Store from "./store";
 
 
 const app = new Vue({
     el: "#app",
 
     router: Router,
-    // store: stores,
+    store: Store,
     i18n,
 
     render: h => h(MainApp)

@@ -18,23 +18,24 @@ class Terrain extends Model
 //    {
        
 //        return $this->belongsTo(User::class,'terrain_user','id'); 
-
+ 
 //    }
    
     public function farm()
    {
 
-       return $this->belongsTo(Farm::class,'farm_id','id'); 
+       return $this->belongsTo(Farm::class,'farm_id'); 
 
    }
 
    public function crop(){
     
-       return $this->hasOne(Crop::class,'id_terrain');
+       return $this->hasMany(Crop::class,'id','id_terrain');
    
    }
 
-   protected $with = ['crop'];
+   // protected $with = ['crop'];
+
 
    //  public function getCropAttribute($value)
    // {

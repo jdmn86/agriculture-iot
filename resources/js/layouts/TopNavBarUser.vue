@@ -14,10 +14,12 @@
 
             <b-nav-item-dropdown right> 
               <!-- Using 'button-content' slot -->
-              <template v-slot:button-content>
+              <template v-slot:button-content> 
                 <em>{{auth.name}}</em>
               </template>
-              <b-dropdown-item  @click="account">Account</b-dropdown-item>
+              <router-link class="dropdown-item" :to="{name: 'account'}">Account</router-link>   
+              <!-- <b-dropdown-item to="/front/account"> Account</b-dropdown-item> -->
+              <!-- <b-dropdown-item  @click="account">Account</b-dropdown-item> -->
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
@@ -48,7 +50,7 @@
 <script>
 import Vue from 'vue';
 // import {mapGetters,mapMutations,mapActions} from 'vuex'
-import {AuthService} from "../services/AuthService";
+// import {AuthService} from "../services/AuthService";
 
 import Auth from '@/models/Auth'
 
@@ -76,13 +78,20 @@ import Auth from '@/models/Auth'
   
         methods: {          
           // ...mapActions('auth',['logout']),          
-          account(){
-            this.$router.push('/front/Account');
-          },
+          // account(){
+          //   this.$router.push('/front/Account');
+          // },
           async logout(){
             try {
-              console.log("this.auth :"+JSON.stringify(this.auth))
-                 await AuthService.logout(this.auth)
+              // console.log("this.auth :"+JSON.stringify(this.auth))
+                await Auth.api().delete('/auth/logout',{delete: this.auth.id});
+
+                // Auth.deleteAll();
+                
+                localStorage.removeItem('auth');
+
+                this.$router.push('/');
+                 // await AuthService.logout(this.auth)
                 // this.logout();
               
             } catch (error) {

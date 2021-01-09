@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;  
 use DB;
 
-class PlantStageController extends Controller
+class PlantStageController extends Controller 
 {
     function __construct()
     {
@@ -29,7 +29,7 @@ class PlantStageController extends Controller
          */
         public function index(): JsonResponse
         {
-            $plantStage = PlantStage::orderBy('id','DESC')->paginate(5);
+            $plantStage = PlantStage::all();
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
             return response()->json($plantStage);
         }

@@ -23,7 +23,7 @@
               </b-col>
             </b-row>
           </b-col >
-                
+                 
             <b-col cols="auto" style="margin: 5px">
               <b-row align-v="center" align-h="start">
                 <b-col cols="auto" class="text-right">
@@ -178,9 +178,9 @@
   
     import {mapGetters,mapActions} from 'vuex'
   
-  import {FarmService} from "../../../services/FarmService"; 
-  import {CropService} from "../../../services/CropService"; 
-  import {PlantService} from "../../../services/PlantService"; 
+  // import {FarmService} from "../../../services/FarmService"; 
+  // import {CropService} from "../../../services/CropService"; 
+  // import {PlantService} from "../../../services/PlantService"; 
     
     export default {
       name: "Crop",

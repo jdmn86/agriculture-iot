@@ -110,10 +110,10 @@
 import HeadContainer from "../../../wrapper/HeadContainer";
 // import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContainer from "../../../wrapper/BodyContainer"
-import {CompanyService} from "../../../services/CompanyService"; 
+// import {CompanyService} from "../../../services/CompanyService"; 
 import Loading from "../../../components/Loading";
 
-import {mapGetters,mapActions} from 'vuex'
+// import {mapGetters,mapActions} from 'vuex'
 
 export default {
 name: "CompanyCreate",
@@ -138,21 +138,23 @@ BodyContainer,
 Loading,
 },
 computed : {
-    ...mapGetters('company',['companies']),
+    // ...mapGetters('company',['companies']),
 },
 created() {
 
 },
 methods: {
-...mapActions('company',['setCompanies','addCompany']),
+// ...mapActions('company',['setCompanies','addCompany']),
 async saveCompany () {
     this.loading = true
 
     try {
-      const { data } = await CompanyService.create(this.company);//this.fetchParams)
+      // const { data } = await CompanyService.create(this.company);//this.fetchParams)
     //   this.company = data.content
 
-      this.addCompany(data);
+      // this.addCompany(data);
+
+      Company.api().post('company',this.company);
       // this.pagination.total = data.total
     } catch (e) {
       // this.$store.commit('toast/NEW', { type: 'error', message: e.message, e })

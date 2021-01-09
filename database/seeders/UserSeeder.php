@@ -61,6 +61,10 @@ class UserSeeder extends Seeder
 
             $role->givePermissionTo('plant-list');
 
+            $role->givePermissionTo('variety-edit');
+            $role->givePermissionTo('variety-create');
+            $role->givePermissionTo('variety-delete');   
+
             $role->givePermissionTo('soiltype-list');
 
             $role->givePermissionTo('productType-list');

@@ -29,9 +29,9 @@ class PlagueController extends Controller
          */
         public function index(): JsonResponse
         {
-            $terrain = Terrain::orderBy('id','DESC')->paginate(5);
+            $plague = Plague::all();
             // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-            return response()->json($terrain);
+            return response()->json($plague);
         }
  
     

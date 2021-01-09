@@ -4,7 +4,7 @@ import User from './User'
 export default class Auth extends User {
   static entity = 'auth'
 
-  // static baseEntity = 'user' 
+    // static baseEntity = 'user' 
 
   static fields () {
     return {
@@ -17,4 +17,21 @@ export default class Auth extends User {
      
     }
   }
+
+  static apiConfig = {
+    actions: {
+      changePassword (credentials) {
+        console.log("credentials :"+JSON.stringify(credentials));
+        return this.post('/auth/changePassword',credentials)
+      }
+    }
+  }
+
+
+
 }
+
+
+
+// post(url: string, data: any = {}, config: Config = {}): Promise<Response>
+

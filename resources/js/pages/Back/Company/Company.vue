@@ -17,10 +17,10 @@
 import HeadContainer from "../../../wrapper/HeadContainer";
 // import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContainer from "../../../wrapper/BodyContainer"
-import {CompanyService} from "../../../services/CompanyService"; 
+// import {CompanyService} from "../../../services/CompanyService"; 
 import Loading from "../../../components/Loading";
 
-import {mapGetters,mapActions} from 'vuex'
+// import {mapGetters,mapActions} from 'vuex'
 
 export default {
 name: "Company",
@@ -37,13 +37,13 @@ components: {
   Loading,
 },
 computed : {
-      ...mapGetters('company',['companies']),
+      // ...mapGetters('company',['companies']),
 },
 created() {
   
 },
 methods: {
-  ...mapActions('company',['setCompanies','addCompany']),
+  // ...mapActions('company',['setCompanies','addCompany']),
   async fetchData () {
       this.loading = true
 

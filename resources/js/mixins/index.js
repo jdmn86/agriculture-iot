@@ -4,6 +4,6 @@
 
 // import Vue from 'vue'
 
-// import userPermissions from '../mixins/userPermissions'
+// import fetch from '../mixins/userPermissions'
 
 // Vue.mixin(userPermissions)

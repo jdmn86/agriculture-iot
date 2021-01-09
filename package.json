@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "@vuex-orm/core": "^0.36.3",
+        "@vuex-orm/plugin-axios": "^0.9.3",
         "bootstrap-vue": "^2.19.0",
         "google-maps-api-loader": "^1.1.1",
         "portal-vue": "^2.1.7",

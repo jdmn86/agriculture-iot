@@ -1,12 +1,12 @@
 <template>
 
-   <div >
+<!--    <div >
 
             <HeadContainer :title="title"/>
 
             <BodyContainer :loading.sync="loading"> 
 
-             <template slot="body" > 
+             <template slot="body" >  -->
 
     <b-col sm="6" >
 
@@ -68,42 +68,51 @@
 
           </b-form>
         </validation-observer>
-          <b-row align-h="center" style="margin-top: 20px">
+
+         <ModalToConfirm  v-can="'farm-create'" v-if="farm" :name="farm.name" :isTo="'save'">
+                            
+            <template slot="confirmButton">
+                 <button type="button"  class="btn btn-danger" @click="saveFarm">Confirmar</button>
+            </template>
+
+        </ModalToConfirm>
+
+        <!--   <b-row align-h="center" style="margin-top: 20px">
 
                 <b-button v-can="'farm-create'" type="submit" btn-block @click="saveFarm" variant="light" class="text-white"  style=" background-color: #4AAD37; padding: 10px; margin:10px">Save Farm</b-button>
                
-          </b-row>
+          </b-row> -->
 
       </b-container>
 
       </b-col>
-
+<!-- 
     </template>
 
             </BodyContainer>
-</div>
+</div> -->
   </template>
   
   <script>
 
-import {FarmService} from "@/services/FarmService"; 
+// import {FarmService} from "@/services/FarmService"; 
 import Farm from '@/models/Farm'
 
 import  $bus   from '@/app';
 
 import HeadContainer from "@/wrapper/HeadContainer";
 import BodyContainer from "@/wrapper/BodyContainer";
-
+import ModalToConfirm from "@/components/ModalToConfirm";
 
   export default {
     name: "FarmCreate",
     components: {
       HeadContainer,
         BodyContainer,
-    
+      ModalToConfirm
     },
     props: {
-        // farmSelected: { type: Object, default: null },
+        // farmId: { type: String, default: null },
       },
     data() {
       return {        
@@ -135,12 +144,9 @@ import BodyContainer from "@/wrapper/BodyContainer";
         try {
              this.loading = true;
 
-              const { data } = await FarmService.create(this.farm);
-                
-                console.log("response :"+JSON.stringify(data))
-                Farm.insert({data: data});
-                
-                this.$router.push({path: '/front/farm/'+data.id});
+              const result = await Farm.api().post('farm',this.farm)
+
+                this.$router.push({path: '/front/farm/'+result.response.data.id});
               
           } catch (e) {
                 this.$bus.$emit('warningFixTop', e.message);

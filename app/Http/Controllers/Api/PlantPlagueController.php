@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
-
+ 
 class PlantPlagueController extends Controller
 {
     function __construct()
@@ -29,18 +29,9 @@ class PlantPlagueController extends Controller
      */
     public function index(): JsonResponse
     {
-        //so mostra o do user current se for adminCompany or user
-        if(auth()->user()->hasRole('admin')){
-            $farms=Farm::all();
-        }
-
-        if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
-
-           $farms = Farm::where('farm_company',auth()->auser()->company_id)->get();
-        }
-        
-        
-        return response()->json($farms);
+        $plantPlague = PlantPlague::all();
+            // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
+            return response()->json($plantPlague);
 
     }
 

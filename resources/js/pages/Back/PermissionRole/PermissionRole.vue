@@ -99,10 +99,10 @@ import HeadContainer from "../../../wrapper/HeadContainer";
 // import MainContainerAdmin from "../../../wrapper/MainContainerAdmin";
 import BodyContainer from "../../../wrapper/BodyContainer"
 
-import {PermissionService} from "../../../services/PermissionService";
-import {RoleService} from "../../../services/RoleService";
+// import {PermissionService} from "../../../services/PermissionService";
+// import {RoleService} from "../../../services/RoleService";
 
-import {mapGetters,mapActions} from 'vuex'
+// import {mapGetters,mapActions} from 'vuex'
 
 import Loading from "../../../components/Loading";
 
@@ -123,8 +123,8 @@ BodyContainer,
 Loading,
 },
 computed : {
-			...mapGetters('role',['roles','roleById','roleSelected']),
-			...mapGetters('permission',['permissions','permissionById','permissionSelected']),
+			// ...mapGetters('role',['roles','roleById','roleSelected']),
+			// ...mapGetters('permission',['permissions','permissionById','permissionSelected']),
 			roleSel: {
                 get () {
                   return this.roleSelected;
@@ -152,8 +152,8 @@ created() {
 
 },
 methods: {
-	...mapActions('role',['setRoles','setRoleSelected']),
-	...mapActions('permission',['setPermissions','setPermissionsSelected']),
+	// ...mapActions('role',['setRoles','setRoleSelected']),
+	// ...mapActions('permission',['setPermissions','setPermissionsSelected']),
 		sendToRole(value){
 			console.log("sendToRole : "+ JSON.stringify(value));
 			

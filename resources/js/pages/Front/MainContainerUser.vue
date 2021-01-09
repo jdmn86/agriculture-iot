@@ -21,7 +21,7 @@
                         
             <!-- </b-container>  -->
 
-      </div>
+      </div> 
 
 </template>  
 
@@ -107,12 +107,13 @@ export default {
                               // hiddenOnCollapse: true
                               },
                               {
+                                    
                               href: { path:'/front/company'},                
                               /* with vue-router you can use :to prop
                               href: { path: '/' }
                               you can mark link as external
                               // external: true
-                              */
+                              */ 
 
                               title: 'Company',
 
@@ -378,7 +379,7 @@ export default {
                         // hiddenOnCollapse: true
                         },
                         {
-                        href: { path:'/front/pragas/listPragas'},
+                        href: { path:'/front/plague'},
                         /* with vue-router you can use :to prop
                         href: { path: '/' }
                         you can mark link as external
@@ -416,7 +417,7 @@ export default {
                         // hiddenOnCollapse: true
                         },
                         {
-                        href: { path:'/front/Products'},
+                        href: { path:'/front/product'},
                         /* with vue-router you can use :to prop
                         href: { path: '/' }
                         you can mark link as external
@@ -798,44 +799,7 @@ export default {
                         // hidden: false
                         // hiddenOnCollapse: true
                   },                                    
-                  {
-                              href: { path:'/front/Settings'},
-                              /* with vue-router you can use :to prop
-                              href: { path: '/' }
-                              you can mark link as external
-                              // external: true
-                              */
-
-                              title: 'Settings',
-
-                              // icon class
-                              icon: 'fas fa-cogs',
-                              /* or custom icon
-                              icon: {
-                                    element: 'span',
-                                    class: 'fa fa-user',
-                                    // attributes: {}
-                                    // text: ''
-                              }
-                              */
-
-                              /*
-                              badge: {
-                                    text: 'new',
-                                    class: 'vsm--badge_default'
-                                    // attributes: {}
-                                    // element: 'span'
-                              }
-                              */
-
-                              // child: []
-                              // disabled: true
-                              // class: ''
-                              // attributes: {}
-                              // alias: '/path'
-                              // hidden: false
-                              // hiddenOnCollapse: true
-                              },
+                  
                         
                   
                   // component item
@@ -849,14 +813,14 @@ export default {
       },
 methods: {
             
-            onToggleCollapse (collapsed) {
+      onToggleCollapse (collapsed) {
             console.log(collapsed)
             this.collapsed = collapsed
-            },
-            onItemClick (event, item) {
+      },
+      onItemClick (event, item) {
             console.log('onItemClick')
-            
-            },
+
+      },
 
       },
       mounted() {
@@ -874,14 +838,21 @@ methods: {
 }
 
 .v-sidebar-menu {
-    background-color: #4AAD37 !important;
+    background-color: #4AAD37 !important;    
 }       
 .v-sidebar-menu .vsm--toggle-btn { 
-    color: #fff;
+    /*color: #fff;*/
     background-color: #327927 !important;
 }
 .v-sidebar-menu .vsm--link_level-1 .vsm--icon {
     background-color: #327927 !important;
+}
+
+.v-sidebar-menu .vsm--link_level-1.vsm--link_exact-active, .v-sidebar-menu .vsm--link_level-1.vsm--link_active {
+      /*color: red;*/
+      /*box-shadow*/
+      background-color: #327927 !important;
+      box-shadow: 4px 0px 0px 0px #4285f4 inset !important;
 }
 </style>  
  

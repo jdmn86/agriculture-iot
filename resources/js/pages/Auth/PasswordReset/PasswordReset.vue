@@ -43,11 +43,11 @@
 </template>
 <script>
  
-import Vue from 'vue';
-import {AuthService} from "../../../services/AuthService";
-import Form from "../../../services/FormService";
-import {mapGetters,mapMutations,mapActions} from 'vuex'
-
+// import Vue from 'vue';
+// import {AuthService} from "../../../services/AuthService";
+// import Form from "../../../services/FormService";
+// import {mapGetters,mapMutations,mapActions} from 'vuex'
+import Auth from "@/models/Auth"
 
 export default {
 
@@ -62,23 +62,26 @@ export default {
           password_confirmation: null,
           // has_error: false,
         },
-        form: new Form()
+        // form: new Form()
       }   
     },
     watch: {
               
       },
     computed: {
-        ...mapGetters([]),
+        // ...mapGetters([]),
         
         },
     methods: { 
-        ...mapMutations([]),           
-        ...mapActions([]),
+        // ...mapMutations([]),           
+        // ...mapActions([]),
         async resetPassword() {
           try {
             console.log("passReset : "+ JSON.stringify(this.passReset));
-          await AuthService.passwordReset(this.passReset)
+          // await AuthService.passwordReset(this.passReset)
+          await Auth.api().post('auth/reset',this.passReset);
+
+
           this.error = ''
 
           } catch (error) {

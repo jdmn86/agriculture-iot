@@ -74,7 +74,7 @@ export default {
        padding-left: 50px;
      }
      
-     .v-sidebar-menu {
+/*     .v-sidebar-menu {
          background-color: #4AAD37 !important;
      }       
      .v-sidebar-menu .vsm--toggle-btn { 
@@ -83,7 +83,7 @@ export default {
      }
      .v-sidebar-menu .vsm--link_level-1 .vsm--icon {
          background-color: #327927 !important;
-     }
+     }*/
      </style>  
       
      

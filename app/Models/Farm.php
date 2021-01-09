@@ -9,7 +9,7 @@ class Farm extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    protected $fillable = [ 
         'id', 
         'name' ,
         'farm_company', 
@@ -26,16 +26,17 @@ class Farm extends Model
    } 
 
 
+
 //     public function device(){
 //        return $this->hasOne(Device::class,'device_terrain','id');
 //    }
 
-//  public function terrains(){
+ public function terrains(){
     
-//        return $this->hasMany(Terrain::class)->get();
+       return $this->hasMany(Terrain::class,'farm_id');
 
    
-//     }
+    }
 //       public function weather(){
     
 //        return $this->hasMany(Weather::class)->get();

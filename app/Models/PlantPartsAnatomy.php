@@ -21,4 +21,4 @@ class PlantPartsAnatomy extends Model
         return $this->belongsToMany('App\Plague','plague_plants_parts_anatomies','plague_id','part_id');
     }
 }
- 
+  

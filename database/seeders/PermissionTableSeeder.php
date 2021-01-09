@@ -65,6 +65,10 @@ class PermissionTableSeeder extends Seeder
             'plant-edit',
             'plant-delete',
 
+            'variety-create',
+            'variety-edit',
+            'variety-delete',
+
             'soiltype-list',
             'soiltype-create',
             'soiltype-edit',

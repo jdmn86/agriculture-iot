@@ -1,8 +1,8 @@
 <template>
     
- <b-col>
+<b-container style="padding: 0px" >
 
-    <b-row>
+    <b-row style="margin: 0px;padding: 3vw; padding-top: 4vw" align-h="around">
 
     <b-col sm="6"   >
       <b-container fluid  style=" background-color: white; margin: 0px; ">
@@ -73,15 +73,17 @@
       </b-container>
       </b-col>
     </b-row>
+
+
 </b-row>
 
-</b-col>
+</b-container>
     
   </template>
   
   <script>
 
-import {FarmService} from "@/services/FarmService"; 
+// import {FarmService} from "@/services/FarmService"; 
 import Farm from '@/models/Farm'
 
 import  $bus   from '@/app';
@@ -91,38 +93,47 @@ import  $bus   from '@/app';
     components: {
   
     },
-    props: {
-        farmSelected: { type: Object, default: null },
-      },
+    props: ['farmId'],
+    // { 
+    //     farmId: { type: String, default: null },
+    //   },
     data() {
       return {        
           title: "Farms Create",
           loading: false, 
-          farm: {
+          // farm: {
             
-            name: null,
-            localizacao: null,
-          },
+          //   name: null,
+          //   localizacao: null,
+          // },
           id: null,
          
     }
   },
 
     computed : {
-      farmToEdit: function(){
-        return this.$route.params.farmId ;
-      }
+      // farmToEdit: function(){
+      //   return this.$route.params.farmId ;
+      // }
+      // farm: function(){
+      //   this.id = this.farm.id;
+      //   return Farm.query().find(this.$route.params.farmId);
+      // },
+       farm: {
+          get(){ return Farm.query().find(this.farmId); },
+          set(value){ this.farm = value}
+        },
     },
     created() {
-        if(this.$route.params.farmId){
+        // if(this.$route.params.farmId){
           
-          console.log("parmID : " +JSON.stringify(this.$route.params.farmId));
-            let f =  Farm.query().find(this.$route.params.farmId);
-            console.log("f : " +JSON.stringify(f));
-            this.farm =f ;
-            this.id = f.id; 
+        //   console.log("parmID : " +JSON.stringify(this.$route.params.farmId));
+        //     let f =  Farm.query().find(this.$route.params.farmId);
+        //     console.log("f : " +JSON.stringify(f));
+        //     this.farm =f ;
+        //     this.id = f.id; 
             
-        }
+        // }
     },
     methods: { 
        getValidationState({ dirty, validated, valid = null }) {
@@ -130,19 +141,22 @@ import  $bus   from '@/app';
         },
      
       async updateFarm(){
+        this.loading = true;
         try {
-          console.log("this.farm.id"+this.id);
-              const { data } = await FarmService.update(this.id,this.farm);
+          // console.log("this.farm.id"+this.id);
+              // const { data } = await FarmService.update(this.id,this.farm);
                 // this.updateFarm(data);
-                Farm.update({where: data.id,data: {data}});
+                // Farm.update({where: data.id,data: {data}});
+                Farm.api().patch('farm/'+this.farm.id,this.farm)
 
-                this.$router.push({path: '/front/farm/'+data.id});
+                
           } catch (e) {
                 this.$bus.$emit('warningFixTop', e.message);
                 this.error = e.message
                 console.log(e)
           } finally {
                 this.loading = false;
+                this.$router.push({path: '/front/farm/'+this.farm.id});
                 
           }
 
