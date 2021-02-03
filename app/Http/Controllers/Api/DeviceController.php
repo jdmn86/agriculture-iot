@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Device;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
 
-
+ 
 class DeviceController extends Controller
 {
     function __construct()
@@ -23,20 +23,21 @@ class DeviceController extends Controller
         $this->middleware('permission:device-edit', ['only' => ['update']]);
         $this->middleware('permission:device-delete', ['only' => ['destroy']]);
     }
+
     public function index(): JsonResponse
     {
         //so mostra o do user current se for adminCompany or user
         if(auth()->user()->hasRole('admin')){
-            $farms=Farm::all();
+            $devices=Device::all();
         }
 
         if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
 
-           $farms = Farm::where('farm_company',auth()->auser()->company_id)->get();
+           $devices = Device::where('company_id',auth()->user()->company_id)->get();
         }
         
         
-        return response()->json($farms);
+        return response()->json($devices);
 
     }
 
@@ -88,25 +89,70 @@ class DeviceController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Farm $farm): JsonResponse
+    public function update(Request $request,  $id): JsonResponse
     {
 
-        $this->validate($request, [
-            'name' => 'required',//|unique:roles,name',
-            'localizacao' => 'required',
-            ]);
+            $this->validate($request, [    
+                'enabled' => 'required',
+                'id' => 'required',    
+                ]);
 
-            // $id = Auth()->user()->company_id;
-            // $farm = Farm::find($farm);
+            $device = Device::find($id);
+            $device->enabled = $request->enabled;
+            $device->save();
 
-            $farm->name=$request->input('name');
-            $farm->localizacao=$request->input('localizacao');
+            //if bolck have to logout from all tokens
+            // $userTokens = $userInstance->tokens;
+            // foreach($userTokens as $token) {
+            //     $token->revoke();   
+            // }
             
-            $farm->save();
-
-            return response()->json($farm);
+            return response()->json($device);
  
     }
+
+      public function enabledBlock(Request $request,  $id): JsonResponse
+    {
+
+            $this->validate($request, [    
+                'enabled' => 'required',
+                'id' => 'required',    
+                ]);
+
+            $device = Device::find($id);
+            $device->enabled = $request->enabled;
+            $device->save();
+
+            return response()->json($device);
+ 
+    }
+
+      public function addToCompany( $ref,$company): JsonResponse
+    {
+
+            // $this->validate($request, [    
+            //     'enabled' => 'required',
+            //     'id' => 'required',    
+            //     ]);
+
+            $device = Device::where('ref',$ref)->first();
+
+
+            // return response()->json($device);
+            if($device->company_id == null && $device->enabled == false){
+
+                $device->enabled = true;
+                $device->company_id = $company;
+                // return response()->json($device);
+                $device->save();
+            }
+         
+
+            return response()->json($device);
+ 
+    }
+
+    
 
     /**
      * Remove the specified resource from storage.
@@ -114,7 +160,7 @@ class DeviceController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Farm $farm): JsonResponse
+    public function destroy(Device $device): JsonResponse
     {
         // DB::table("roles")->where('id',$farm->id)->delete();
         
@@ -122,13 +168,13 @@ class DeviceController extends Controller
 
         // $user = auth('api')->user();
 
-        $farm = Farm::Where('id',$farm->id)->first();
+        $device = Device::Where('id',$device->id)->first();
 
         //if have terrenos
         //change enable to false
 
         //else
-        $farm->delete();
+        $device->delete();
 
         return response()->json("removed with success");
     }

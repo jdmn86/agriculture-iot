@@ -33,4 +33,4 @@ export default class Plant extends Model {
       plagues: this.belongsToMany(Plague,PlantPlague,'plant_id', 'plague_id')
     }
   }
-}
+} 

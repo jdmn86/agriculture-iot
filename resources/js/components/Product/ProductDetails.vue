@@ -1,6 +1,6 @@
 <template>
 
-   <b-col sm="8" style=" padding: 10px" >
+   <b-col sm="7" style=" padding: 10px" >
               
         <b-row  style=" background-color: #f8f9fa; margin: 0px">
                 <b-col col-sm="1" >

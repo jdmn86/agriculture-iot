@@ -10,7 +10,10 @@ class CropPlague extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id', 'crop_id', 'plague_id',
+        'id', 
+        'crop_id',  
+        'plague_id',
+        'user_id'
    ];
 
    public function crop()
@@ -21,5 +24,10 @@ class CropPlague extends Model
    {
        return $this->belongsTo(Plague::class,'plague_id');
    }
+
+    public function user()
+   {
+       return $this->belongsTo(User::class,'user_id');
+   }
 }
- 
+  

@@ -18,6 +18,7 @@ class AnalyseSoil extends Model
 
         'soilDepth',
         'date',
+        
         'matOrgPer',
         'matOrgPerLevel',
         'nitrogen',
@@ -70,6 +71,10 @@ class AnalyseSoil extends Model
    ];  
 
   //protected $table = 'soil_datas';
+
+   public function soilType(){
+     return $this->belongsTo(SoilType::class,'tipoSolo_id', 'id');
+   }
 
   public function terrain()
    {

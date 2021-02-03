@@ -11,7 +11,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Auth\Passwords\CanResetPassword;
 
 use Spatie\Permission\Traits\HasRoles;
-
+ 
 use Spatie\Permission\Models\Permission;
 
  use Illuminate\Support\Facades\Auth;
@@ -32,7 +32,8 @@ class User extends Authenticatable
         'name', 
         'email',
         'password',
-        'company_id'
+        'company_id',
+        'blocked'
     ]; 
 
     /**

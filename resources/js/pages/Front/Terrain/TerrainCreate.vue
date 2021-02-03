@@ -16,7 +16,7 @@
 
                 <b-row fluid align-v="center" style=" background-color: #f8f9fa; margin: 0px; padding: 15px">
                         <validation-observer ref="observer" v-slot="{ handleSubmit }">
-
+ 
                              <b-form inline @submit.stop.prevent="handleSubmit(saveTerrain)" style="margin-top: 10px;margin-left: 20px">
 
                                 <ValidationProvider 
@@ -160,6 +160,7 @@ export default {
                 farm_id: null,
                 coords: null,
                 area: null,
+             
             },
             farmSelected: null,
             terrainsToSend: null,
@@ -235,6 +236,7 @@ export default {
             console.log(this.terrain);
         }
     },
+   
     async saveTerrain(){
 
         if(!this.terrain.area){

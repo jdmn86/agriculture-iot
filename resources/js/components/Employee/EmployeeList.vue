@@ -25,9 +25,9 @@
 	</b-col>
 						
  -->
-</template>
+</template> 
 
-<script>
+<script> 
 
 
 export default {

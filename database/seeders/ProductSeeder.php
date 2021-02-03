@@ -76,7 +76,7 @@ class ProductSeeder extends Seeder
             'name' => 'liquid copper fungicide',
 	        'brand'=> 'southern Ag',
 	        'is_biologic'=> false,
-	        'is_liquid'=> null,  //or dry
+	        'is_liquid'=> false,  //or dry
 	        'quantityL'=> null,
 	        'quantityKg'=> null, 
 	  		'granulometry'=> null,
@@ -100,7 +100,7 @@ class ProductSeeder extends Seeder
             'name' => 'liquid copper fungdficide',
 	        'brand'=> 'southern Ag',
 	        'is_biologic'=> true,
-	        'is_liquid'=> null,  //or dry
+	        'is_liquid'=> false,  //or dry
 	        'quantityL'=> null,
 	        'quantityKg'=> '2.0', 
 	  		'granulometry'=> null,
@@ -124,7 +124,7 @@ class ProductSeeder extends Seeder
             'name' => 'liquiddfsbdfn copper fungdficide',
 	        'brand'=> 'southern Ag',
 	        'is_biologic'=> true,
-	        'is_liquid'=> null,  //or dry
+	        'is_liquid'=> false,  //or dry
 	        'quantityL'=> null,
 	        'quantityKg'=> '2.0', 
 	  		'granulometry'=> null,
@@ -148,7 +148,7 @@ class ProductSeeder extends Seeder
             'name' => ' test copper fungdficide',
 	        'brand'=> 'southern Ag',
 	        'is_biologic'=> false,
-	        'is_liquid'=> null,  //or dry
+	        'is_liquid'=> false,  //or dry
 	        'quantityL'=> null,
 	        'quantityKg'=> '2.0', 
 	  		'granulometry'=> null,
@@ -171,7 +171,7 @@ class ProductSeeder extends Seeder
             'name' => ' test copper 7',
 	        'brand'=> 'southern Ag',
 	        'is_biologic'=> false,
-	        'is_liquid'=> null,  //or dry
+	        'is_liquid'=> false,  //or dry
 	        'quantityL'=> null,
 	        'quantityKg'=> '2.0', 
 	  		'granulometry'=> null,
@@ -194,7 +194,7 @@ class ProductSeeder extends Seeder
             'name' => ' test copper 8',
 	        'brand'=> 'southern Ag',
 	        'is_biologic'=> false,
-	        'is_liquid'=> null,  //or dry
+	        'is_liquid'=> false,  //or dry
 	        'quantityL'=> null,
 	        'quantityKg'=> '2.0', 
 	  		'granulometry'=> null,
@@ -217,7 +217,7 @@ class ProductSeeder extends Seeder
             'name' => ' test copper 9',
 	        'brand'=> 'southern Ag',
 	        'is_biologic'=> false,
-	        'is_liquid'=> null,  //or dry
+	        'is_liquid'=> false,  //or dry
 	        'quantityL'=> null,
 	        'quantityKg'=> '2.0', 
 	  		'granulometry'=> null,

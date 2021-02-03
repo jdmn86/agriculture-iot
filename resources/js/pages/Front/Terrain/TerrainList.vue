@@ -3,11 +3,16 @@
     <b-container fluid style="padding: 0px; margin: 0px" >
 
 
-<TerrainSearch  :plant="plantSelected"
+<!-- <TerrainSearch  :plant="plantSelected"
    @changePlant="plantSelected = $event"
    :farm="farmSelected"
-   @changeFarm="farmSelected = $event" :withSearch="true"/>
-   <!-- v-model="plantSelected" :withSearch="true"/> -->
+   @changeFarm="farmSelected = $event" :withSearch="true"/> -->
+
+   <TerrainSearch  :plant="plantId"
+   @changePlant="changePlant"
+   :farm="plantId"
+   @changeFarm="changeFarm" :withSearch="true"/>
+   
  
 
     <b-row v-if="terrainsFiltered && terrainsFiltered.length>0" cols="1" cols-sm="1" cols-md="1" cols-lg="2" style="margin: 0px;padding: 3vw; padding-top: 4vw" align-h="around">
@@ -90,43 +95,44 @@ import  $bus   from '@/app';
       TerrainSearch,
       NoDataContainer
     },
-    props: {
-          plantId: { type: String, default: null },
-          farmId: { type: String, default: null },
+    props: ['plantId','farmId'],
+    // {
+    //       plantId: { type: String, default: null },
+    //       farmId: { type: String, default: null },
 
-    },
+    // },
     data() {
       return {
             title: "Terrain",
             loading: false,
             google: null,            
             // farmsFiltered: null,
-            plantSelected: null,
-            farmSelected: null,
+            // plantSelected: null,
+            // farmSelected: null,
 
       };
     },
     watch: {
-       plantSelected: function (newPlant,oldPlant) {
+       // plantSelected: function (newPlant,oldPlant) {
 
-            console.log("value in plantSelected watch :"+JSON.stringify(newPlant));
+       //      console.log("value in plantSelected watch :"+JSON.stringify(newPlant));
 
-            if(newPlant != oldPlant && newPlant.id != this.plantId){
-                this.$router.push({query: {...this.$route.query, plantId: newPlant.id}});
+       //      if(newPlant != oldPlant && newPlant.id != this.plantId){
+       //          this.$router.push({query: {...this.$route.query, plantId: newPlant.id}});
 
-            }
+       //      }
             
-        },
-        farmSelected: function (newFarm,oldFarm) {
+       //  },
+       //  farmSelected: function (newFarm,oldFarm) {
 
-            console.log("value in farmSelected watch :"+JSON.stringify(newFarm));
+       //      console.log("value in farmSelected watch :"+JSON.stringify(newFarm));
 
-            if(newFarm != oldFarm && newFarm.id != this.farmId){
-                this.$router.push({query: {...this.$route.query, farmId: newFarm.id}});
+       //      if(newFarm != oldFarm && newFarm.id != this.farmId){
+       //          this.$router.push({query: {...this.$route.query, farmId: newFarm.id}});
 
-            }
+       //      }
             
-        },
+       //  },
       
     
     },
@@ -161,7 +167,7 @@ import  $bus   from '@/app';
                 }
                 
            
-            },
+            }, 
          
       },
     async created() {
@@ -172,15 +178,30 @@ import  $bus   from '@/app';
       });
       this.google = googleMapApi;
 
-      if(this.plantId){
-        this.plantSelected = Plant.query().find(this.plantId);
-      }
-      if(this.farmId){
-        this.farmSelected = Farm.query().find(this.farmId);
-      }
+      // if(this.plantId){
+      //   this.plantSelected = Plant.query().find(this.plantId);
+      // }
+      // if(this.farmId){
+      //   this.farmSelected = Farm.query().find(this.farmId);
+      // }
 
     },
     methods: {
+        changeFarm(f){
+            if(f){
+                this.$router.push({query: {...this.$route.query, farmId: f}});           
+            }else{
+                this.$router.push({query: {...this.$route.query, farmId: null}});           
+            }
+        },
+        changePlant(p){
+            if(p){
+                this.$router.push({query: {...this.$route.query, plantId: p}});           
+            }else{
+                this.$router.push({query: {...this.$route.query, plantId: null}});           
+            }
+ 
+        },
       
       async onConfirmDelete(terrain){
 

@@ -18,9 +18,12 @@ class CreateCropPlaguesTable extends Migration
             $table->increments('id');
             $table->integer('crop_id')->unsigned();
             $table->integer('plague_id')->unsigned();
+            $table->unsignedBigInteger('user_id');//->unsigned();
             $table->timestamps();
+
             $table->foreign('crop_id')->references('id')->on('crops')->onDelete('cascade');
             $table->foreign('plague_id')->references('id')->on('plagues')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

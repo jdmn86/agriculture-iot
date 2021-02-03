@@ -18,7 +18,7 @@
 <script>
 
 import GoogleMapsApiLoader from 'google-maps-api-loader'
-// import MapProvider from './MapProvider.vue'
+// import MapProvider from './MapProvider.vue' 
 
 import {mapGetters,mapMutations,mapActions} from 'vuex'
 

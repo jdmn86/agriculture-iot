@@ -10,12 +10,13 @@ use Illuminate\Http\JsonResponse;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class CropPlagueController extends Controller
 {
     function __construct()
     {
-        $this->middleware('auth');//->except('logout');
+        $this->middleware('auth');//->except('logout'); 
     
         $this->middleware('permission:cropPlague-list|cropPlague-create|cropPlague-edit|cropPlague-delete', ['only' => ['index','store']]);
         $this->middleware('permission:cropPlague-create', ['only' => ['store']]);
@@ -27,16 +28,21 @@ class CropPlagueController extends Controller
     {
         //so mostra o do user current se for adminCompany or user
         if(auth()->user()->hasRole('admin')){
-            $farms=Farm::all();
+            $cropPlague=CropPlague::all();
         }
 
         if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
 
-           $farms = Farm::where('farm_company',auth()->auser()->company_id)->get();
+           $cropPlague = CropPlague::whereHas('crop.terrain.farm', function (Builder $query) {
+                
+                    $query->where('farm_company','=', auth()->user()->company_id);
+                })->get();
+
+          
         }
         
         
-        return response()->json($farms);
+        return response()->json($cropPlague);
 
     }
 
@@ -49,19 +55,22 @@ class CropPlagueController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+
+
         $this->validate($request, [
-            'name' => 'required',//|unique:roles,name', 
-            'localizacao' => 'required',
+            'crop_id' => 'required',//|unique:roles,name', 
+            'plague_id' => 'required',
+            'user_id' => 'required',
             ]);
 
-            $id = Auth()->user()->company_id;
+            // $user_id = Auth()->user()->id;
 
-            $farm = Farm::create(['name' => $request->input('name'),
-                                    'farm_company' => $id,
-                                    'localizacao' => $request->input('localizacao')]);
+            $cropPlague = CropPlague::create(['crop_id' => $request->input('crop_id'),
+                                    'plague_id' => $request->input('plague_id'),
+                                    'user_id' => $request->input('user_id')]);
             // $role->syncPermissions($request->input('permission'));
 
-            return response()->json($farm);
+            return response()->json($cropPlague);
             // return redirect()->route('roles.index')->with('success','Role created successfully');
     }
 

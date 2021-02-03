@@ -1,4 +1,4 @@
-import { MainContainerUser, MainContainerAdmin,FrontHome, BackHome, Welcome, PasswordReset, AdminCompany,NotFound,Users,PermissionRole,Farm,FarmShow,FarmCreate,FarmEdit,FarmList,Company,CompanyShow,Terrain,TerrainCreate,TerrainEdit,TerrainList,TerrainShow,Crop,CompanyCreate,UserCreate,Account,Plant,PlantList,PlantShow,VarietyCreate,VarietyEdit,Plague,PlagueList,PlagueShow,PlagueEdit,PlagueCreate,Product,ProductList,ProductShow,ProductCreate,ProductEdit} from "../pages";
+import { MainContainerUser, MainContainerAdmin,FrontHome, BackHome, Welcome, PasswordReset, AdminCompany,NotFound,Users,PermissionRole,Farm,FarmShow,FarmCreate,FarmEdit,FarmList,Company,CompanyShow,Terrain,TerrainCreate,TerrainEdit,TerrainList,TerrainShow,CompanyCreate,UserCreate,Account,Plant,PlantList,PlantShow,VarietyCreate,VarietyEdit,Plague,PlagueList,PlagueShow,PlagueEdit,PlagueCreate,Product,ProductList,ProductShow,ProductCreate,ProductEdit,Employee,EmployeeList,EmployeeShow,EmployeeCreate,EmployeeEdit,Device,DeviceList,Crop,CropList,CropCreate,CropShow,CropOverall,CropWeather,CropWatering,CropFertilization,CropAnalysis,CropPlantHealth,CropSchedule,AddPlagueToCrop} from "../pages";
 import Login from "@/components/Login"
 import TopNavBarUser from "../layouts/TopNavBarUser";
 
@@ -188,10 +188,127 @@ export const routes = [
                 ]    
                 
             },
+             {
+            
+                path: 'device',
+                component: Device,
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                },
+                 children: [   
+                    {
+                        name: "device",
+                        path: '',
+                        component: DeviceList,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        // props: route => ({ ...route.query, ...route.params })
+                        props: route => ({ ...route.query})
+
+                    },    
+                     {
+                        name: 'deviceCreate',
+                        path: 'create',
+                        component: DeviceList,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                            },
+                        
+                         props: route => ({ ...route.query, isAddDevice: true })
+                          // props: route => ({ ...route.query, isAddDevice: (String(route.query.isAddDevice).toLowerCase() === 'true')})
+                    },   
+                    // {
+                    //     name: 'deviceShow',
+                    //     path: ':deviceId/',
+                    //     component: DeviceShow,
+                    //     meta: {
+                    //         role: 'adminCompany',
+                    //         requireAuth: true,
+                    //     },
+                    //      props: route => ({ ...route.query, ...route.params }),
+
+                    // },
+                    //  {
+                    //     name: 'deviceEdit',
+                    //     path: ':deviceId/edit',
+                    //     component: DeviceEdit,
+                    //     meta: {
+                    //         role: 'adminCompany',
+                    //         requireAuth: true,
+                    //     },
+                    //     props: route => ({ ...route.query, ...route.params })
+                    //  },
+                 
+                    
+                ]    
+                
+            }, 
+            {
+            
+                path: 'employee',
+                component: Employee,
+                meta: {
+                    role: 'user',
+                    requireAuth: true,
+                },
+                 children: [   
+                    {
+                        name: "employee",
+                        path: '',
+                        component: EmployeeList,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        // props: route => ({ ...route.query, ...route.params })
+                        props: route => ({ ...route.query})
+
+                    },    
+                     {
+                        name: 'employeeCreate',
+                        path: 'create',
+                        component: EmployeeCreate,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                            },
+                        },   
+                    {
+                        name: 'employeeShow',
+                        path: ':employeeId/',
+                        component: EmployeeShow,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                         props: route => ({ ...route.query, ...route.params }),
+
+                    },
+                     {
+                        name: 'employeeEdit',
+                        path: ':employeeId/edit',
+                        component: EmployeeEdit,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        props: route => ({ ...route.query, ...route.params })
+                     },
+                    
+                        
+                 
+                    
+                ]    
+                
+            }, 
             
                      
             {
-                name: "crop",
+                // name: "crop",
                 path: "crop",
                 components: { 
                         default: Crop,
@@ -201,17 +318,119 @@ export const routes = [
                     role: 'user',
                     requireAuth: true,
                 },
-                // children: [            
-                //     {
-                //         name: 'cropCreate',
-                //         path: 'create',
-                //         component: CropCreate,
-                //         meta: {
-                //             role: 'adminCompany',
-                //             requireAuth: true,
-                //         },
-                //     },
-                // ]         
+                 children: [   
+                    {
+                        name: "crop",
+                        path: '',
+                        component: CropList,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                        // props: route => ({ ...route.query, ...route.params })
+                        props: route => ({ ...route.query})
+
+                    }, 
+                    {
+                        name: 'cropCreate',
+                        path: 'create',
+                        component: CropCreate,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                            },
+                        },    
+                     {
+                        // name: 'cropShow',
+                        path: ':cropId/',
+                        component: CropShow,
+                        meta: {
+                            role: 'adminCompany',
+                            requireAuth: true,
+                        },
+                         props: route => ({ ...route.query, ...route.params }),
+                         children: [
+                            {
+                            name: 'overall',
+                            path: 'overall',
+                            component: CropOverall,
+                            meta: {
+                                role: 'adminCompany',
+                                requireAuth: true,
+                                },
+                            // props: route => ({ ...route.query, ...route.params }),
+                            }, 
+                            {
+                            name: 'weather',
+                            path: 'weather',
+                            component: CropWeather,
+                            meta: {
+                                role: 'adminCompany',
+                                requireAuth: true,
+                                },
+                            }, 
+                            {
+                            name: 'watering',
+                            path: 'watering',
+                            component: CropWatering,
+                            meta: {
+                                role: 'adminCompany',
+                                requireAuth: true,
+                                },
+                            }, 
+                            {
+                            name: 'fertilization',
+                            path: 'fertilization',
+                            component: CropFertilization,
+                            meta: {
+                                role: 'adminCompany',
+                                requireAuth: true,
+                                },
+                            }, 
+                            {
+                            name: 'analysis',
+                            path: 'analysis',
+                            component: CropAnalysis,
+                            meta: {
+                                role: 'adminCompany',
+                                requireAuth: true,
+                                },
+                            }, 
+                            {
+                            name: 'plantHealth',
+                            path: 'plantHealth',
+                            component: CropPlantHealth,
+                            meta: {
+                                role: 'adminCompany',
+                                requireAuth: true,
+                                },
+                             children: [   
+                                    {
+                                        name: 'addPlague',
+                                        path: 'addPlague',
+                                        component: AddPlagueToCrop,
+                                        meta: {
+                                            role: 'adminCompany',
+                                            requireAuth: true,
+                                        },
+                                        // props: route => ({ ...route.query, ...route.params })
+                                        // props: route => ({ ...route.query})
+
+                                    },      
+                                ]
+                            }, 
+                            {
+                            name: 'schedule',
+                            path: 'schedule',
+                            component: CropSchedule,
+                            meta: {
+                                role: 'adminCompany',
+                                requireAuth: true,
+                                },
+                            }, 
+                         ]
+                    }
+                ]         
             },       
             {
             

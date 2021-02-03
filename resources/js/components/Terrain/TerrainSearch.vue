@@ -1,6 +1,6 @@
 <template>
 
-
+ 
      <GreyRow >
 
        <b-col  v-if="withSearch" cols="auto" align-v="center" style="margin: 5px; margin-left: 20px">
@@ -16,12 +16,13 @@
                             name="input-farm"
                             v-model="farmSelected"               
                             aria-describedby="input-farm-live-feedback"
+                            @change="changeFarm"
                             >
                             <!-- @change="cropsFilter"> -->
                             <option :value="null" :selected="!farmSelected ">None</option>
-                            <option v-for="farm in farms" :selected="farmSelected == farm "
+                            <option v-for="farm in farms" :selected="farmSelected == farmId "
                                 :key="farm.id"
-                                :value="farm">
+                                :value="farm.id">
                                 {{ farm.name }} 
                             </option>
                         </b-form-select> 
@@ -35,12 +36,13 @@
                             name="input-plant"
                             v-model="plantSelected"
                             aria-describedby="input-plant-live-feedback"
+                            @change="changePlant"
                             >
                             <!-- @change="cropsFilter"> -->
                             <option  :value="null" :selected="!plantSelected">None</option>
-                            <option v-for="plant in plants" :selected="plantSelected == plant "
+                            <option v-for="plant in plants" :selected="plantSelected == plantId "
                                 :key="plant.id"
-                                :value="plant">
+                                :value="plant.id">
                                 {{ plant.name }} 
                             </option>
                         </b-form-select> 
@@ -76,7 +78,7 @@ import  $bus   from '@/app';
         GreyRow
       },
       // props: ['value','withSearch'],
-      props: ['plant','farm','withSearch'],
+      props: ['plantId','farmId','withSearch'],
 
           // plantSelected: { type: Object, default: null},
           // farmSelected: { type: Object, default: null},
@@ -84,7 +86,8 @@ import  $bus   from '@/app';
       // },
       data() {
         return {
-            
+            plantSelected: null,
+            farmSelected: null,
         };
       },
       watch: {
@@ -92,14 +95,14 @@ import  $bus   from '@/app';
       },
       computed : {
         // this.$emit('interface', this.childData)
-           plantSelected: {
-              get(){ return this.plant },
-              set(p){ this.$emit('changePlant', p) }
-            },
-            farmSelected: {
-              get(){ return this.farm },
-              set(f){ this.$emit('changeFarm', f) }
-            },
+           // plantSelected: {
+           //    get(){ return this.plant },
+           //    set(p){ this.$emit('changePlant', p) }
+           //  },
+           //  farmSelected: {
+           //    get(){ return this.farm },
+           //    set(f){ this.$emit('changeFarm', f) }
+           //  },
             plants(){
                 return Plant.all() ;
            
@@ -118,10 +121,26 @@ import  $bus   from '@/app';
       created() {
             
            console.log("on created Terrain search");
+           if(this.plantId){
+              this.plantSelected = this.plantId;
+           }
+
+           if(this.farmId){
+              this.farmSelected = this.farmId;
+           }
+            
                    
         
       },
       methods: {
+        changePlant(p){
+          console.log("value of p :" +JSON.stringify(p));
+          this.$emit('changePlant', p) 
+        },
+        changeFarm(f){
+          console.log("value of f :" +JSON.stringify(f));
+          this.$emit('changeFarm', f) 
+        },
             
       },
       mounted () {

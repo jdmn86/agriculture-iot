@@ -13,7 +13,10 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\FarmController;
 use App\Http\Controllers\Api\PlantController;
+
 use App\Http\Controllers\Api\CropController;
+use App\Http\Controllers\Api\CropPlagueController;
+
 use App\Http\Controllers\Api\TerrainController;
 use App\Http\Controllers\Api\PlantTypeController;
 
@@ -24,20 +27,31 @@ use App\Http\Controllers\Api\ProductCompositionController;
 use App\Http\Controllers\Api\PlantUptakeController;
 use App\Http\Controllers\Api\PlantStageController;
 use App\Http\Controllers\Api\PlantPlagueController;
-use App\Http\Controllers\Api\PlagueTypeController;
+use App\Http\Controllers\Api\PlagueTypeController; 
 use App\Http\Controllers\Api\PlagueController;
 use App\Http\Controllers\Api\AnalyseWaterController;
 use App\Http\Controllers\Api\AnalyseSoilGuidelineController;
 use App\Http\Controllers\Api\AnalyseSoilController;
 use App\Http\Controllers\Api\AddressController;
 
+use App\Http\Controllers\Api\DeviceController;
+use App\Http\Controllers\Api\DeviceTypeController;
+
 use App\Http\Controllers\Api\PlaguePlantsPartsAnatomyController;
 use App\Http\Controllers\Api\PlantPartsAnatomyController;
+
+use App\Http\Controllers\Api\DailyWeatherController;
+use App\Http\Controllers\Api\CurrentWeatherController;
+
+use App\Http\Controllers\Api\AirDataController;
+use App\Http\Controllers\Api\SoilDataController;
+
+use App\Http\Controllers\Api\HarvestController;
 
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Str; 
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -86,7 +100,10 @@ Route::group(['middleware' => ['auth:api']], function() {
     'permission' => PermissionController::class,
     
     'plant' => PlantController::class,
+
     'crop' => CropController::class,
+    'cropPlague' => CropPlagueController::class,
+    
     'terrain' => TerrainController::class,
     'plantType' => PlantTypeController::class,
     'soilType' => SoilTypeController::class,
@@ -103,13 +120,35 @@ Route::group(['middleware' => ['auth:api']], function() {
     'analyseSoil' => AnalyseSoilController::class,
     'address' => AddressController::class,
 
+    'device' => DeviceController::class,
+    'deviceType' => DeviceTypeController::class,
+
     'plaguePlantsPartsAnatomy' => PlaguePlantsPartsAnatomyController::class,
     'PlantPartsAnatomy' => PlantPartsAnatomyController::class,
-    
+
+    'dailyWeather' => DailyWeatherController::class,
+    'currentWeather' => CurrentWeatherController::class,
+
+    'airData' => AirDataController::class,
+    'soilData' => SoilDataController::class,
+
+    'harvest' => HarvestController::class,
     ]);
 
 
 Route::post('plant/{id}/variety', [PlantController::class,'storeVariety']);
 Route::patch('plant/{id}/variety', [PlantController::class,'updateVariety']);
+
+Route::patch('user/{id}/blockUnblock', [UserController::class,'blockUnblock']);
+
+Route::patch('device/{id}/enabledBlock', [DeviceController::class,'enabledBlock']);
+
+Route::patch('device/{ref}/addToCompany/{company}', [DeviceController::class,'addToCompany']);
     
+Route::get('airData/crop/{id}', [AirDataController::class,'getByCrop']);
+
+Route::get('soilData/crop/{id}', [SoilDataController::class,'getByCrop']);
+
+Route::patch('crop/{id}/finish', [CropController::class,'finishCrop']);
+
 });

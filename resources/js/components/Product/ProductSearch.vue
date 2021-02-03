@@ -17,12 +17,14 @@
                             name="input-prodType"
                             v-model="prodTypeSelected"
                             aria-describedby="input-prodType-live-feedback"
+                            @change="changeProdType"
+
                             >
                             <!-- @change="cropsFilter"> -->
                             <option  :value="null" :selected="!prodTypeSelected">None</option>
-                            <option v-for="prodType in prodTypes" :selected="prodTypeSelected == prodType "
+                            <option v-for="prodType in prodTypes" :selected="prodTypeSelected == prodTypeId "
                                 :key="prodType.id"
-                                :value="prodType">
+                                :value="prodType.id">
                                 {{ prodType.name }} 
                             </option>
                         </b-form-select> 
@@ -36,6 +38,7 @@
                                 id="isBiologic"
                                 v-model="isBiologicSelected"
                                 name="isBiologic"
+                                @change="changeIsBiologic"
                               >
                               </b-form-checkbox>
                     </b-form-group>
@@ -72,7 +75,7 @@ import  $bus   from '@/app';
         GreyRow
       },
       // props: ['prodType','isBiologic','withSearch'],
-      props: ['prodType','isBiologic','withSearch'],
+      props: ['prodTypeId','isBiologic','withSearch'],
 
           // plantSelected: { type: Object, default: null},
           // farmSelected: { type: Object, default: null},
@@ -80,22 +83,37 @@ import  $bus   from '@/app';
       // },
       data() {
         return {
-            
+              prodTypeSelected: null,
+             isBiologicSelected: null,
         };
       },
       watch: {
             
       },
       computed : {
-        // this.$emit('interface', this.childData)
-           prodTypeSelected: {
-              get(){ return this.prodType },
-              set(t){ this.$emit('changeProdType', t) }
-            },
-            isBiologicSelected: {
-              get(){ return this.isBiologic },
-              set(b){ this.$emit('changeIsBiologic', b) }
-            },
+           // prodTypeSelected(){
+           //    return ProductType.query().where('id',this.prodTypeId).get();
+           // }, 
+           // {
+           //    get(){ return this.prodType },
+           //    set(t){                 
+           //      if(t != this.prodType){
+           //        console.log("emit changeProdType")
+           //        this.$emit('changeProdType', t) 
+           //        }
+           //      }
+                
+           //  },
+           //  isBiologicSelected: {
+           //    get(){ return this.isBiologic },
+           //    set(b){ 
+           //      if(b != this.isBiologic){
+           //        console.log("emit changeIsBiologic")
+           //        this.$emit('changeIsBiologic', b) 
+           //        }
+           //      }
+                
+           //  },
             prodTypes(){
                 return ProductType.all() ;
            
@@ -114,11 +132,28 @@ import  $bus   from '@/app';
       created() {
             
            console.log("on created Product search");
-                   
+           if(this.prodTypeId){
+              this.prodTypeSelected = this.prodTypeId;
+           }
+            
+            this.isBiologicSelected = this.isBiologic;
         
       },
       methods: {
-            
+        changeProdType(t){
+          console.log("value of t :" +JSON.stringify(t));
+          this.$emit('changeProdType', t) 
+        },
+        changeIsBiologic(b){
+          console.log("value of b :" +JSON.stringify(b));
+          this.$emit('changeIsBiologic', b) 
+        },
+          // testchange(){
+          //   console.log("tesete change")
+          // },
+          // testinput(){
+          //   console.log("tesete input")
+          // }
       },
       mounted () {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\PlantAnalyse;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use Spatie\Permission\Models\Permission;
 use DB;
 
 
-class PlantAnalyseController extends Controller
+class PlantAnalyseController extends Controller 
 {
     function __construct()
     {
@@ -37,7 +37,7 @@ class PlantAnalyseController extends Controller
 
         if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
 
-           $farms = Farm::where('farm_company',auth()->auser()->company_id)->get();
+           $farms = Farm::where('farm_company',auth()->user()->company_id)->get();
         }
         
         

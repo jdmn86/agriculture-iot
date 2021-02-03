@@ -9,7 +9,7 @@
                   <TopNavBarUser/>
 
 
-                  <transition name="slide-fade">
+                  <transition name="slide-fade"> 
                         <router-view ></router-view>
                   </transition> 
                   
@@ -24,13 +24,13 @@
       </div> 
 
 </template>  
-
+  
 <script>
       import { SidebarMenu } from 'vue-sidebar-menu'
       import TopNavBarUser from "../../layouts/TopNavBarUser";
 
       import WarningFixTop from "../../components/WarningFixTop";
- 
+ import Auth from '@/models/Auth'
 
       const logoImg = {
     data() {
@@ -232,7 +232,7 @@ export default {
                         you can mark link as external
                         // external: true
                         */
-                        href: { path:'/front/devices/userList'},
+                        href: { path:'/front/device'},
                         title: 'Devices',
 
                         // icon class
@@ -264,14 +264,14 @@ export default {
                         // hiddenOnCollapse: true
                   },
                         {
-                              href: { path:'/front/Employes'},
+                              href: { path:'/front/employee'},
                               /* with vue-router you can use :to prop
                               href: { path: '/' }
                               you can mark link as external
                               // external: true
                               */
 
-                              title: 'Employes',
+                              title: 'Employees',
 
                               // icon class
                               icon: 'fas fa-users',
@@ -298,7 +298,7 @@ export default {
                               // class: ''
                               // attributes: {}
                               // alias: '/path'
-                              // hidden: false
+                               hidden: true,
                               // hiddenOnCollapse: true
                               },
                   {
@@ -308,7 +308,7 @@ export default {
                         you can mark link as external
                         // external: true
                         */
-                        href: { path:'/front/Crop'},
+                        href: { path:'/front/crop'},
 
                         title: 'Crops',
 
@@ -331,7 +331,50 @@ export default {
                               // element: 'span'
                         }
                         */
+                        // child: [
+                        //       {
+                        //             href: { path:'/front/Crop'},
 
+                        //             title: 'Cultivo',
+
+                        //             icon: 'fas fa-carrot',
+                        //       },
+                        //        {
+                        //             href: { path:'/front/Crop'},
+
+                        //             title: 'Clima',
+
+                        //             icon: 'fas fa-carrot',
+                        //       },
+                        //        {
+                        //             href: { path:'/front/Crop'},
+
+                        //             title: 'Rega',
+
+                        //             icon: 'fas fa-carrot',
+                        //       },
+                        //        {
+                        //             href: { path:'/front/Crop'},
+
+                        //             title: 'Fertilizacao',
+
+                        //             icon: 'fas fa-carrot',
+                        //       },
+                        //        {
+                        //             href: { path:'/front/Crop'},
+
+                        //             title: 'Fitossanidade',
+
+                        //             icon: 'fas fa-carrot',
+                        //       },
+                        //        {
+                        //             href: { path:'/front/Crop'},
+
+                        //             title: 'Analysis',
+
+                        //             icon: 'fas fa-carrot',
+                        //       },
+                        // ],
                   
                         // disabled: true
                         // class: ''
@@ -811,6 +854,11 @@ export default {
                               ]
             }
       },
+computed : {
+      auth(){
+                return Auth.query().first();
+            },
+      },
 methods: {
             
       onToggleCollapse (collapsed) {
@@ -823,8 +871,16 @@ methods: {
       },
 
       },
-      mounted() {
-      console.log('Component MainApp mounted.')
+mounted() {
+      console.log('Component MainContainerUser mounted.')
+},
+ created() {
+      console.log(' MainContainerUser created.')
+
+        if(this.auth.roles[0].name == 'adminCompany'){
+            this.menu[6].hidden = false;
+         }
+        
       },
 }; 
 </script>
@@ -853,6 +909,12 @@ methods: {
       /*box-shadow*/
       background-color: #327927 !important;
       box-shadow: 4px 0px 0px 0px #4285f4 inset !important;
+}
+
+
+.v-sidebar-menu .vsm--dropdown .vsm--list { 
+    /*color: #fff;*/
+    background-color: #4AAD37 !important;
 }
 </style>  
  

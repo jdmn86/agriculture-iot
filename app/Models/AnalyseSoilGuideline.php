@@ -16,7 +16,7 @@ class AnalyseSoilGuideline extends Model
         'nitrogen',
         'phosphorus',        
         'potash', 
-        'Magnesium',
+        'Magnesium', 
         'zinc',
         'Sulfur',
         'Manganese',         

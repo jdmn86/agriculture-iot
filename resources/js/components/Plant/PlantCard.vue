@@ -109,5 +109,80 @@ import  $bus   from '@/app';
   };
   </script>
 
-  <style>
+  <style scoped>
+  nav > .nav.nav-tabs{
+    
+    border: none;
+      color:#fff;
+      background:#28a745;
+      border-radius:0;
+  
+  }
+  nav > div a.nav-item.nav-link,
+  nav > div a.nav-item.nav-link.active
+  {
+    border: none;
+      padding: 18px 25px;
+      color:#fff;
+      background:#28a745;
+      border-radius:0;
+  }
+  
+  nav > div a.nav-item.nav-link.active:after
+   {
+    content: "";
+    position: relative;
+    bottom: -60px;
+    left: -10%;
+    border: 15px solid transparent;
+    border-top-color: #832E00 ;
+  }
+  .tab-content{
+    background: #fdfdfd;
+      line-height: 25px;
+      /*border: 1px solid #ddd;*/
+      border-top:5px solid #832E00;
+      /*border-bottom:5px solid #832E00;*/
+      /*padding:30px 25px;*/
+  }
+  
+  nav > div a.nav-item.nav-link:hover,
+  nav > div a.nav-item.nav-link:focus
+  {
+    border: none;
+      background: #832E00;
+      color:#fff;
+      border-radius:0;
+      transition:background 0.20s linear;
+  }
+  
+  .card-flip > div {
+    backface-visibility: hidden;
+    transition: transform 300ms;
+    transition-timing-function: linear;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+  }
+  
+  .card-front {
+    transform: rotateY(0deg);
+  }
+  
+  .card-back {
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+  }
+  
+  .card-flip:hover .card-front {
+    transform: rotateY(-180deg);
+  }
+    
+  .card-flip:hover .card-back {
+    transform: rotateY(0deg);
+  }
   </style>
+
+

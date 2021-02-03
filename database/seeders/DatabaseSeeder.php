@@ -50,8 +50,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CropPlagueSeeder::class);
         $this->call(PlantPlagueSeeder::class);
 
+        $this->call(DeviceTypeSeeder::class);
         $this->call(DeviceSeeder::class);
-        
+
+        $this->call(CropSeeder::class);
         
         
         

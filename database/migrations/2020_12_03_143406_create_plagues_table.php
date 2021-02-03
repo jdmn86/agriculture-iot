@@ -40,7 +40,7 @@ class CreatePlaguesTable extends Migration
             $table->string('image')->nullable();
 
             $table->string('language')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable()->unsigned();
+            $table->unsignedBigInteger('user_id')->nullable();//->unsigned();
 
             $table->timestamps();
 

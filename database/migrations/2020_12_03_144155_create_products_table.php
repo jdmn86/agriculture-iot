@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->integer('typeProduct_id')->unsigned();
             
             $table->text('name')->nullable(); //rajada
-            $table->text('brand')->nullable(); //rajada
+            $table->text('brand')->nullable(); //rajada 
 
             $table->decimal('quantityL')->nullable(); //rajada
             $table->decimal('quantityKg')->nullable(); //rajada

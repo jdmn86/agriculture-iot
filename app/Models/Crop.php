@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 class Crop extends Model
-{
+{ 
     use HasFactory;
 
     protected $fillable = [ 

@@ -26,7 +26,8 @@ class FarmSeeder extends Seeder
 	        'farm_company' => '1',
             'localizacao' => 'Leiria',
             'areaTotal' => '4488.50',
-	        
+	        'lat' => "39.757026",
+            'lng' => "-8.792968",
         ]);
     }
 }

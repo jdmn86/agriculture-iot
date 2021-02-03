@@ -15,6 +15,8 @@ class Farm extends Model
         'farm_company', 
         'areaTotal', 
         'localizacao',
+        'lat',
+        'lng',
         'enabled' 
    ];  
 

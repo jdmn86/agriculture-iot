@@ -20,6 +20,8 @@ class CreateFarmsTable extends Migration
             $table->integer('farm_company')->unsigned(); 
             $table->text('localizacao');
             $table->decimal('areaTotal',60,2)->unsigned()->default(0); 
+            $table->decimal('lat', 10, 7)->nullable(); 
+            $table->decimal('lng', 10, 7)->nullable();
             $table->boolean('enabled')->default(true);
             $table->timestamps();
             //$table->softDeletes();

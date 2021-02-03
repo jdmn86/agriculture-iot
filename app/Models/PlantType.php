@@ -16,3 +16,4 @@ class PlantType extends Model
         'created_at'
     ]; 
 }
+ 

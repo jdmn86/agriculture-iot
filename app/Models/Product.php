@@ -17,7 +17,7 @@ class Product extends Model
         'is_liquid',
         'quantityL', //litros
         'quantityKg', //kg 
-  		  'granulometry',
+  		'granulometry',
         'typeProduct_id',  //fertilizer	        
         'solubility',
         'composition_id',
@@ -32,6 +32,11 @@ class Product extends Model
         'image',
         'created_at'
     ]; 
+
+    protected $casts = [
+      'is_biologic' => 'boolean',
+      'is_liquid' => 'boolean',
+    ];
 
     /** 
      * The attributes that should be hidden for arrays.
@@ -52,10 +57,10 @@ class Product extends Model
         return $this->belongsTo(ProductComposition::class,'composition_id');
     }
 
-    public function getIsBiologicAttribute($value)
-    {
-      if($value =="0") return false;
-      return true;
-    }
+    // public function getIsBiologicAttribute($value)
+    // {
+    //   if($value =="0") return false;
+    //   return true;
+    // }
 }
  

@@ -2,13 +2,22 @@
 
 <b-container style="padding: 0px" >
 
-    <b-row style="margin: 0px;padding: 3vw; padding-top: 4vw" align-h="around">
+    <!-- <b-row style="margin: 0px;padding: 3vw; padding-top: 4vw" align-h="around"> -->
 
-    <b-col sm="6" >
 
-      <b-container fluid  style=" background-color: #f8f9fa; margin: 0px; ">
-          <b-row align-h="center" align-v="center" style="background-color: #4AAD37;" class="text-white">
+  <validation-observer ref="observer" v-slot="{ handleSubmit }">
+
+
+
+         <b-form @submit.stop.prevent="handleSubmit(saveProduct)" style="margin: 0px;padding: 3vw; padding-top: 4vw; ">
+
+    <!-- <b-container fluid style="padding: 0px" > -->
+
+      <!-- <b-container fluid  style=" background-color: #f8f9fa; margin: 0px; "> -->
+
+          <b-row align-h="center" align-v="center" style="background-color: #4AAD37; margin: 0px" class="text-white">
             <b-col cols="auto" class="mr-auto p-1">
+
               <h4 >Save Product</h4>
             </b-col>
             <!-- <b-col cols="auto" class="p-1" >
@@ -18,9 +27,9 @@
             </b-col> -->
           </b-row> 
 
-  <validation-observer ref="observer" v-slot="{ handleSubmit }">
+<b-row align-h="center" align-v="center" style="margin: 0px; background-color: #f8f9fa;padding: 15px">
 
-         <b-form @submit.stop.prevent="handleSubmit(saveProduct)" style="margin-top: 40px;margin-left: 25px">
+<b-col sm="6" > 
 
       <ValidationProvider 
         name="name" 
@@ -63,7 +72,7 @@
 
  <ValidationProvider 
         name="is_biologic" 
-        rules="required|min:3" 
+        rules="required" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-is_biologic" label="is_biologic : " label-for="input-is_biologic">
                     <b-form-checkbox
@@ -82,7 +91,7 @@
 
    <ValidationProvider 
         name="is_liquid" 
-        rules="required|min:3" 
+        rules="required" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-is_liquid" label="is_liquid : " label-for="input-is_liquid">
                     <b-form-checkbox
@@ -100,9 +109,9 @@
   </ValidationProvider>
 
 
-   <ValidationProvider 
+   <ValidationProvider v-if="product.is_liquid"
         name="quantityL" 
-        rules="required|min:3" 
+        rules="required|double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-quantityL" label="quantityL : " label-for="input-quantityL">
                     <b-form-input
@@ -120,9 +129,9 @@
   </ValidationProvider>
 
 
-  <ValidationProvider 
+  <ValidationProvider v-if="!product.is_liquid"
         name="quantityKg" 
-        rules="required|min:3" 
+        rules="required|double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-quantityKg" label="quantityKg : " label-for="input-quantityKg">
                     <b-form-input
@@ -159,7 +168,39 @@
   </ValidationProvider>
 
 
+
+
+
     <ValidationProvider 
+        name="typeProduct_id" 
+        rules="required" 
+        v-slot=" validationContext ">
+<b-form-group class="mr-sm-2" id="input-group-typeProduct_id" label="typeProduct_id:" label-for="input-typeProduct_id" > 
+                         <b-form-select 
+                            style="margin-left: 10px"
+                            id="input-typeProduct_id"
+                            name="input-typeProduct_id"
+                            v-model="product.typeProduct_id"               
+                            aria-describedby="input-typeProduct_id-live-feedback"
+                            >
+                            <!-- @change="cropsFilter"> -->
+                            <option :value="null" :selected="!product.typeProduct_id ">None</option>
+                            <option v-for="t in prodTypes" :selected="product.typeProduct_id == t.id "
+                                :key="t.id"
+                                :value="t.id">
+                                {{ t.name }} 
+                            </option>
+                        </b-form-select> 
+<b-form-invalid-feedback id="input-typeProduct_id-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+
+
+                  </b-form-group>
+  </ValidationProvider>
+
+
+
+
+<!--     <ValidationProvider 
         name="typeProduct_id" 
         rules="required|min:3" 
         v-slot=" validationContext ">
@@ -176,12 +217,12 @@
 
 
                   </b-form-group>
-  </ValidationProvider>
+  </ValidationProvider> -->
 
 
       <ValidationProvider 
         name="solubility" 
-        rules="required|min:3" 
+        rules="required|double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-solubility" label="solubility : " label-for="input-solubility">
                     <b-form-input
@@ -220,7 +261,7 @@
 
           <ValidationProvider 
         name="ph" 
-        rules="required|min:3" 
+        rules="required|double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-ph" label="ph : " label-for="input-ph">
                     <b-form-input
@@ -362,17 +403,17 @@
 
 
 
-<b-button v-can="'product-create'" type="button" btn-block @click="isComposition = !isComposition" variant="light" class="text-white"  style=" background-color: #4AAD37; padding: 10px; margin:10px">Add Composition ?</b-button>
+<b-button v-can="'product-create'" type="button" btn-block @click="product.isComposition = !product.isComposition" variant="light" class="text-white"  style=" background-color: #4AAD37; padding: 10px; margin:10px">Add Composition ?</b-button>
 
 
+</b-col>
 
 
-
-<div v-if="isComposition">
+<b-col sm="6" v-if="product.isComposition"> 
 
  <ValidationProvider 
         name="nitrogenTotal" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-nitrogenTotal" label="nitrogenTotal : " label-for="input-nitrogenTotal">
                     <b-form-input
@@ -391,7 +432,7 @@
 
    <ValidationProvider 
         name="nitrateNitrogen" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-nitrateNitrogen" label="nitrateNitrogen : " label-for="input-nitrateNitrogen">
                     <b-form-input
@@ -411,7 +452,7 @@
 
      <ValidationProvider 
         name="amoniacalNitrogen" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-amoniacalNitrogen" label="amoniacalNitrogen : " label-for="input-amoniacalNitrogen">
                     <b-form-input
@@ -432,7 +473,7 @@
 
      <ValidationProvider 
         name="otherNitrogen" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-otherNitrogen" label="otherNitrogen : " label-for="input-otherNitrogen">
                     <b-form-input
@@ -452,7 +493,7 @@
 
        <ValidationProvider 
         name="P2O5" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-P2O5" label="P2O5 : " label-for="input-P2O5">
                     <b-form-input
@@ -471,7 +512,7 @@
 
     <ValidationProvider 
         name="K2O" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-K2O" label="K2O : " label-for="input-K2O">
                     <b-form-input
@@ -490,7 +531,7 @@
 
     <ValidationProvider 
         name="CaO" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-CaO" label="CaO : " label-for="input-CaO">
                     <b-form-input
@@ -509,7 +550,7 @@
 
     <ValidationProvider 
         name="MgO" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-MgO" label="MgO : " label-for="input-MgO">
                     <b-form-input
@@ -528,7 +569,7 @@
 
     <ValidationProvider 
         name="SO3" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-SO3" label="SO3 : " label-for="input-SO3">
                     <b-form-input
@@ -547,7 +588,7 @@
 
     <ValidationProvider 
         name="Ca" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-Ca" label="Ca : " label-for="input-Ca">
                     <b-form-input
@@ -566,7 +607,7 @@
 
     <ValidationProvider 
         name="B" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-B" label="B : " label-for="input-B">
                     <b-form-input
@@ -585,7 +626,7 @@
 
     <ValidationProvider 
         name="Cu" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-Cu" label="Cu : " label-for="input-Cu">
                     <b-form-input
@@ -604,7 +645,7 @@
 
   <ValidationProvider 
         name="Fe" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-Fe" label="Fe : " label-for="input-Fe">
                     <b-form-input
@@ -624,7 +665,7 @@
 
   <ValidationProvider 
         name="Mn" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-Mn" label="Mn : " label-for="input-Mn">
                     <b-form-input
@@ -643,7 +684,7 @@
 
   <ValidationProvider 
         name="Mo" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-Mo" label="Mo : " label-for="input-Mo">
                     <b-form-input
@@ -662,7 +703,7 @@
 
   <ValidationProvider 
         name="Zn" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-Zn" label="Zn : " label-for="input-Zn">
                     <b-form-input
@@ -681,7 +722,7 @@
 
 <ValidationProvider 
         name="OrganicMatter" 
-        rules="required|min:3" 
+        rules="double:0" 
         v-slot=" validationContext ">
                   <b-form-group  id="input-group-OrganicMatter" label="OrganicMatter : " label-for="input-OrganicMatter">
                     <b-form-input
@@ -700,10 +741,16 @@
 
 
 
-</div>
+</b-col>
+
+
+</b-row>
+<!-- </b-container> -->
 
 
           </b-form>
+
+
         </validation-observer>
 
 
@@ -722,17 +769,18 @@
                 <b-button v-can="'farm-create'" type="submit" btn-block @click="saveFarm" variant="light" class="text-white"  style=" background-color: #4AAD37; padding: 10px; margin:10px">Save Farm</b-button>
                
           </b-row> -->
+<!-- </b-row> -->
 
       </b-container>
 
-      </b-col>
+      
 <!-- 
     </template>
 
             </BodyContainer>
 </div> -->
-</b-row>
-</b-container>
+<!-- </b-row>
+</b-container> -->
   </template>
   
   <script>
@@ -743,13 +791,14 @@ import PlantPlague from '@/models/PlantPlague'
 import PlantStage from '@/models/PlantStage'
 
 import Product from '@/models/Product'
+import ProductComposition from '@/models/ProductComposition'
+import ProductType from '@/models/ProductType'
 
 import  $bus   from '@/app';
 
 import HeadContainer from "@/wrapper/HeadContainer";
 import BodyContainer from "@/wrapper/BodyContainer";
 import ModalToConfirm from "@/components/ModalToConfirm";
-
 
   export default {
     name: "ProductCreate",
@@ -765,8 +814,7 @@ import ModalToConfirm from "@/components/ModalToConfirm";
     data() {
       return {        
           title: "Product Create",
-          loading: false, 
-          isComposition: false,
+          loading: false,           
           product: {
               name: null,
               brand: null,
@@ -785,7 +833,8 @@ import ModalToConfirm from "@/components/ModalToConfirm";
               storage: null,
               compatibility: null,
               warnings: null,
-              composition_id: null,
+              // composition_id: null,
+              isComposition: false,
               composition: {
                   nitrogenTotal: null,
                   nitrateNitrogen: null,
@@ -811,7 +860,10 @@ import ModalToConfirm from "@/components/ModalToConfirm";
   },
 
     computed : {
-    
+       prodTypes(){
+                return ProductType.all() ;
+           
+            },
     },
     created() {
       // this.plant = this.plantReceive;
@@ -842,9 +894,11 @@ import ModalToConfirm from "@/components/ModalToConfirm";
 
               const result = await Product.api().post('product',this.product)
 
-              // await PlantPlague.api().get('plantPlague');
+               await ProductComposition.api().get('productComposition');
               // await PlantStage.api().get('plantStage');
 
+
+              console.log("response : "+ JSON.stringify(result.response.data))
                 this.$router.push({path: '/front/product/'+result.response.data.id});
               
           } catch (e) {

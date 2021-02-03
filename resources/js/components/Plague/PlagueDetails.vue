@@ -3,7 +3,7 @@
     <b-col sm="8" style=" padding: 10px" >
               
         <b-row  style=" background-color: #f8f9fa; margin: 0px">
-                <b-col col-sm="1" >
+                <b-col col-sm="1" > 
 
                     <b-row align-h="start" align-v="center" style="background-color: #4AAD37;padding: 10px" class="text-white ">
                         <h4 >{{plague.nome_comum}}</h4>

@@ -78,6 +78,8 @@ class TerrainController extends Controller
                 'coords' => 'required',
                 'farm_id' => 'required',
                 'area' => 'required', 
+             
+
             ]);
     
                 // $id = auth()->user()->company_id;
@@ -102,6 +104,41 @@ class TerrainController extends Controller
             $farm = Farm::Where('id',$request['farm_id'])->first();
 
             $farm->areaTotal = $farm->areaTotal + $request['area'];
+
+// ponto medio das coordenadas e
+$cords =json_decode($request['coords'], TRUE);
+ $count_coords = count($cords);
+    $xcos=0.0;
+    $ycos=0.0;
+    $zsin=0.0;
+
+        foreach ($cords as $lnglat)
+        {
+            $lat = $lnglat['lat'] * pi() / 180;
+            $lon = $lnglat['lng'] * pi() / 180;
+            
+            $acos = cos($lat) * cos($lon);
+            $bcos = cos($lat) * sin($lon);
+            $csin = sin($lat);
+            $xcos += $acos;
+            $ycos += $bcos;
+            $zsin += $csin;
+        }
+    
+    $xcos /= $count_coords;
+    $ycos /= $count_coords;
+    $zsin /= $count_coords;
+    $lon = atan2($ycos, $xcos);
+    $sqrt = sqrt($xcos * $xcos + $ycos * $ycos);
+    $lat = atan2($zsin, $sqrt);
+    
+    // return array($lat * 180 / pi(), $lon * 180 / pi());
+
+
+
+            $farm->lat = $farm->lat + ($lat * 180 / pi())/2;//$request['lat'];
+            $farm->lng = $farm->lng + ($lon * 180 / pi())/2;//$request['lng'];
+
             $farm->save();
 
             return response()->json($terrain);

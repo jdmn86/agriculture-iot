@@ -226,7 +226,7 @@ import  $bus   from '@/app';
       }
   };
   </script>
-  <style>
+  <style scoped>
   nav > .nav.nav-tabs{
     
     border: none;

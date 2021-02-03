@@ -29,7 +29,7 @@
                 </ProductDetails>
 
 <!-- if variety -->
-                <ProductComposition :composition="product.composition"/>
+                <ProductComposition v-if="product.composition_id" :composition="product.composition"/>
 
 
 
@@ -130,7 +130,7 @@ import  $bus   from '@/app';
             },
 
             product(){
-                return Product.query().with('composition').find(this.productId) 
+                return Product.query().with('composition').with('typeProduct').find(this.productId) 
            
             },
             

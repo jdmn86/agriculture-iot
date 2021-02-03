@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller 
 {
-    function __construct() 
+    function __construct()  
     { 
         $this->middleware('auth');//->except('logout');
     
@@ -44,7 +44,7 @@ public function index(): JsonResponse
         $users = User::all();
 
     }else {
-        $users = User::where('company_id',auth()->user()->company_id)->get();
+        $users = User::where('company_id',auth()->user()->company_id)->where('id','!=',auth()->user()->id)->get();
 
     }
     
@@ -77,13 +77,14 @@ public function store(Request $request): JsonResponse
         $user = User::create($input);
 
 
-        $role = Role::findByName('adminCompany');
+        $role = Role::where('name','adminCompany')->first();
 
-        $permissions = Role::findByName('adminCompany')->permissions;
+        $permissions = $role->permissions;
         
         $role->syncPermissions($permissions);
 
-        $user->assignRole($role);        
+        $user->assignRole($role);     
+
 
     }else if(auth()->user()->hasRole('adminCompany') ){
 
@@ -91,16 +92,17 @@ public function store(Request $request): JsonResponse
         $input['password'] = Hash::make($input['email']);
         $user = User::create($input);
 
-
         // $role = Role::create(['name' => 'adminCompany']);
-        $role =Role::findByName('user');
 
-        $permissions = Role::findByName('user')->permissions;
+        // $role =Role::findByName('user');
+        $role = Role::where('name','user')->first();
+  
+        $permissions = $role->permissions;
         
         $role->syncPermissions($permissions);
 
         $user->assignRole($role);
-        
+
     }
     
     return response()->json($user);    
@@ -130,8 +132,9 @@ public function update(Request $request, $id): JsonResponse
     $this->validate($request, [
     'name' => 'required',
     'email' => 'required|email|unique:users,email,'.$id,
-    'password' => 'same:confirm-password',
-    'roles' => 'required'
+    // 'password' => 'same:confirm-password',
+    'roles' => 'required',
+    'blocked' => 'required'
     ]);
 
     $input = $request->all();
@@ -146,8 +149,31 @@ public function update(Request $request, $id): JsonResponse
 
     DB::table('model_has_roles')->where('model_id',$id)->delete();
     $user->assignRole($request->input('roles'));
-    return redirect()->route('users.index')->with('success','User updated successfully');
+
+    return response()->json($user);
+    // return redirect()->route('users.index')->with('success','User updated successfully');
 }
+
+public function blockUnblock(Request $request, $id): JsonResponse
+{
+    $this->validate($request, [    
+    'email' => 'required|email|unique:users,email,'.$id,
+    'blocked' => 'required',    
+    ]);
+
+    $user = User::find($id);
+    $user->blocked = $request->blocked;
+    $user->save();
+
+    //if bolck have to logout from all tokens
+    // $userTokens = $userInstance->tokens;
+    // foreach($userTokens as $token) {
+    //     $token->revoke();   
+    // }
+    
+    return response()->json($user);
+}
+
 /**
 * Remove the specified resource from storage.
 *

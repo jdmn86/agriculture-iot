@@ -11,10 +11,14 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
 
+use App\Models\Terrain;
+use App\Models\Plant;
+
+use Carbon\Carbon;
 
 class CropController extends Controller
 {
-    function __construct()
+    function __construct() 
     {
         $this->middleware('auth');//->except('logout'); 
     
@@ -57,19 +61,111 @@ class CropController extends Controller
         public function store(Request $request): JsonResponse
         {
             $this->validate($request, [
-                'name' => 'required',//|unique:roles,name',
-                'localizacao' => 'required',
+                'num_plantas' => 'required',//|unique:roles,name',
+                'id_plant' => 'required',
+                'id_terrain' => 'required',
+                'expectedProduction' => 'required',
+                'isSeed' => 'required',
                 ]);
     
-                $id = Auth()->user()->company_id;
+        // try{
+            $cultivo = new Crop;
     
-                $farm = Farm::create(['name' => $request->input('name'),
-                                        'farm_company' => $id,
-                                        'localizacao' => $request->input('localizacao')]);
-                // $role->syncPermissions($request->input('permission'));
+           $terrain = Terrain::where('id',$request['id_terrain'])->first();
+
+
+           // if($request['variedade']){
+           //      $plant = Plant::where('id',$request['variedade'])->with('fases')->first(); 
+           // }else{
+           //      $plant = Plant::where('id',$request['plant'])->with('fases')->first(); 
+           // }
+
+
+            $plant = Plant::where('id',$request['id_plant'])->with('plantStage')->first(); 
+           
+
+
+           $areaPrevista=($plant->compasso_plantas*$plant->compasso_linhas)*$request['num_plantas'];
+
+
+           if($terrain->area > ($areaPrevista*1.15)){
+                $cultivo->densidade_distribuicao_terreno = 1; 
+           }else if($terrain->area < ($areaPrevista*1.15)){
+                $cultivo->densidade_distribuicao_terreno = 3; 
+           }else{
+                $cultivo->densidade_distribuicao_terreno = 2; 
+           }
+           
+
+
+
+
+            $cultivo->num_plantas = $request['num_plantas'];
+            // $cultivo->id_plant = $plant->id;
+            $cultivo->id_plant = $request['id_plant'];
+
+            // return $cultivo;
+
+            $cultivo->id_terrain = $request['id_terrain']; 
+            // if(isset($request['device'])){
+            //     $cultivo->id_device = $request['device'];        
+            // }
+// return response()->json($plant);            
+            // return $request['isTransplant'];
+
+            if($request['isSeed']){
+          
+                $cultivo->isSeed = $request['isSeed']; 
+
+    //tem de ir buscar a o id da fase cultivo
+                $cultivo->cropStage_id = 3; 
+
+                $cultivo->crop_day = $plant->plantStage[3]->startDayCropFase;
+                
+                //ir a plant as fases de cultivo 
+                //na fase 3 ir buscar o startDayCropFase
+
+            }else{
+
+                $cultivo->isSeed = false; 
+    //tem de ir buscar a o id da fase cultivo            
+                $cultivo->cropStage_id = 1; 
+
+                
+                $cultivo->crop_day = $plant->plantStage[1]->startDayCropFase;
+                //ir a plant as fases de cultivo 
+                //na fase 3 ir buscar o startDayCropFase
+
+            }
+            
+
+
+            $cultivo->expectedProduction = $request['expectedProduction'];
+
+ // return response()->json($cultivo);            
+
+            // $now = new \DateTime();
+            $now = Carbon::now();
+            $cultivo->start_crop_date = $now->toDateTimeString();
+
+            // if($request['semear']==true){
+            //     $cultivo->fase_cultivo = 1;    
+            // }else{
+            //     $cultivo->fase_cultivo = 2;    
+            // }
+            
+
+$cultivo->enabled = true;  
+ // return response()->json($cultivo);
+            $cultivo->save(); //erro aqui
     
-                return response()->json($farm);
-                // return redirect()->route('roles.index')->with('success','Role created successfully');
+    //     }
+    // catch(\Exception $e){
+    //     return  $e->getMessage();
+    // }
+    
+            return response()->json($cultivo);
+               
         }
     
         /**
@@ -88,6 +184,19 @@ class CropController extends Controller
             // return view('roles.show',compact('role','rolePermissions'));
         }
     
+        public function finishCrop($idCrop,Request $request): JsonResponse
+        {
+           
+            $crop = Crop::find($idCrop);
+
+            $now = Carbon::now();
+            $crop->finish_crop_date =  $now->toDateTimeString();
+
+            $crop->save();
+
+            return response()->json($crop);
+        }
+
         /**
          * Update the specified resource in storage.
          *

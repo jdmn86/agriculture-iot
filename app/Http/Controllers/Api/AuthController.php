@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
-    
     /** 
      * Login to the system.
      *
@@ -34,7 +33,9 @@ class AuthController extends Controller
         ]);
 
          try { 
-            if (auth()->attempt($credentials)) {
+
+          if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'blocked' => 0])){
+            // if (auth()->attempt($credentials)) {
                 $user = auth()->user();
                 /** @var User $user */
                 $user['token'] = $this->generateTokenForUser($user);
@@ -49,7 +50,7 @@ class AuthController extends Controller
 
                 return response()->json($user);
             } else {
-                return response()->json(['success' => 'false', 'message' => 'Authentication failed'], 401);
+                return response()->json(['success' => 'false', 'message' => 'Authentication failed, probabli you are blocked'], 401);
             }
         } catch (\Exception $exception) {
             logger()->error($exception);
@@ -142,7 +143,7 @@ class AuthController extends Controller
             {
                 $userId = Auth::User()->id;
                 $user = User::find($userId);
-                $user->password = Hash::make($request['password']);;
+                $user->password = Hash::make($request['password']);
                 $user->save();
 
                 // $user->token()->revoke();

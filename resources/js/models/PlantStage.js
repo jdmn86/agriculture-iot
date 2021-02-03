@@ -4,7 +4,7 @@ import { Model } from '@vuex-orm/core'
 export default class PlantStage extends Model {
   static entity = 'plantStages'
 
-  static fields () {
+  static fields () { 
     return {
       id: this.uid(),
       plant_id: this.attr(''),

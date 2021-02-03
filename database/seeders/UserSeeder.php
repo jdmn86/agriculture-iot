@@ -22,7 +22,8 @@ class UserSeeder extends Seeder
             'name' => 'adminCompany',
             'email' => 'adminCompany@adminCompany.com',
             'password' => bcrypt('adminCompany'),
-            'company_id' => '1' 
+            'company_id' => '1',
+            'blocked' => false 
             ]);
     
             $role = Role::create(['name' => 'adminCompany']);
@@ -131,14 +132,27 @@ class UserSeeder extends Seeder
             $role->givePermissionTo('device-edit');
             $role->givePermissionTo('device-delete');
 
+            
+            $role->givePermissionTo('deviceType-list');                        
             $role->givePermissionTo('plantAnalyse-list');
             $role->givePermissionTo('plantAnalyse-create');
             $role->givePermissionTo('plantAnalyse-edit');
             $role->givePermissionTo('plantAnalyse-delete');
 
             $role->givePermissionTo('plantPlague-list');
-            
 
+            $role->givePermissionTo('dailyWeather-list');
+
+            $role->givePermissionTo('currentWeather-list');
+
+            $role->givePermissionTo('harvest-list');
+            $role->givePermissionTo('harvest-create');
+            $role->givePermissionTo('harvest-edit');
+
+            $role->givePermissionTo('soilData-list');
+
+            $role->givePermissionTo('airData-list');
+         
 
             $user->assignRole($role);
 
@@ -146,7 +160,8 @@ class UserSeeder extends Seeder
             'name' => 'user',
             'email' => 'user@user.com',
             'password' => bcrypt('user'),
-            'company_id' => '1'
+            'company_id' => '1',
+            'blocked' => false
             ]);
     
             $role = Role::create(['name' => 'user']);
@@ -220,6 +235,8 @@ class UserSeeder extends Seeder
 
             $role->givePermissionTo('device-list');
 
+            $role->givePermissionTo('deviceType-list');
+
             $role->givePermissionTo('plantAnalyse-list');
             $role->givePermissionTo('plantAnalyse-create');
             $role->givePermissionTo('plantAnalyse-edit');
@@ -227,6 +244,15 @@ class UserSeeder extends Seeder
 
             $role->givePermissionTo('plantPlague-list');
 
+            $role->givePermissionTo('dailyWeather-list');
+
+            $role->givePermissionTo('currentWeather-list');
+
+            $role->givePermissionTo('harvest-list');
+
+            $role->givePermissionTo('soilData-list');
+
+            $role->givePermissionTo('airData-list');
             
             $user->assignRole($role);
 

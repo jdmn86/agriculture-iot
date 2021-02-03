@@ -10,7 +10,7 @@
 <script> 
 import GoogleMapsApiLoader from 'google-maps-api-loader'
  
-export default {
+export default { 
   props:{
     terrain: Object, 
     google:Object,
@@ -21,7 +21,7 @@ export default {
      
    },
   data(){
-    return {     
+    return {      
       map: null,
       mapContainer: null,
       mapConfig:null,

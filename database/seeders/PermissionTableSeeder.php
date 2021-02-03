@@ -159,6 +159,11 @@ class PermissionTableSeeder extends Seeder
             'device-edit',
             'device-delete',
 
+            'deviceType-list',
+            'deviceType-create',
+            'deviceType-edit',
+            'deviceType-delete',
+
             'plantAnalyse-list',
             'plantAnalyse-create',
             'plantAnalyse-edit',
@@ -168,6 +173,32 @@ class PermissionTableSeeder extends Seeder
             'plantPlague-create',
             'plantPlague-edit',
             'plantPlague-delete',
+
+            'dailyWeather-list',
+            'dailyWeather-create',
+            'dailyWeather-edit',
+            'dailyWeather-delete',
+
+            'currentWeather-list',
+            'currentWeather-create',
+            'currentWeather-edit',
+            'currentWeather-delete',
+
+            'harvest-list',
+            'harvest-create',
+            'harvest-edit',
+            'harvest-delete',
+
+            'soilData-list',
+            'soilData-create',
+            'soilData-edit',
+            'soilData-delete',
+
+            'airData-list',
+            'airData-create',
+            'airData-edit',
+            'airData-delete',
+
 
             
             ];
