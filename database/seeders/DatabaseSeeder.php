@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AddressSeeder::class);
 
         $this->call(CompanyAddressSeeder::class);
-        $this->call(PlantAnalyseSeeder::class);
+        // $this->call(PlantAnalyseSeeder::class);
         $this->call(CropPlagueSeeder::class);
         $this->call(PlantPlagueSeeder::class);
 

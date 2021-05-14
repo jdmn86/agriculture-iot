@@ -27,7 +27,7 @@ class CropSeeder extends Seeder
             'id_terrain' => '1',
             'densidade_distribuicao_terreno' => '3' ,
             'cropStage_id' => '3',        
-            'expectedProduction' => '1000',
+            'expectedProductionByHa' => '1000',
             'start_crop_date' => '2021-01-29 02:05:07',
             'isSeed' => true,
             'crop_day' => '31',

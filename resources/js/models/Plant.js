@@ -3,6 +3,7 @@ import PlantType from './PlantType'
 import PlantStage from './PlantStage'
 import Plague from './Plague'
 import PlantPlague from './PlantPlague'
+import PlantUptake from './PlantUptake'
 
 export default class Plant extends Model {
   static entity = 'plants'
@@ -30,7 +31,8 @@ export default class Plant extends Model {
       company_id: this.attr(null),
 
  
-      plagues: this.belongsToMany(Plague,PlantPlague,'plant_id', 'plague_id')
+      plagues: this.belongsToMany(Plague,PlantPlague,'plant_id', 'plague_id'),
+      plantUptake: this.hasMany(PlantUptake,'plant_id'),
     }
   }
-} 
+}    

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\PlantAnalyse;
+use App\Models\AnalysePlant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -11,18 +11,17 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
 
-
-class PlantAnalyseController extends Controller 
+class AnalysePlantController extends Controller
 {
-    function __construct()
+     function __construct()
     {
         $this->middleware('auth');//->except('logout');
     
-        $this->middleware('permission:plantAnalyse-list|plantAnalyse-create|plantAnalyse-edit|plantAnalyse-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:plantAnalyse-create', ['only' => ['store']]);
-        $this->middleware('permission:plantAnalyse-edit', ['only' => ['update']]);
-        $this->middleware('permission:plantAnalyse-delete', ['only' => ['destroy']]);
-    }
+        $this->middleware('permission:analysePlant-list|analysePlant-create|analysePlant-edit|analysePlant-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:analysePlant-create', ['only' => ['store']]);
+        $this->middleware('permission:analysePlant-edit', ['only' => ['update']]);
+        $this->middleware('permission:analysePlant-delete', ['only' => ['destroy']]);
+    } 
     /**
      * Display a listing of the resource.
      *

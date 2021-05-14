@@ -3,6 +3,7 @@ import Auth from '@/models/Auth'
 import User from '@/models/User'
 import Farm from '@/models/Farm'
 import Terrain from '@/models/Terrain'
+
 import Plant from '@/models/Plant'
 import PlantType from '@/models/PlantType'
 import PlantStage from '@/models/PlantStage'
@@ -11,6 +12,8 @@ import PlagueType from '@/models/PlagueType'
 import PlantPlague from '@/models/PlantPlague'
 import PlantPartsAnatomy from '@/models/PlantPartsAnatomy'
 import PlaguePlantsPartsAnatomy from '@/models/PlaguePlantsPartsAnatomy'
+import PlantUptake from '@/models/PlantUptake'
+
 import Company from '@/models/Company'
 
 import Crop from '@/models/Crop'
@@ -29,6 +32,8 @@ import AirData from '@/models/AirData'
 import SoilData from '@/models/SoilData'
 
 import SoilType from '@/models/SoilType'
+import AnalysePlant from '@/models/AnalysePlant'
+import AnalyseWater from '@/models/AnalyseWater'
 import AnalyseSoil from '@/models/AnalyseSoil'
 import AnalyseSoilGuideline from '@/models/AnalyseSoilGuideline'
 
@@ -53,6 +58,8 @@ database.register(PlantPlague)
 database.register(PlantPartsAnatomy)
 database.register(PlaguePlantsPartsAnatomy)
 
+database.register(PlantUptake)
+
 database.register(Product)
 database.register(ProductComposition)
 database.register(ProductType)
@@ -72,6 +79,9 @@ database.register(AirData)
 database.register(SoilData)
 
 database.register(SoilType)
+
+database.register(AnalyseWater)
+database.register(AnalysePlant)
 database.register(AnalyseSoil)
 database.register(AnalyseSoilGuideline)
 

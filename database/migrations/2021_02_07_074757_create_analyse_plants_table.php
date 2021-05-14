@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlantAnalysesTable extends Migration
+class CreateAnalysePlantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreatePlantAnalysesTable extends Migration
      */
     public function up()
     {
-            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::create('plant_analyses', function (Blueprint $table) {
+          DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::create('analyse_plants', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('crop_id')->nullable()->unsigned();
@@ -51,6 +51,6 @@ class CreatePlantAnalysesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plant_analyses');
+        Schema::dropIfExists('analyse_plants');
     }
 }

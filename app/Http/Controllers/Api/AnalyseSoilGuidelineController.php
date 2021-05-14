@@ -29,9 +29,23 @@ class AnalyseSoilGuidelineController extends Controller
          */
         public function index(): JsonResponse
         {
-            $terrain = Terrain::orderBy('id','DESC')->paginate(5);
-            // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-            return response()->json($terrain);
+            if(auth()->user()->hasRole('admin')){
+            $analyseSoilGuide=AnalyseSoilGuideline::all();
+            }
+
+
+
+        if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
+
+              // $crops = Crop::all();
+            $analyseSoilGuide = AnalyseSoilGuideline::whereHas('terrain.farm', function($query){
+                
+                    $query->where('farm_company','=', auth()->user()->company_id);
+               })->get();
+            }
+
+        
+        return response()->json($analyseSoilGuide);
         }
     
         /**
@@ -47,14 +61,36 @@ class AnalyseSoilGuidelineController extends Controller
                 'localizacao' => 'required',
                 ]);
     
-                $id = Auth()->user()->company_id;
+
+     $user = auth('api')->user();
+
+        try{
+           $SoilAnalysisGuidelines = new AnalyseSoilGuideline;
+            
+            $SoilAnalysisGuidelines->Lime = $request['Lime'];
+            $SoilAnalysisGuidelines->nitrogen = $request['nitrogen'];
+            $SoilAnalysisGuidelines->phosphorus = $request['phosphorus'];
+            $SoilAnalysisGuidelines->potash = $request['potash'];
+            $SoilAnalysisGuidelines->Magnesium = $request['Magnesium'];
+            $SoilAnalysisGuidelines->zinc = $request['zinc'];
+            $SoilAnalysisGuidelines->Sulfur = $request['Sulfur'];
+            $SoilAnalysisGuidelines->Manganese = $request['Manganese'];
+            $SoilAnalysisGuidelines->Cooper = $request['Cooper'];
+            $SoilAnalysisGuidelines->Iron = $request['Iron'];
+            $SoilAnalysisGuidelines->Boron = $request['Boron'];
+            $SoilAnalysisGuidelines->Obs = $request['Obs'];
+
+             
+            $SoilAnalysisGuidelines->save();
+        }
+        catch(\Exception $e){
+           // do task when error
+            return  $e->getMessage();
+        }
+
+
     
-                $farm = Farm::create(['name' => $request->input('name'),
-                                        'farm_company' => $id,
-                                        'localizacao' => $request->input('localizacao')]);
-                // $role->syncPermissions($request->input('permission'));
-    
-                return response()->json($farm);
+                return response()->json($SoilAnalysisGuidelines);
                 // return redirect()->route('roles.index')->with('success','Role created successfully');
         }
     

@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class PlantUptakeController extends Controller
 { 
@@ -17,21 +18,27 @@ class PlantUptakeController extends Controller
     {
         $this->middleware('auth');//->except('logout');
     
-        $this->middleware('permission:plantUptake-list|plantUptake-create|plantUptake-edit|plantUptake-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:plantUptake-list|plantUptake-create|plantUptake-edit|plantUptake-delete', ['only' => ['index','store']]); 
         $this->middleware('permission:plantUptake-create', ['only' => ['store']]);
         $this->middleware('permission:plantUptake-edit', ['only' => ['update']]);
         $this->middleware('permission:plantUptake-delete', ['only' => ['destroy']]);
     }
-        /**
-         * Display a listing of the resource.
+        /** 
+         * Display a listing of the resource. 
          *
          * @return \Illuminate\Http\Response
          */
         public function index(): JsonResponse
         {
-            $terrain = Terrain::orderBy('id','DESC')->paginate(5);
-            // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-            return response()->json($terrain);
+             $plantUptake = PlantUptake::whereHas('plant', function (Builder $query) {
+                
+                    $query->whereNull('company_id')->orWhere('company_id',Auth()->user()->company_id);
+                })->get();
+
+// )->whereNull('company_id')->orWhere('company_id',Auth()->user()->company_id)->get();
+
+        // tem de ir buscar as master e as que a company criou
+        return response()->json($plantUptake);
         }
 
         /**

@@ -13,7 +13,7 @@ use DB;
 
 class AnalyseWaterController extends Controller
 {
-    function __construct()
+    function __construct() 
     {
         $this->middleware('auth');//->except('logout');
     

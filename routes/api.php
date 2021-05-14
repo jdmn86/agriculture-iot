@@ -29,9 +29,12 @@ use App\Http\Controllers\Api\PlantStageController;
 use App\Http\Controllers\Api\PlantPlagueController;
 use App\Http\Controllers\Api\PlagueTypeController; 
 use App\Http\Controllers\Api\PlagueController;
+
 use App\Http\Controllers\Api\AnalyseWaterController;
 use App\Http\Controllers\Api\AnalyseSoilGuidelineController;
 use App\Http\Controllers\Api\AnalyseSoilController;
+use App\Http\Controllers\Api\AnalysePlantController;
+
 use App\Http\Controllers\Api\AddressController;
 
 use App\Http\Controllers\Api\DeviceController;
@@ -47,6 +50,8 @@ use App\Http\Controllers\Api\AirDataController;
 use App\Http\Controllers\Api\SoilDataController;
 
 use App\Http\Controllers\Api\HarvestController;
+
+use App\Http\Controllers\Api\RecommendationFertilizerController;
 
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
@@ -115,9 +120,12 @@ Route::group(['middleware' => ['auth:api']], function() {
     'plagueType' => PlagueTypeController::class,
     'plague' => PlagueController::class,
     'plantPlague' => PlantPlagueController::class,
+
     'analyseWater' => AnalyseWaterController::class,
     'analyseSoilGuideline' => AnalyseSoilGuidelineController::class,
+    'analysePlant' => AnalysePlantController::class,
     'analyseSoil' => AnalyseSoilController::class,
+    
     'address' => AddressController::class,
 
     'device' => DeviceController::class,
@@ -133,6 +141,8 @@ Route::group(['middleware' => ['auth:api']], function() {
     'soilData' => SoilDataController::class,
 
     'harvest' => HarvestController::class,
+
+        'recommendationFertilizer' => RecommendationFertilizerController::class,
     ]);
 
 

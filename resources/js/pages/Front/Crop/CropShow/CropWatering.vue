@@ -3,17 +3,20 @@
 <b-col>
     <b-row align-h="center"  style="margin: 0px; padding: 0px">
 
-      <b-col>
+      <b-col >
         <DevicesOfCrop v-if="google && devicesOfCrop && devicesOfCrop.length>0" :devices="devicesOfCrop" :google="google" @selectDevice="selectDevice"/>
       </b-col>
-       <!-- <DeviceLastSoilData />         -->
+
+       <!-- <b-col cols="4"> -->
+         <Alerts :crop="crop"/>
+       <!-- </b-col> -->
 
     </b-row>
 
      <b-row align-h="center"  style="margin: 0px; padding: 0px">
 
       <b-col>
-        <DeviceLastSoilData v-if="soilDatas && currentWeatherDatas" :dataSoil="soilDatas" :dataCurrentWeather="currentWeatherDatas" />
+        <DeviceLastSoilData v-if=" lastAnalyseSoil && device && crop && plant" :device="device" :lastAnalyseSoil="lastAnalyseSoil" :plant="plant" :crop="crop"/>
       </b-col>
        <!-- <DeviceLastSoilData />         -->
 
@@ -302,12 +305,17 @@ import Auth from '@/models/Auth'
 import Crop from '@/models/Crop'
 import Terrain from '@/models/Terrain'
 import Device from '@/models/Device'
+import Plant from '@/models/Plant'
 
 import SoilData from '@/models/SoilData'
 import AirData from '@/models/AirData'
 import CurrentWeather from '@/models/CurrentWeather'
+import AnalyseSoil from '@/models/AnalyseSoil'
+import SoilType from '@/models/SoilType'
+
 
 import DeviceLastSoilData from '@/components/Crop/CropWatering/DeviceLastSoilData'
+import Alerts from '@/components/Crop/CropWatering/Alerts'
 import DevicesOfCrop from '@/components/GoogleMaps/DevicesOfCrop'
 
 import GoogleMapsApiLoader from 'google-maps-api-loader'
@@ -318,7 +326,8 @@ import  $bus   from '@/app';
         name: "CropWatering",
         components: {  
           DeviceLastSoilData,
-          DevicesOfCrop
+          DevicesOfCrop,
+          Alerts
         },
         props: {
             crop: { type: Object, default: null },
@@ -332,7 +341,6 @@ import  $bus   from '@/app';
             context: null,
             google: null,   
             device: null,
-            soilDatas: null,
           };
         },
        
@@ -340,11 +348,7 @@ import  $bus   from '@/app';
             auth(){
                 return Auth.query().first();
             },
-             currentWeatherDatas(){
-
-                  return CurrentWeather.query().with('farm').where('id_farm',this.crop.terrain.farm_id).get();    
-                
-             },
+         
             devicesOfCrop(){
 
                   return Device.query().where('device_type_id',2).whereHas('soilDatas', (query) => {
@@ -352,10 +356,15 @@ import  $bus   from '@/app';
                       }).get()
                 
             },
-            // dailyWeather(){
-            //     return DailyWeather.query().where('id_farm',this.crop.terrain.farm_id).orderBy('id', 'asc').limit(6).get();   
+            lastAnalyseSoil(){
+                return AnalyseSoil.query().with('soilType').where('terrain_id',this.crop.terrain.id).last();   
                 
-            // },
+            },
+
+             plant(){
+                return Plant.query().where('id',this.crop.id_plant).first();   
+                
+            },
               
 
             
@@ -374,11 +383,9 @@ import  $bus   from '@/app';
           selectDevice(d){
             console.log("   test :"+JSON.stringify(d))
             this.device = d;
-            this.getSoilDatas();
+            
           },
-          getSoilDatas(){
-              this.soilDatas = SoilData.query().with('device').with('crop').with('terrain').where('crop_id',this.crop.id).where('device_id',this.device.id).get();   
-          },
+          
             async fetch(){
             this.loading = true
 
@@ -389,6 +396,8 @@ import  $bus   from '@/app';
                 await Device.api().get('device'); 
                 await SoilData.api().get('soilData'); 
                 await Crop.api().get('crop'); 
+                await AnalyseSoil.api().get('analyseSoil'); 
+                await SoilType.api().get('soilType'); 
 
                 // await CurrentWeather.api().get('currentWeather');
 

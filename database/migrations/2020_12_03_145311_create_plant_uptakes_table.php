@@ -9,7 +9,7 @@ class CreatePlantUptakesTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void
+     * @return void 
      */
     public function up()
     {
@@ -20,39 +20,46 @@ class CreatePlantUptakesTable extends Migration
                 $table->integer('plantStage_id')->unsigned();
     
                 $table->integer('plant_id')->unsigned();
-                
+
+                $table->integer('company_id')->unsigned()->nullable();
+
+                 
                 $table->decimal('expectedProductionByHa')->nullable(); 
     
-                $table->decimal('nitrogen')->nullable();    //N ppm
+
+                $table->decimal('nitrogen_total')->nullable();    //N ppm
     
-                $table->decimal('phosphorus')->nullable();    // P ppm
+                $table->decimal('phosphorus_total')->nullable();    // P ppm
     
-                $table->decimal('potassium')->nullable();    // (k) ppm
+                $table->decimal('potassium_total')->nullable();    // (k) ppm
                 
-                $table->decimal('Magnesium')->nullable();    // Mg ppm 
+                $table->decimal('Magnesium_total')->nullable();    // Mg ppm 
                 
-                $table->decimal('Calcium')->nullable();    // Ca ppm
+                $table->decimal('Calcium_total')->nullable();    // Ca ppm
                 
-                $table->decimal('Sulfur')->nullable();    //  S ppm
+                $table->decimal('Sulfur_total')->nullable();    //  S ppm
     
-                $table->decimal('Sodium')->nullable();  // Na ppm
+                $table->decimal('Sodium_total')->nullable();  // Na ppm
     
-                $table->decimal('Boron')->nullable();    //  B ppm
+                $table->decimal('Boron_total')->nullable();    //  B ppm
     
-                $table->decimal('zinc')->nullable();    //  Zn ppm
+                $table->decimal('zinc_total')->nullable();    //  Zn ppm
                 
-                $table->decimal('Manganese')->nullable();    // Mn ppm
+                $table->decimal('Manganese_total')->nullable();    // Mn ppm
                 
-                $table->decimal('Cooper')->nullable();    // Cu ppm
+                $table->decimal('Cooper_total')->nullable();    // Cu ppm
                 
-                $table->decimal('Iron')->nullable();    // Fe ppm
+                $table->decimal('Iron_total')->nullable();    // Fe ppm
                 
-                $table->decimal('Aluminium')->nullable();    // Al ppm            
+                $table->decimal('Aluminium_total')->nullable();    // Al ppm            
     
                 $table->timestamps();
             
                 $table->foreign('plantStage_id')->references('id')->on('plant_stages')->onDelete('cascade');
+                
                 $table->foreign('plant_id')->references('id')->on('plants')->onDelete('cascade');
+
+               $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             });
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

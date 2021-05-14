@@ -19,7 +19,7 @@ class Crop extends Model
         'densidade_distribuicao_terreno',
         'cropStage_id', 
         'created_at',
-        'expectedProduction',  
+        'expectedProductionByHa',  
         'start_crop_date',
         'finish_crop_date',
         'isSeed',

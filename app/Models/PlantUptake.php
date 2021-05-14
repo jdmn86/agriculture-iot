@@ -14,22 +14,26 @@ class PlantUptake extends Model
         'plantStage_id',
         'plant_id',
         'expectedProductionByHa',
-        'nitrogen',
-        'phosphorus',
-        'potassium',
-        'Magnesium',
-        'Calcium',
-        'Sulfur',
-        'Sodium',
-        'Boron',           
-        'zinc',
-        'Manganese', 
-        'Cooper', 
-        'Iron',
-        'Aluminium'    
-   ];  
 
-  //protected $table = 'soil_datas';
+        'nitrogen_total',
+        'phosphorus_total',
+        'potassium_total',
+        'Magnesium_total',
+        'Calcium_total', 
+        'Sulfur_total',
+        'Sodium_total',
+        'Boron_total',           
+        'zinc_total',
+        'Manganese_total', 
+        'Cooper_total', 
+        'Iron_total',
+        'Aluminium_total',
+        'created_at',
+
+        'company_id',
+   ];  
+ 
+  //protected $table = 'soil_datas'; 
 
   public function plantStage()
    {
@@ -39,5 +43,11 @@ class PlantUptake extends Model
    {
        return $this->belongsTo(Plant::class,'plant_id', 'id');
    }
+
+    public function company()
+  {
+    return $this->belongsTo(Company::class,'company_id');
+  }
+
 }
  

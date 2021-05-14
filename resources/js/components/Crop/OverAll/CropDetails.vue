@@ -60,10 +60,10 @@
 
               <b-row style="padding: 10px; " align-h="between" align-v="center">
                      <b-col cols="auto">
-                    <h5 class="card-text">expectedProduction :</h5>
+                    <h5 class="card-text">expectedProductionByHa :</h5>
                   </b-col>
                   <b-col cols="auto">
-                    <p class="card-text">{{crop.expectedProduction}}</p>
+                    <p class="card-text">{{crop.expectedProductionByHa}}</p>
                   </b-col>
         <!--         <h4 style="margin: 5px" id="coordenadas" class="">{{device.num_reads}} </h4> -->
               

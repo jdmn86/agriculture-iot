@@ -152,7 +152,27 @@ class UserSeeder extends Seeder
             $role->givePermissionTo('soilData-list');
 
             $role->givePermissionTo('airData-list');
-         
+
+            $role->givePermissionTo('soilType-list');
+            $role->givePermissionTo('soilType-create');
+            $role->givePermissionTo('soilType-edit');
+            $role->givePermissionTo('soilType-delete');
+
+            $role->givePermissionTo('analysePlant-list');
+            $role->givePermissionTo('analysePlant-create');
+            $role->givePermissionTo('analysePlant-edit');
+            $role->givePermissionTo('analysePlant-delete');
+
+            $role->givePermissionTo('recommendationFertilizer-list');
+            $role->givePermissionTo('recommendationFertilizer-create');
+            $role->givePermissionTo('recommendationFertilizer-edit');
+            // $role->givePermissionTo('recommendationFertilizer-delete');
+
+            $role->givePermissionTo('fertilizer-list');
+            $role->givePermissionTo('fertilizer-create');
+            $role->givePermissionTo('fertilizer-edit');
+            $role->givePermissionTo('fertilizer-delete');
+
 
             $user->assignRole($role);
 
@@ -210,6 +230,8 @@ class UserSeeder extends Seeder
             $role->givePermissionTo('analyseWater-edit');
             $role->givePermissionTo('analyseWater-delete');
 
+            $role->givePermissionTo('analysePlant-list');
+            
             $role->givePermissionTo('analyseSoilGuideline-list');
             $role->givePermissionTo('analyseSoilGuideline-create');
             $role->givePermissionTo('analyseSoilGuideline-edit');
@@ -253,6 +275,14 @@ class UserSeeder extends Seeder
             $role->givePermissionTo('soilData-list');
 
             $role->givePermissionTo('airData-list');
+
+            $role->givePermissionTo('soilType-list');
+
+            $role->givePermissionTo('recommendationFertilizer-list');
+
+            $role->givePermissionTo('fertilizer-list');
+            $role->givePermissionTo('fertilizer-create');
+            $role->givePermissionTo('fertilizer-edit');
             
             $user->assignRole($role);
 

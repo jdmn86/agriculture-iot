@@ -132,8 +132,8 @@ $this->info($DEFAULT_API_BASE_URL.$lat.'&lon='.$lon.$lasturl);
             $currentWeather->wind_deg = $json->current->wind_deg;
             $currentWeather->uvi = $json->current->uvi;
             $currentWeather->visibility = $json->current->visibility;
-            if(isset($json->current->rain)){
-                $currentWeather->rain = $json->current->rain;
+            if(isset($json->current->rain->{'1h'})){
+                $currentWeather->rain = $json->current->rain->{'1h'};
             }
             if(isset($json->current->rain_hour)){
                 $currentWeather->rain_hour = $json->current->rain_hour;
@@ -150,6 +150,8 @@ $this->info($DEFAULT_API_BASE_URL.$lat.'&lon='.$lon.$lasturl);
             } else{
                 $currentWeather->wetleaf  = 0;
             }
+
+            $this->info(print_r($currentWeather, true) );
 
             $currentWeather->save();
 

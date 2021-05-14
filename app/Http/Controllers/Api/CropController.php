@@ -64,7 +64,7 @@ class CropController extends Controller
                 'num_plantas' => 'required',//|unique:roles,name',
                 'id_plant' => 'required',
                 'id_terrain' => 'required',
-                'expectedProduction' => 'required',
+                'expectedProductionByHa' => 'required',
                 'isSeed' => 'required',
                 ]);
     
@@ -140,7 +140,7 @@ class CropController extends Controller
             
 
 
-            $cultivo->expectedProduction = $request['expectedProduction'];
+            $cultivo->expectedProductionByHa = $request['expectedProductionByHa'];
 
  // return response()->json($cultivo);            
 

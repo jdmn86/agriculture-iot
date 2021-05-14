@@ -14,7 +14,7 @@ use Spatie\Permission\Models\Permission;
 use DB;
 
  
-class PlantController extends Controller
+class PlantController extends Controller 
 {
     function __construct()
 {
@@ -34,7 +34,7 @@ class PlantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(): JsonResponse 
     {
         $plants = Plant::whereNull('company_id')->orWhere('company_id',Auth()->user()->company_id)->get();
 

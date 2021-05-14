@@ -147,19 +147,19 @@
   </ValidationProvider> -->
 
   <ValidationProvider 
-        name="expectedProduction" 
+        name="expectedProductionByHa" 
         rules="required|integer" 
         v-slot=" validationContext ">
-                  <b-form-group  id="input-group-expectedProduction" label="expectedProduction : " label-for="input-expectedProduction">
+                  <b-form-group  id="input-group-expectedProductionByHa" label="expectedProductionByHa : " label-for="input-expectedProductionByHa">
                     <b-form-input
-                      id="input-expectedProduction"
-                      name="input-expectedProduction"
-                      v-model="crop.expectedProduction"
+                      id="input-expectedProductionByHa"
+                      name="input-expectedProductionByHa"
+                      v-model="crop.expectedProductionByHa"
                       :state="getValidationState(validationContext)"
-                      aria-describedby="input-expectedProduction-live-feedback"
+                      aria-describedby="input-expectedProductionByHa-live-feedback"
                     ></b-form-input>
 
-<b-form-invalid-feedback id="input-expectedProduction-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+<b-form-invalid-feedback id="input-expectedProductionByHa-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
 
 
                   </b-form-group>
@@ -261,7 +261,7 @@ import ModalToConfirm from "@/components/ModalToConfirm";
                id_terrain: null,
                densidade_distribuicao_terreno: null,
                cropStage_id: null,
-               expectedProduction: null,
+               expectedProductionByHa: null,
                isSeed: null,
                
             },     

@@ -15,7 +15,7 @@ export default class Crop extends Model {
       densidade_distribuicao_terreno: this.attr(''),
       cropStage_id: this.attr(null),//this.belongsTo(Farm, 'id'),
       created_at: this.attr(null),
-      expectedProduction: this.number(null).nullable(),
+      expectedProductionByHa: this.number(null).nullable(),
       start_crop_date: this.attr(null),
       finish_crop_date: this.attr(null),
       isSeed: this.boolean(true),      

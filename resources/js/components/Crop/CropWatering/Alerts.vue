@@ -1,6 +1,6 @@
 <template>
 
-      <b-col cols="4" style="margin: 10px; background-color: #f8f9fa;">
+      <b-col cols="3" style="margin: 10px; background-color: #f8f9fa;">
 
             <b-row v-if="crop.plant" align-h="start" align-v="center" style="background-color: #4AAD37;padding: 10px; " class="text-white ">
                 <h4 >Alerts</h4>
@@ -63,15 +63,7 @@ import Crop from '@/models/Crop'
         created() {
         },
         methods: {
-          colher(){
 
-          },
-          addPlagueToCrop(){
-
-          },
-          enabledDevice(){
-            
-          }
       
         },
         mounted () {

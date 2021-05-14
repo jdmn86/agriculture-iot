@@ -28,10 +28,10 @@ class SoilTypeController extends Controller
          * @return \Illuminate\Http\Response
          */
         public function index(): JsonResponse
-        {
-            $terrain = Terrain::orderBy('id','DESC')->paginate(5);
-            // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-            return response()->json($terrain);
+        { 
+             $soilType = SoilType::all();
+        // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return response()->json($soilType);
         }
 
         /**

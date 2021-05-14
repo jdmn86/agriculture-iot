@@ -11,7 +11,7 @@ class Plant extends Model
  
     protected $fillable = [  
         'id',   
-        'name' ,
+        'name' , 
         'master_plant_id',
         'nome_variedade' ,
         'name_cientifico',
@@ -58,10 +58,10 @@ public function company()
 //         return $this->hasMany(ConsociacaoDesfavoravel::class,'id_plant');
 //     } 
 
-//     public function favoravel() 
-//     {
-//         return $this->hasMany(ConsociacaoFavoravel::class,'id_plant');
-//     }
+    public function plantUptake() 
+    {
+        return $this->hasMany(PlantUptake::class,'plant_id','id');
+    }
 
 public function plague()
 {

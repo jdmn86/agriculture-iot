@@ -32,7 +32,6 @@ export default class AnalyseSoilGuideline extends Model {
       Obs: this.attr(null),
 
       
-
     }
   }
 }  

@@ -29,9 +29,9 @@ class AnalyseSoilGuideline extends Model
 
   //protected $table = 'soil_datas';
 
-  public function soilAnalysis()
+  public function analyseSoil()
    {
-       return $this->hasOne(SoilAnalyse::class,'id','analysisGuideline_id');
+       return $this->hasOne(AnalyseSoil::class,'id','analysisGuideline_id');
    }
 }
  

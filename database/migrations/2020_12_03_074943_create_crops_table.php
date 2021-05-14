@@ -21,7 +21,7 @@ class CreateCropsTable extends Migration
                 // $table->integer('fase_cultivo_id')->nullable()->unsigned();//1-germinação 2-transplant 3-bulbificaçao 4-crescimento 5-colher
                 $table->integer('densidade_distribuicao_terreno')->nullable();//1-fraca 2-normal 3 -alto
     
-                $table->integer('expectedProduction')->nullable(); //ton 
+                $table->integer('expectedProductionByHa')->nullable(); //ton 
     
                 $table->dateTimeTz('start_crop_date')->nullable();
                 $table->dateTimeTz('finish_crop_date')->nullable();

@@ -4,10 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class PlantAnalyseSeeder extends Seeder
+class AnalyseWaterSeeder extends Seeder
 {
     /**
-     * Run the database seeds. 
+     * Run the database seeds.
      *
      * @return void
      */

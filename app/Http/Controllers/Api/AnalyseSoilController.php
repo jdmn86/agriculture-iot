@@ -11,11 +11,11 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission; 
 use DB;
  
-class AnalyseSoilController extends Controller
+class AnalyseSoilController extends Controller 
 {
     function __construct()
     {
-        $this->middleware('auth');//->except('logout');
+        $this->middleware('auth');//->except('logout'); 
     
         $this->middleware('permission:analyseSoil-list|analyseSoil-create|analyseSoil-edit|analyseSoil-delete', ['only' => ['index','store']]);
         $this->middleware('permission:analyseSoil-create', ['only' => ['store']]);
@@ -29,9 +29,23 @@ class AnalyseSoilController extends Controller
          */
         public function index(): JsonResponse
         {
-            $terrain = Terrain::orderBy('id','DESC')->paginate(5);
-            // return view('companys.index',compact('companys'))->with('i', ($request->input('page', 1) - 1) * 5);
-            return response()->json($terrain);
+          if(auth()->user()->hasRole('admin')){
+            $analyseSoil=AnalyseSoil::all();
+            }
+
+
+
+        if(auth()->user()->hasRole('adminCompany') || auth()->user()->hasRole('user')){
+
+              // $crops = Crop::all();
+            $analyseSoil = AnalyseSoil::with('analysisGuideline')->whereHas('terrain.farm', function($query){
+                
+                    $query->where('farm_company','=', auth()->user()->company_id);
+               })->get();
+            }
+
+        
+        return response()->json($analyseSoil);
         }
  
         /**
@@ -42,19 +56,75 @@ class AnalyseSoilController extends Controller
          */
         public function store(Request $request): JsonResponse
         {
-            $this->validate($request, [
-                'name' => 'required',//|unique:roles,name',
-                'localizacao' => 'required',
-                ]);
+            // $this->validate($request, [
+            //     'name' => 'required',//|unique:roles,name',
+            //     'localizacao' => 'required',
+            //     ]);
     
-                $id = Auth()->user()->company_id;
+                //return $request;
+        //preciso mandar id_user e device_id 
+        $user = auth('api')->user();
+
+
+
+        try{
+           $soilAnalysis = new AnalyseSoil;
+            
+            $soilAnalysis->terrain_id = $request['terrain_id'];
+            $soilAnalysis->tipoSolo_id = $request['tipoSolo_id'];
+            
+            if(isset($request['analysisGuideline_id'])){
+                $soilAnalysis->analysisGuideline_id = $request['analysisGuideline_id'];    
+            }
+            
+            $soilAnalysis->soilDepth = $request['soilDepth'];
+            $soilAnalysis->matOrgPer = $request['matOrgPer'];
+            $soilAnalysis->date = $request['date'];
+            $soilAnalysis->matOrgPer = $request['matOrgPer'];
+            $soilAnalysis->nitrogen = $request['nitrogen'];
+            $soilAnalysis->phosphorus = $request['phosphorus'];
+            $soilAnalysis->potassium = $request['potassium'];
+            $soilAnalysis->Magnesium = $request['Magnesium'];
+            $soilAnalysis->phSoil = $request['phSoil'];
+            $soilAnalysis->phBufferIndex = $request['phBufferIndex'];
+            $soilAnalysis->hydrogen = $request['hydrogen'];
+            $soilAnalysis->Sulfur = $request['Sulfur'];
+            $soilAnalysis->zinc = $request['zinc'];
+            $soilAnalysis->Manganese = $request['Manganese'];
+            $soilAnalysis->Cooper = $request['Cooper'];
+            $soilAnalysis->Iron = $request['Iron'];
+            $soilAnalysis->Boron = $request['Boron'];
+            $soilAnalysis->Aluminium = $request['Aluminium'];
+            $soilAnalysis->excessLime = $request['excessLime'];
+            $soilAnalysis->CEC = $request['CEC'];
+
+            //get per cation
+
+
+            $soilAnalysis->perCationSatK = $request['perCationSatK'];
+            $soilAnalysis->perCationSatMg = $request['perCationSatMg'];
+            $soilAnalysis->perCationSatH = $request['perCationSatH'];
+            $soilAnalysis->perCationSatCa = $request['perCationSatCa'];
+            $soilAnalysis->perCationSatNa = $request['perCationSatNa'];
+
+            
+            $soilAnalysis->Sulfate = $request['Sulfate'];
+            $soilAnalysis->Chloride = $request['Chloride'];
+            $soilAnalysis->Ece = $request['Ece'];
+            $soilAnalysis->Obs = $request['Obs'];
+           
+             
+            $soilAnalysis->save();
+        }
+        catch(\Exception $e){
+           // do task when error
+            return  $e->getMessage();
+        }
     
-                $farm = Farm::create(['name' => $request->input('name'),
-                                        'farm_company' => $id,
-                                        'localizacao' => $request->input('localizacao')]);
-                // $role->syncPermissions($request->input('permission'));
+          //  return true;
+
     
-                return response()->json($farm);
+                return response()->json($soilAnalysis);
                 // return redirect()->route('roles.index')->with('success','Role created successfully');
         }
     

@@ -129,6 +129,11 @@ class PermissionTableSeeder extends Seeder
             'analyseSoil-edit',
             'analyseSoil-delete',
 
+            'analysePlant-list',
+            'analysePlant-create',
+            'analysePlant-edit',
+            'analysePlant-delete',
+
             'address-list',
             'address-create',
             'address-edit',
@@ -199,6 +204,22 @@ class PermissionTableSeeder extends Seeder
             'airData-edit',
             'airData-delete',
 
+            'soilType-list',
+            'soilType-create',
+            'soilType-edit',
+            'soilType-delete',
+
+            'recommendationFertilizer-list',
+            'recommendationFertilizer-create',
+            'recommendationFertilizer-edit',
+            'recommendationFertilizer-delete',
+
+            'fertilizer-list',
+            'fertilizer-create',
+            'fertilizer-edit',
+            'fertilizer-delete',
+
+            
 
             
             ];

@@ -2,7 +2,7 @@
    
 <!-- <b-col style="padding: 0px"> -->
   <b-container fluid style="padding: 0px; margin: 0px" >
-
+ 
 
   <GreyRow >
 <b-col>
@@ -12,13 +12,19 @@
     
     <b-nav-item :to="{name: 'weather'}" exact exact-active-class="active"  ><h5  style="color: #4aad37">Weather</h5></b-nav-item>
 
-     <b-nav-item  :to="{name: 'watering'}" exact exact-active-class="active"  ><h5  style="color: #4aad37">Watering</h5></b-nav-item>
+     <!-- <b-nav-item  :to="{name: 'watering'}" exact exact-active-class="active"  ><h5  style="color: #4aad37">Watering</h5></b-nav-item> -->
+
+<b-nav-item  :to="{name: 'watering'}" exact exact-active-class="active"  ><h5  style="color: #4aad37">Water</h5></b-nav-item>
     
     <b-nav-item :to="{name: 'fertilization'}" exact exact-active-class="active"  ><h5  style="color: #4aad37">Fertilization</h5></b-nav-item>
    
-   <b-nav-item :to="{name: 'analysis'}" exact exact-active-class="active" ><h5  style="color: #4aad37">Analysis</h5></b-nav-item>
+   <!-- <b-nav-item :to="{name: 'analysis'}" exact exact-active-class="active" ><h5  style="color: #4aad37">Analysis</h5></b-nav-item> -->
+
+<b-nav-item :to="{name: 'analysis'}" exact exact-active-class="active" ><h5  style="color: #4aad37">Soil</h5></b-nav-item>
    
-    <b-nav-item :to="{name: 'plantHealth'}" exact exact-active-class="active" ><h5  style="color: #4aad37">Plant Health</h5></b-nav-item>
+    <!-- <b-nav-item :to="{name: 'plantHealth'}" exact exact-active-class="active" ><h5  style="color: #4aad37">Plant Health</h5></b-nav-item> -->
+
+<b-nav-item :to="{name: 'plantHealth'}" exact exact-active-class="active" ><h5  style="color: #4aad37">Plant </h5></b-nav-item>
 
      <b-nav-item :to="{name: 'schedule'}" exact exact-active-class="active" ><h5  style="color: #4aad37">Schedule</h5></b-nav-item>
   

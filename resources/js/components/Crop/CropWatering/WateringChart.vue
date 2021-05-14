@@ -7,9 +7,10 @@ import 'chartjs-plugin-annotation';
     extends: Line,Bar,
     mixins: [reactiveProp],
     // props: [ "chartData","soilLast","plant"],
-    props: [ "chartData"],
+    props: ['chartData','capacidade_campo','PMPcultural'],
     data () { 
       return {
+
            options: {
             backgroundRules: [{
                         backgroundColor: 'rgba(255,0,0,0.8)', 
@@ -18,7 +19,7 @@ import 'chartjs-plugin-annotation';
                         backgroundColor: 'transparent',
                         yAxisSegement: 5,
                     }, {
-                        backgroundColor: 'rgba(255,0,0,0.8)',
+                        backgroundColor: 'rgba(0,0,255,0.8)',
                         yAxisSegement: Infinity
                     }],
 
@@ -88,8 +89,28 @@ import 'chartjs-plugin-annotation';
         
       }
     },
+     watch: {
+    // chartData: function() {
+    //     console.log("watch chart");
+    //   this._chart.destroy();
+    //   //this.renderChart(this.data, this.options);
+    //   this.renderChart(this.chartData, this.options);
+    // }
+  },
+    // watch: {
+    //   chartData: {
+    //         handler: function(newValue) {
+    //            console.log("watch chart");
+    //          this.$data._chart.update()
+    //          // this.renderChart(newValue, this.options);
+    //         },
+    //         deep: true
+    //     }
+    
+    // },
     mounted () {
 
+      console.log("start mounting chart")
 
         this.addPlugin({
         id: 'my-plugin',
@@ -127,9 +148,9 @@ import 'chartjs-plugin-annotation';
 
 // var PMPcultural = this.$props.soilLast.capacidade_emurchecimento + diff;
 
-    this.options.backgroundRules[0].yAxisSegement = 0.2;//PMPcultural;
+    this.options.backgroundRules[0].yAxisSegement = this.PMPcultural;
 
-    this.options.backgroundRules[1].yAxisSegement = 0.5;//this.$props.soilLast.capacidade_campo;
+    this.options.backgroundRules[1].yAxisSegement = this.capacidade_campo;
 
        this.renderChart(this.chartData, this.options)
      }

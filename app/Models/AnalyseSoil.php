@@ -15,61 +15,42 @@ class AnalyseSoil extends Model
         'tipoSolo_id',
         
         'analysisGuideline_id',
-
+ 
         'soilDepth',
         'date',
         
         'matOrgPer',
-        'matOrgPerLevel',
         'nitrogen',
-        'nitrogenLevel',
         'phosphorus',         
-        'phosphorusLevel',
         'potassium', 
-        'potassiumLevel',
         'Magnesium',
-        'MagnesiumLevel',
+        'Calcium',
+        'Sodium',
         'phSoil',
-        'phSoilLevel', 
         'phBufferIndex',
         'hydrogen',
-        'hydrogenLevel',
         'Sulfur',
-        'SulfurLevel',
         'zinc',
-        'zincLevel',
         'Manganese',         
-        'ManganeseLevel',
         'Cooper',
-        'CooperLevel',
         'Iron',
-        'IronLevel',
         'Boron',
-        'BoronLevel',
         'Aluminium',
-        'AluminiumLevel',
         'excessLime',
         'CEC',
         'perCationSatK',
-        'perCationSatKLevel',
         'perCationSatMg',
-        'perCationSatMgLevel',
         'perCationSatH',
-        'perCationSatHLevel',
         'perCationSatCa',
-        'perCationSatCaLevel',
         'perCationSatNa',
-        'perCationSatNaLevel',
         'Sulfate',
-        'SulfateLevel',
         'Chloride',
-        'ChlorideLevel',
         'Ece',
-        'EceLevel',
         'created_at',
-        'Obs'
+        'Obs',
    ];  
 
+// protected $with = ['guide'];
   //protected $table = 'soil_datas';
 
    public function soilType(){
@@ -84,9 +65,9 @@ class AnalyseSoil extends Model
    {
        return $this->belongsTo(Cultivo::class,'cultivo_id');//, 'id');
    }
-   public function guide(){
+   public function analysisGuideline(){
 
-       return $this->belongsTo(SoilAnalysisGuidelines::class,'analysisGuideline_id', 'id');
+       return $this->belongsTo(AnalyseSoilGuideline::class,'analysisGuideline_id', 'id');
 
    }
 }

@@ -1,6 +1,7 @@
 <template>
 
-    <b-col sm="8" style=" padding: 10px" >
+    <!-- <b-col sm="8" style=" padding: 10px" > -->
+    <b-col  style=" padding: 10px" >
               
         <b-row  style=" background-color: #f8f9fa; margin: 0px">
                 <b-col col-sm="1" > 
@@ -12,20 +13,24 @@
 
                     <b-row style="padding: 10px">
                     
-                      <!--  <b-form-datepicker id="example-datepicker" v-model="date" class="mb-2"></b-form-datepicker> -->
-                    
+                        <b-col>
+                           <b-form-datepicker id="example-datepicker" @input="fillData" v-model="dateStart" class="mb-2"></b-form-datepicker>
+                        </b-col>
+                        <b-col>
+                           <b-form-datepicker id="example-datepicker" @input="fillData" v-model="dateEnd" class="mb-2"></b-form-datepicker>
+                        </b-col>
                     </b-row>
 
                      <b-row style="padding: 10px">
                       
                        <div class="container" >
-                            <div v-if="loaded "  class="Chart__content">
+                            <div v-if="loaded && isData"  class="Chart__content">
                               
-                              <!-- <LineChart :chart-data="downloads" :chart-labels="labels"></LineChart> -->
+                              
 
-                              <WateringChart  v-if="chartData " :chartData="chartData"  />
-<!-- 
-                                 <WateringChart  v-if="chartData && get_soilDataLast" :soilLast="get_soilDataLast"  :chartData="chartData" :plant="GET_CROP.plant"/> -->
+                             <!--  <WateringChart   :chart-data="chartData" :PMPcultural="PMPcultural" :capacidade_campo="capacidade_campo" /> -->
+
+                              <WateringChart :chart-data="datacollection" :PMPcultural="PMPcultural" :capacidade_campo="capacidade_campo" ></WateringChart>
 
                                 </div>
 
@@ -56,6 +61,9 @@
 
 <script>
 
+import SoilData from '@/models/SoilData'
+import CurrentWeather from '@/models/CurrentWeather'
+
 import WateringChart from "@/components/Crop/CropWatering/WateringChart";
 
 import Auth from '@/models/Auth'
@@ -69,15 +77,27 @@ import  $bus   from '@/app';
            WateringChart,
         },
         props: {
-             dataSoil: { type: Array, default: null } ,  
-             dataCurrentWeather: { type: Array, default: null } ,  
-            // google: { type: Object, default: null },
+             // dataSoil: { type: Array, default: null } ,  
+             // dataCurrentWeather: { type: Array, default: null },
+
+             lastAnalyseSoil: { type: Object, default: null },
+             plant: { type: Object, default: null },
+             crop: { type: Object, default: null },
+             device: { type: Object, default: null },
 
         },
         data() {
           return {        
               loaded: false,
                isData: false,
+               dateStart: null,
+               dateEnd: null,
+               // soilDatas: null,
+               dataCurrentWeather: null,
+
+               datacollection: null,
+
+// chartDataSend:null,
              chartData: {
               labels: [],            
               datasets: [            
@@ -126,6 +146,20 @@ import  $bus   from '@/app';
                 return Auth.query().first();
             },
             
+            currentWeatherDatas(){
+
+              return CurrentWeather.query().with('farm').where('id_farm',this.crop.terrain.farm_id).where((d) => {
+                     return new Date(d.date) >= new Date(this.dateStart) && new Date(d.date) <= new Date(this.dateEnd)
+                    }).get();    
+              
+           },
+            soilDatas(){
+
+              return SoilData.query().with('device').with('crop').with('terrain').where('crop_id',this.crop.id).where('device_id',this.device.id).where((d) => {
+                     return new Date(d.date) >= new Date(this.dateStart) && new Date(d.date) <= new Date(this.dateEnd)
+                    }).get(); 
+              
+           },
 
           },
         async created() {
@@ -134,60 +168,115 @@ import  $bus   from '@/app';
              console.log("created DeviceLastSoilData");
         },
         methods: {
-            dataToChart () {
+        
 
+            getDataToChart () {
+
+              console.log("start getDataToChart ");
                 var vm=this;   
-console.log("here");
-              if(this.dataSoil.length){
+                
+                this.isData = false;
 
-                this.chartData.labels = this.dataSoil.map(list => {return list.date;});
 
-console.log("here2");
-                this.chartData.datasets[0].data = this.dataSoil.map(list => {return list.humidade20;});
+              if(this.soilDatas && this.currentWeatherDatas){
+console.log("inside IF soilDatas ");
+                this.chartData.labels = this.soilDatas.map(list => {return list.date;});
 
-                this.chartData.datasets[1].data = this.dataSoil.map(list => {return list.humidade40;});
+
+                this.chartData.datasets[0].data = this.soilDatas.map(list => {return list.humidade20;});
+
+                this.chartData.datasets[1].data = this.soilDatas.map(list => {return list.humidade40;});
 
 
                 //precipitation
-                 this.chartData.datasets[2].data = this.dataCurrentWeather.map(list => {return list.rain;});
+                 this.chartData.datasets[2].data = this.currentWeatherDatas.map(list => {return list.rain;});
 
-
-                // this.chartData[2].data = this.data.map(list => {return list.humidade20;});
-
-                              
-    //               console.log("data"+this.data);
-
-    //               this.data.forEach(function(a) { 
-
-    // console.log("a : "+JSON.stringify(a));
-    // console.log("labels : "+JSON.stringify(vm.labels));
-
-    //                   vm.labels.push(a.date);
-    //                   vm.chartData[0].data.push(a.humidity);
-    //                   vm.chartData[1].data.push(a.temp);
-    //                   vm.chartData[2].data.push(a.heat_index);
-    //                   vm.chartData[3].data.push(a.dew_point);
-    //                   // vm.chartData[4].data.push(a.dpo);
-    //                   vm.chartData[5].data.push(a.precipitation);                  
-    //               });
-
-    //               this.isData = true;
-    //               this.loaded = true;
+                 
+                 this.isData = true;
+                 console.log("here2");
               }
-
           
-          //     })
-          //     .catch (err => {
-          //       console.error(err)
-          //     });
  this.loaded = true;
+ console.log("end getDataToChart ");
           },
+
+          waterLimits(){
+              //linhas horizontais
+            var DTA= this.lastAnalyseSoil.soilType.capacidade_campo - this.lastAnalyseSoil.soilType.capacidade_emurchecimento;
+            console.log("DTA : " + DTA);
+
+            var CAD = DTA * this.plant.fracao_esgotamento_agua_solo_conforto_hidrico;
+            console.log("CAD : " + CAD);
+
+            var diff = DTA - CAD;
+            console.log("diff : " + diff);
+
+                 this.PMPcultural = parseFloat(this.lastAnalyseSoil.soilType.capacidade_emurchecimento,10) + parseFloat(diff,10) * 100;
+console.log("PMPcultural : " + this.PMPcultural);
+
+                 this.capacidade_campo = this.lastAnalyseSoil.soilType.capacidade_campo * 100;
+console.log("capacidade_campo : " + this.capacidade_campo );
+          },
+
+           fillData () {
+        this.datacollection = {
+          labels: this.soilDatas.map(list => {return list.date;}),
+               datasets: [            
+                      {
+                          type: 'line',
+                          label: 'Soil Humidity 20',
+                          data: this.soilDatas.map(list => {return list.humidade20;}),
+                          // backgroundColor: '#f87979',
+                          borderColor: '#329932', 
+                          backgroundColor: 'transparent',
+
+                      },
+                      {
+                          type: 'line',
+                          label: 'Soil Humidity 40',
+                          data: this.soilDatas.map(list => {return list.humidade40;}),
+                          //pointBackgroundColor: '#935116',
+                          borderColor:'#855321',
+                          backgroundColor: 'transparent',
+                      },
+                      // {   //vem do airData
+                      //     type: 'line',
+                      //     label: 'EVPT',
+                      //     data: this.dataHourAux,
+                      //     //pointBorderColor:'#5B2C6F',
+                      //     borderColor:'#5B2C6F',
+                      //     yAxisID: 'evpt-value',                
+
+                      // },
+                      {
+                          type: 'bar', //vem do weather
+                          label: 'Precipitation',
+                          data: this.currentWeatherDatas.map(list => {return list.rain;}),
+                          borderColor: '#0073e5' ,
+                          backgroundColor: '#0073e5',
+                          yAxisID: 'precipitation-value',  
+                      },
+                      
+                  ],
+        }
+      },
+
+
            
         },
         async mounted () {
             console.log("Mounted DeviceLastSoilData");
-            this.dataToChart();
-         
+            this.waterLimits();            
+            
+            this.dateStart = this.crop.start_crop_date;
+            this.dateEnd = new Date();
+
+            this.getDataToChart();
+
+            // setInterval(() => {
+              this.fillData()
+            // }, 2000)
+
           }
       };
       </script>

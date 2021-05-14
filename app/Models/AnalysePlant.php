@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PlantAnalyse extends Model
+class AnalysePlant extends Model
 {
-    use HasFactory;
+     use HasFactory;
 
     protected $fillable = [
         'id' , 
@@ -23,7 +23,7 @@ class PlantAnalyse extends Model
         'boron',
         'zinc',
         'manganese',
-        'iron',
+        'iron', 
         'copper',
         'aluminium',
         'chloride',         

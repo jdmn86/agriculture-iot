@@ -11,7 +11,7 @@ class AnalyseWater extends Model
 
     protected $fillable = [
         'id' ,
-        'terrain_id',
+        'terrain_id',  
         'ph',
        'nitrateAsNitrogen',
        'nitrateAsNo3',
